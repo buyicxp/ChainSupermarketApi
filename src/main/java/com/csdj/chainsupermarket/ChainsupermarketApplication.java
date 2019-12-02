@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ChainsupermarketApplication {
 
     public static void main(String[] args) {
-        System.out.println("2211");
         SpringApplication.run(ChainsupermarketApplication.class, args);
     }
 
