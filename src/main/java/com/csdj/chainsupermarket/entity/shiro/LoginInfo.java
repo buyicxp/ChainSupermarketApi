@@ -7,7 +7,7 @@ import java.util.Set;
  * @Description: 储存角色权限
  * @Author 邹捷
  * @Date 2019/11/25
- * @Version V1.0
+ * @Version V1.0xcvgbhnjmvbnm
  **/
 public class LoginInfo {
     /**
