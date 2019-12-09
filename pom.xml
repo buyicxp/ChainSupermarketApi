@@ -87,6 +87,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- lombok依赖 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- mybatis启动器 -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

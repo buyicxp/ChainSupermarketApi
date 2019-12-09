@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Welcome to use the TableGo Tools.
+    
+    http://vipbooks.iteye.com
+    http://blog.csdn.net/vipbooks
+    http://www.cnblogs.com/vipbooks
+    
+    Author:bianj
+    Email:edinsker@163.com
+    Version:5.8.8
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- COUPON_COLLECTION -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.CouponCollectionMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="CouponCollection">
+        <id column="COLLECTION_ID" property="collectionId" jdbcType="BIGINT" />
+        <result column="COUPON_ID" property="couponId" jdbcType="BIGINT" />
+        <result column="USER_ID" property="userId" jdbcType="BIGINT" />
+        <result column="DRAW_TIME" property="drawTime" jdbcType="TIMESTAMP" />
+        <result column="USE" property="use" jdbcType="INTEGER" />
+        <result column="STATUS" property="status" jdbcType="INTEGER" />
+        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        COLLECTION_ID, COUPON_ID, USER_ID, DRAW_TIME, USE, STATUS,
+        GMT_CREATE, GMT_MODIFIED
+    </sql>
+
+    <!-- 查看已领取张数 -->
+    <select id="findAlreadyReceived" resultType="int" parameterType="Integer">
+        SELECT b.payment_amount-COUNT(a.user_id)
+        FROM coupon_collection AS a , discount_coupon AS b
+        WHERE a.coupon_id=b.coupon_id AND a.coupon_id=#{couponId}
+--             select count(1) from coupon_collection
+    </select>
+
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--discount_coupon-->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="DiscountCoupon">
+        <id column="COUPON_ID" property="couponId" jdbcType="BIGINT" />
+        <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+
+        <result column="FACE_VALUE" property="faceValue" jdbcType="VARCHAR" />
+        <result column="LIMIT_GET" property="limitGet" jdbcType="INTEGER" />
+        <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="INTEGER" />
+        <result column="BEGINTIME" property="begintime" jdbcType="TIMESTAMP" />
+        <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+        <result column="PERIOD_OF_VALIDITY" property="periodOfValidity" jdbcType="INTEGER" />
+        <result column="EFFECTIVE_DAYS" property="effectiveDays" jdbcType="INTEGER" />
+        <result column="EFFECTIVE_PERIOD" property="effectivePeriod" jdbcType="INTEGER" />
+        <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="DEADLINE" property="deadline" jdbcType="TIMESTAMP" />
+
+        <result column="SP_ID" property="spId" jdbcType="INTEGER" />
+        <result column="MONEY" property="money" jdbcType="VARCHAR" />
+
+        <result column="STALE_DATED" property="staleDated" jdbcType="INTEGER" />
+        <result column="STATUS" property="status" jdbcType="INTEGER" />
+        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+
+        <!--   couponType   computingTime     preferentialType-->
+<!--        <result column="PREFERENTIAL_ID" property="preferentialId" jdbcType="INTEGER" />-->
+        <association property="couponType" column="COUPON_TYPE_ID" select="com.csdj.chainsupermarket.dao.marketing.CouponTypeMapper.findCouponTypeById"/>
+        <association property="computingTime" column="COMPUTING_ID" select="com.csdj.chainsupermarket.dao.marketing.ComputingTimeMapper.findComputingTimeById"/>
+        <association property="preferentialType" column="PREFERENTIAL_ID" select="com.csdj.chainsupermarket.dao.marketing.PreferentialTypeMapper.findPreferentialTypeById"/>
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        COUPON_ID, COUPON_NAME, COUPON_TYPE_ID, FACE_VALUE, LIMIT_GET, PAYMENT_AMOUNT,
+        BEGINTIME, ENDTIME, PERIOD_OF_VALIDITY, EFFECTIVE_DAYS, EFFECTIVE_PERIOD, START_TIME,
+        DEADLINE, COMPUTING_ID, SP_ID, MONEY, PREFERENTIAL_ID, STALE_DATED,
+        STATUS, GMT_CREATE, GMT_MODIFIED
+    </sql>
+    <!-- 查询未被删除所有优惠券 后台-->
+    <select id="findByAll" resultMap="map">
+        select <include refid="allColumns"></include>
+        from discount_coupon
+        where  status =0
+    </select>
+</mapper>

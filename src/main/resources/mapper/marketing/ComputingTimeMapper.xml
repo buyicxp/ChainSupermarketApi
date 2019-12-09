@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- COMPUTING_TIME 计算时间方式 -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.ComputingTimeMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="ComputingTime">
+        <id column="COMPUTING_ID" property="computingId" jdbcType="BIGINT" />
+        <result column="COMPUTING_NAME" property="computingName" jdbcType="VARCHAR" />
+        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        COMPUTING_ID, COMPUTING_NAME, GMT_CREATE, GMT_MODIFIED
+    </sql>
+
+    <select id="findComputingTimeById" resultMap="map" parameterType="Integer">
+        select  <include refid="allColumns"></include>
+        from COMPUTING_TIME
+        where COMPUTING_ID = #{computingId}
+    </select>
+</mapper>

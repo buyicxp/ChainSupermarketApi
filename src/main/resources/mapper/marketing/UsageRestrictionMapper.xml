@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- USAGE_RESTRICTION -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.UsageRestrictionMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="UsageRestriction">
+        <id column="RESTRICTION_ID" property="restrictionId"/>
+                <result column="RESTRICTION_NAME" property="restrictionName"/>
+                <result column="BEGINTIME" property="begintime" />
+                <result column="STOPTIME" property="stoptime" />
+                <result column="GMT_CREATE" property="gmtCreate" />
+                <result column="GMT_MODIFIED" property="gmtModified" />
+    </resultMap>
+<!--    <resultMap id="map" type="UsageRestriction">-->
+<!--        <id column="RESTRICTION_ID" property="restrictionId"/>-->
+<!--        <result column="RESTRICTION_NAME" property="restrictionName"/>-->
+<!--        <result column="BEGINTIME" property="begintime" />-->
+<!--        <result column="STOPTIME" property="stoptime" />-->
+<!--        <result column="GMT_CREATE" property="gmtCreate" />-->
+<!--        <result column="GMT_MODIFIED" property="gmtModified" />-->
+<!--&lt;!&ndash;        <association property="discountCoupon" column="COUPON_ID" select="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper.findDiscountCouponByIds"></association>&ndash;&gt;-->
+<!--    </resultMap>-->
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        RESTRICTION_ID, COUPON_ID, RESTRICTION_NAME, BEGINTIME, STOPTIME, GMT_CREATE,
+        GMT_MODIFIED
+    </sql>
+    
+
+</mapper>

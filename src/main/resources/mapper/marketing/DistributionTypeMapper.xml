@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Welcome to use the TableGo Tools.
+    
+    http://vipbooks.iteye.com
+    http://blog.csdn.net/vipbooks
+    http://www.cnblogs.com/vipbooks
+    
+    Author:bianj
+    Email:edinsker@163.com
+    Version:5.8.8
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DISTRIBUTION_TYPE -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.DistributionTypeMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="DistributionType">
+        <id column="DISTRIBUTION_ID" property="distributionId" jdbcType="BIGINT" />
+        <result column="DISTRIBUTION_NAME" property="distributionName" jdbcType="VARCHAR" />
+        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        DISTRIBUTION_ID, DISTRIBUTION_NAME, GMT_CREATE, GMT_MODIFIED
+    </sql>
+
+
+
+</mapper>

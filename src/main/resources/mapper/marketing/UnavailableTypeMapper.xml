@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Welcome to use the TableGo Tools.
+    
+    http://vipbooks.iteye.com
+    http://blog.csdn.net/vipbooks
+    http://www.cnblogs.com/vipbooks
+    
+    Author:bianj
+    Email:edinsker@163.com
+    Version:5.8.8
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UNAVAILABLE_TYPE -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.UnavailableTypeMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="UnavailableType">
+        <id column="UNAVAILABLE_ID" property="unavailableId" jdbcType="BIGINT" />
+        <result column="COMMDITY_ID" property="commdityId" jdbcType="BIGINT" />
+        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+<!--        <association property="discountCoupon" column="COUPON_ID" select="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper.findDiscountCouponByIds"></association>-->
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED
+    </sql>
+
+
+</mapper>
