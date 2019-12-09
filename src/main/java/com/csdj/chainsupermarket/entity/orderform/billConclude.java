@@ -1,6 +1,6 @@
 package com.csdj.chainsupermarket.entity.orderform;
 
-import com.csdj.chainsupermarket.entity.member.member;
+import com.csdj.chainsupermarket.entity.member.Member;
 
 /**
  * @author 向仕懿
@@ -37,7 +37,7 @@ public class billConclude {
     /**
      * 会员表主键
      */
-    private member userId;
+    private Member userId;
 
     /**
      *订单状态
@@ -67,7 +67,7 @@ public class billConclude {
     public billConclude() {
     }
 
-    public billConclude(int id, int conConclude, String tradeName, String conNumber, double conMoney, member userId, int conStatus, int conDefray, int disId, String conTime, int del) {
+    public billConclude(int id, int conConclude, String tradeName, String conNumber, double conMoney, Member userId, int conStatus, int conDefray, int disId, String conTime, int del) {
         this.id = id;
         this.conConclude = conConclude;
         this.tradeName = tradeName;
@@ -101,7 +101,7 @@ public class billConclude {
         return conMoney;
     }
 
-    public member getUserId() {
+    public Member getUserId() {
         return userId;
     }
 
@@ -145,7 +145,7 @@ public class billConclude {
         this.conMoney = conMoney;
     }
 
-    public void setUserId(member userId) {
+    public void setUserId(Member userId) {
         this.userId = userId;
     }
 
