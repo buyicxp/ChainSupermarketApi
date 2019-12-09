@@ -74,11 +74,12 @@ public class UserRealm extends AuthorizingRealm {
         if (user != null && user.getSfAccountId() == 0) {
             throw new LockedAccountException("该账户已被锁定！");
         }
-        /*
+/*
          *若存在，将此用户存放到登录认证info中，无需自己做密码对比Shiro会为我们进行密码对比校验
          *这里盐值可以自定义
          *格式为(用户，用户密码，盐，当前 Realm 的类名)
          */
+
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user, user.getSfPassword(),
                 ByteSource.Util.bytes(user.getSfEmloyeePhone()),
