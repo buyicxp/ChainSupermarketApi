@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csdj.chainsupermarket.dao.marketing.GroupActivitiesDao">
     <!-- 插入数据 -->
-	<insert id="addGroup" parameterType="GroupActivities">
+    <insert id="addGroup" parameterType="GroupActivities">
 		INSERT INTO group_activities
 			(activity_name,activity_number,activity_price,validhours,limited_quantity,start_time,end_time,creation_time,store_id)
 		VALUES
@@ -12,71 +12,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
     <!-- 查询活动名称是否冲突 -->
-	<select id="selectByActivityName" parameterType="String" resultType="GroupActivities">
+    <select id="selectByActivityName" parameterType="String" resultType="GroupActivities">
 		select activity_name from group_activities where activity_name = #{activityName}
 	</select>
 
     <!-- 根据条件查询所有数据 -->
-	<select id="findGroupActivities" parameterType="map" resultType="GroupActivities">
-		SELECT * FROM group_activities where 1 = 1
+    <select id="findGroupActivities" parameterType="map" resultType="GroupActivities">
+        SELECT * FROM group_activities where 1 = 1
         <if test="activityName != null and activityName != ''">
             AND ACTIVITY_NAME LIKE CONCAT('%',#{activityName},'%')
         </if>
-		ORDER BY activities_id DESC
-		LIMIT #{off},#{size}
-	</select>
+        ORDER BY activities_id DESC
+        LIMIT #{off},#{size}
+    </select>
 
     <!-- 查询总数 -->
-	<select id="getCount"  resultType="int">
-		select count(1) from group_activities where 1 = 1
-		<if test="activityName != null and activityName != ''">
-			AND ACTIVITY_NAME LIKE CONCAT('%',#{activityName},'%')
-		</if>
-	</select>
+    <select id="getCount"  resultType="int">
+        select count(1) from group_activities where 1 = 1
+        <if test="activityName != null and activityName != ''">
+            AND ACTIVITY_NAME LIKE CONCAT('%',#{activityName},'%')
+        </if>
+    </select>
 
-	<!-- 修改数据 -->
-	<update id="updateGroupActivities" parameterType="GroupActivities">
+    <!-- 修改数据 -->
+    <update id="updateGroupActivities" parameterType="GroupActivities">
         UPDATE GROUP_ACTIVITIES
-		<set>
-			<if test="activityName != null" >
-				ACTIVITY_NAME = #{activityName},
-			</if>
-			<if test="activityNumber != null" >
-				ACTIVITY_NUMBER = #{activityNumber},
-			</if>
-			<if test="validHours != null" >
-				VALIDHOURS = #{validHours},
-			</if>
-			<if test="limitedQuantity != null" >
-				LIMITED_QUANTITY = #{limitedQuantity},
-			</if>
-			<if test="startTime != null" >
-				START_TIME = #{startTime},
-			</if>
-			<if test="endTime != null" >
-				END_TIME = #{endTime},
-			</if>
-			<if test="creationTime != null" >
-				CREATION_TIME = #{creationTime},
-			</if>
-			<if test="storeId != null" >
-				STORE_ID = #{storeId},
-			</if>
-			<if test="activityState != null" >
-				ACTIVITY_STATE = #{activityState},
-			</if>
-		</set>
+        <set>
+            <if test="activityName != null" >
+                ACTIVITY_NAME = #{activityName},
+            </if>
+            <if test="activityNumber != null" >
+                ACTIVITY_NUMBER = #{activityNumber},
+            </if>
+            <if test="validHours != null" >
+                VALIDHOURS = #{validHours},
+            </if>
+            <if test="limitedQuantity != null" >
+                LIMITED_QUANTITY = #{limitedQuantity},
+            </if>
+            <if test="startTime != null" >
+                START_TIME = #{startTime},
+            </if>
+            <if test="endTime != null" >
+                END_TIME = #{endTime},
+            </if>
+            <if test="creationTime != null" >
+                CREATION_TIME = #{creationTime},
+            </if>
+            <if test="storeId != null" >
+                STORE_ID = #{storeId},
+            </if>
+            <if test="activityState != null" >
+                ACTIVITY_STATE = #{activityState},
+            </if>
+        </set>
         WHERE ACTIVITIES_ID = #{activitiesId}
     </update>
 
-	<!-- 根据主键批量删除数据 -->
-	<delete id="deleteGroupActivitiesByIds" parameterType="String">
+    <!-- 根据主键批量删除数据 -->
+    <delete id="deleteGroupActivitiesByIds" parameterType="String">
 		DELETE FROM GROUP_ACTIVITIES WHERE ACTIVITIES_ID =
 			#{activitiesId}
 	</delete>
 
-	<!-- 根据活动结束时间修改活动状态 &lt;是小于符号,XMl需要转义-->
-	<update id="selectByEndTime" >
+    <!-- 根据活动结束时间修改活动状态 &lt;是小于符号,XMl需要转义-->
+    <update id="selectByEndTime" >
 		UPDATE group_activities SET activity_state = 0 WHERE end_time &lt; #{endTime}
 	</update>
 </mapper> 
