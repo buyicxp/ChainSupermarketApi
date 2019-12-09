@@ -32,6 +32,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
+
 public class UserController {
 
     Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
@@ -39,40 +40,43 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
+/**
      * 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
      * @return
      */
+
     @RequestMapping(value = "/unAuth")
     public Map unAuth() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("msg", "未登录");
         return map;
     }
-
-    /**
+/**
      * 未授权
      * @return
      */
+
     @RequestMapping(value = "/noAuth")
     public Map noAuth() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("msg", "未授权");
         return map;
     }
-    /**
+/**
      * 登录
      *
      * @return
      */
+
     @RequestMapping("/login")
     public Map login(String nickname, String password, HttpServletRequest request) {
         //调用写好的     计算密文获取
         System.out.println(Ciphertext.getCiphertext(password, nickname));
         Map<String, Object> map = new HashMap();
-        /**
+/**
          * 使用Shiro编写认证操作
          */
+
         //1.获得subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据

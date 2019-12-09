@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ACTIVITY_RANGE -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.ActivityRangeDao">
+    <resultMap id="rangeMap" type="ActivityRangeVO">
+        <id column="rangeid" property="rangeid" />
+        <id column="activity_range" property="activityRange" />
+    </resultMap>
+    <select id="findById" resultMap="rangeMap">
+        select * from activity_range where rangeid=#{rangeid}
+    </select>
+    <select id="findAllRange" resultMap="rangeMap" >
+        select * from activity_range
+    </select>
+</mapper>

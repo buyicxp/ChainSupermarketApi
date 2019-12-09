@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ACTIVITY_TYPE -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.ActivityTypeDao">
+    <resultMap id="typeMap" type="ActivityTypeVO">
+        <id column="typeid" property="typeid" />
+        <id column="type_name" property="typeName" />
+        <id column="money" property="money" />
+    </resultMap>
+    <!-- 根据条件查询数据 -->
+    <select id="findById" resultMap="typeMap" >
+        select * from activity_type where typeid=#{typeid}
+    </select>
+    <select id="findAllType" resultMap="typeMap" >
+        select * from activity_type
+    </select>
+</mapper>

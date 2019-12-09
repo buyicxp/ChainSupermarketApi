@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- FULL_ACTIVITY -->
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.FullActivityDao">
+    <!-- 结果映射 -->
+    <resultMap id="fullActivityMap" type="FullActivityVO">
+        <id column="activityid" property="activityid" />
+        <result column="activity_name" property="activityName" />
+        <result column="Activity_time" property="activityTime" />
+        <result column="activity_state" property="activityState" />
+        <result column="executing_state" property="executingState" />
+        <result column="activity_detail" property="activityDetail" />
+        <result column="delete_state" property="deleteState" />
+        <!-- 外键对象，分类对象 -->
+        <association property="type" column="activity_nypeid"
+                     select="com.csdj.chainsupermarket.dao.marketing.ActivityTypeDao.findById">
+        </association>
+        <association property="range" column="activity_rangeid"
+                     select="com.csdj.chainsupermarket.dao.marketing.ActivityRangeDao.findById">
+        </association>
+
+    </resultMap>
+
+    <!-- 根据id查询数据 -->
+    <select id="findById" resultMap="fullActivityMap" parameterType="int">
+        select * from full_activity where activityid=#{activityid}
+    </select>
+    <!--分页查询列表-->
+    <select id="findPage" parameterType="map" resultMap="fullActivityMap">
+        select * from full_activity
+        <where>
+            <if test="activityName!=null">
+                and activity_name like #{activityName}
+            </if>
+            <if test="activity_nypeid!=null">
+                and activity_nypeid like #{activityNypeid}
+            </if>
+            <if test="activity_rangeid!=null">
+                and activity_rangeid like #{activityRangeid}
+            </if>
+                and delete_state =0
+        </where>
+        limit #{off},#{size}
+    </select>
+    <!--查询分页总数-->
+    <select id="getCount" resultType="int" parameterType="map">
+        select count(1) from full_activity
+        <where>
+            <if test="activityName!=null">
+                and activity_name like #{activityName}
+            </if>
+                and delete_state =0
+        </where>
+    </select>
+
+    <update id="delete" parameterType="int">
+        UPDATE full_activity
+        <set>
+            delete_state=1
+        </set>
+        WHERE activityid=#{activityid}
+    </update>
+
+    <!-- 插入数据 -->
+ <!--   <insert id="insertFullActivity" parameterType="map">
+        INSERT INTO FULL_ACTIVITY (<include refid="allColumns" />)
+        VALUES (
+            #{activityid},
+            #{activityName},
+            #{activityNypeid},
+            #{activityTime},
+            #{activityRangeid},
+            #{activityState},
+            #{executingState},
+            #{activityDetail},
+            #{deleteState},
+            #{reserveOne},
+            #{reserveTwo},
+            #{reserveThree}
+        )
+    </insert>-->
+
+ <!--   &lt;!&ndash; 修改数据 &ndash;&gt;
+    <update id="updateFullActivity" parameterType="map">
+        UPDATE FULL_ACTIVITY SET
+            ACTIVITY_NAME = #{activityName},
+            ACTIVITY_NYPEID = #{activityNypeid},
+            ACTIVITY_TIME = #{activityTime},
+            ACTIVITY_RANGEID = #{activityRangeid},
+            ACTIVITY_STATE = #{activityState},
+            EXECUTING_STATE = #{executingState},
+            ACTIVITY_DETAIL = #{activityDetail},
+            DELETE_STATE = #{deleteState},
+            RESERVE_ONE = #{reserveOne},
+            RESERVE_TWO = #{reserveTwo},
+            RESERVE_THREE = #{reserveThree}
+        WHERE ACTIVITYID = #{activityid}
+    </update>
+
+    &lt;!&ndash; 根据主键批量删除数据 &ndash;&gt;
+    <delete id="deleteFullActivityByIds" parameterType="list">
+        DELETE FROM FULL_ACTIVITY WHERE ACTIVITYID IN
+        <foreach collection="list" index="index" item="activityid" open="(" separator="," close=")">
+            #{activityid}
+        </foreach>
+    </delete>-->
+</mapper>
