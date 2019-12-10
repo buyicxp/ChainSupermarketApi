@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.orderform.TradeOrderMapper">
+    <select id="list" resultType="com.csdj.chainsupermarket.entity.orderform.TradeOrderPO">
+        <!-- 查询商品订单列表 -->
+        SELECT id, user_id userId, time, amount, stat, del FROM trade_order
+        <where>
+            <if test="userId!=null">
+                AND user_id=#{userId}<!-- 用户ID -->
+            </if>
+            <if test="stat!=null">
+                AND stat=#{stat}<!-- 订单状态 -->
+            </if>
+            <if test="del!=null">
+                AND del=#{del}<!-- 是否已删除 -->
+            </if>
+            <if test="id!=null">
+                AND id=#{id}<!-- 订单编号 -->
+            </if>
+            <if test="betTime!=null"><!-- 订单生成时间_小 -->
+                AND `time` &gt;= #{betTime}
+            </if>
+            <if test="andTime!=null"><!-- 订单生成时间_大 -->
+                AND `time` &lt;= #{andTime}
+            </if>
+        </where>
+        <if test="index!=null">
+            <if test="size!=null">
+                LIMIT #{index},#{size}
+            </if>
+        </if>
+    </select>
+    <select id="get" resultType="com.csdj.chainsupermarket.entity.orderform.TradeOrderPO">
+        <!-- 查询商品订单列表 -->
+        SELECT id, user_id userId, time, amount, stat, del FROM trade_order
+        <where>
+            <if test="id!=null">
+                AND id=#{id}<!-- 订单编号 -->
+            </if>
+        </where>
+        LIMIT 1
+    </select>
+    <select id="count" resultType="int">
+        <!-- 查询订单数量 -->
+        SELECT COUNT(1) FROM merchandise_order
+        <where>
+            <if test="userId!=null">
+                AND user_id=#{userId}<!-- 用户ID -->
+            </if>
+            <if test="stat!=null">
+                AND stat=#{stat}<!-- 订单状态 -->
+            </if>
+            <if test="del!=null">
+                AND del=#{del}<!-- 是否已删除 -->
+            </if>
+            <if test="id!=null">
+                AND id=#{id}<!-- 订单编号 -->
+            </if>
+            <if test="betTime!=null"><!-- 订单生成时间_小 -->
+                AND `time` &gt;= #{betTime}
+            </if>
+            <if test="andTime!=null"><!-- 订单生成时间_大 -->
+                AND `time` &lt;= #{andTime}
+            </if>
+        </where>
+    </select>
+</mapper>

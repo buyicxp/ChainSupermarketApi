@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.orderform.TradeOrderStatMapper">
+    <select id="list" resultType="com.csdj.chainsupermarket.entity.orderform.StatPO">
+        <!-- 查询商品订单状态列表 -->
+        SELECT id, name FROM trade_order_stat
+        <where>
+            <if test="id!=null">
+                AND id=#{id}<!-- 状态编号 -->
+            </if>
+        </where>
+    </select>
+</mapper>
