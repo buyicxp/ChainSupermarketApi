@@ -26,7 +26,7 @@ public class GoodsType implements DataTree<GoodsType> {
      */
     private int typecount;
     /**
-     * 类型创建的时间
+     * 类型创建时间
      */
     private Date creatadate;
     /**
