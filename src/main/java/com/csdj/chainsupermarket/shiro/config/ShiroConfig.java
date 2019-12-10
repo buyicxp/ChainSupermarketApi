@@ -58,6 +58,9 @@ public class ShiroConfig {
         filterMap.put("/books/getBooks", "anon");
         filterMap.put("/books/count", "anon");
         filterMap.put("/user/login", "anon");
+        filterMap.put("/commodity/Commodity", "anon");
+        filterMap.put("/commodity/pageCommodity","anon");
+        filterMap.put("/commodity/count", "anon");
         filterMap.put("/books/**", "roles[admin]");
         //授权过滤器
         //注意：当前授权拦截后，shiro会跳转到未授权页面
