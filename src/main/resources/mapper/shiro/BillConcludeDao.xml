@@ -7,7 +7,7 @@
 
 
     <insert id="insert" parameterType="MerchandiseOrderPO">
-        INSERT INTO merchandise_order VALUES(null,#{tradeId},#{goodsId},#{count},#{time},#{userId},#{disId},#{stat},#{del},#{orderId},#{})
+        INSERT INTO merchandise_order VALUES(null,#{tradeId},#{goodsId},#{count},#{time},#{userId},#{disId},#{stat},#{del},#{orderId},#{shopId})
     </insert>
 
     <update id="update" parameterType="int">
