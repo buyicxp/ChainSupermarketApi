@@ -79,8 +79,9 @@ public class GoodsTypeController {
 
     @RequestMapping(value = "/typeNameList")
     public Object typeNameList(){
-        List<GoodsType> list = goodsTypeService.getTypeNameList();
-        return list;
+        String str =JSON.toJSONString(goodsTypeService.getTypeNameList());
+        String result = "{\"status\":200,\"message\":" + str + "}";
+        return result;
     }
 
 }
