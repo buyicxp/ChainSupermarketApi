@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsTypeMapper">
+    <!--分页查询全部记录-->
+    <select id="getGoodsTypeList" resultType="GoodsType" parameterType="int">
+        SELECT id,type_name typename,type_count typecount,creatadate,parentid parentId,stop
+        FROM goods_type where parentid = #{parentid} and del = 0
+        <if test="currentPage != null">
+            <if test="pageSize != null">
+                LIMIT #{currentPage},#{pageSize}
+            </if>
+        </if>
+    </select>
+    <!--查询总数-->
+    <select id="getCount" resultType="int">
+       select count(1) from goods_type where parentid = 0
+    </select>
+    <!--删除状态修改-->
+    <update id="getGoodsTypeDel" parameterType="int">
+        UPDATE goods_type SET del = 1 WHERE id = #{id}
+    </update>
+    <!--父类 1为停用状态，变停用--><!-- 0为停用状态，变启用 -->
+    <update id="getGoodsTypeOne" parameterType="int">
+        UPDATE goods_type SET STOP = #{stop} WHERE id = #{id}
+    </update>
+    <!--子类 1为停用状态，变停用--><!-- 0为停用状态，变启用 -->
+    <update id="getParentId" parameterType="int">
+        UPDATE goods_type SET STOP = #{stop} WHERE parentid = #{parentid}
+    </update>
+</mapper>
