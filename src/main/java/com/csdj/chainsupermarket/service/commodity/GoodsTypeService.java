@@ -39,7 +39,7 @@ public interface GoodsTypeService {
      */
     public Integer getGoodsTypeDel(Integer id);
     /**
-     * 1为停用的状态，变停用
+     * 1为停用状态，变停用
      * @param id
      * @return
      */

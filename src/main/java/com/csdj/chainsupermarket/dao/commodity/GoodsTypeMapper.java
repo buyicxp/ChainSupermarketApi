@@ -28,7 +28,7 @@ public interface GoodsTypeMapper {
     public Integer getCount();
 
     /**
-     * 删除状态的修改
+     * 删除状态修改
      * @param id
      * @return
      */

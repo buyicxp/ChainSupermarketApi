@@ -22,7 +22,7 @@ public class GoodsType implements DataTree<GoodsType> {
      */
     private String typename;
     /**
-     * 类型商品的数量
+     * 类型商品数量
      */
     private int typecount;
     /**

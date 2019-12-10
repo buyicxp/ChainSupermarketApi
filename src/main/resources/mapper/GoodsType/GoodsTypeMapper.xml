@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsTypeMapper">
-    <!--分页查询全部的记录-->
+    <!--分页查询全部记录-->
     <select id="getGoodsTypeList" resultType="GoodsType" parameterType="int">
         SELECT id,type_name typename,type_count typecount,creatadate,parentid parentId,stop
         FROM goods_type where parentid = #{parentid} and del = 0

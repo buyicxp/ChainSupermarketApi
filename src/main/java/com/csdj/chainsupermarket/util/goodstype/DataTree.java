@@ -20,7 +20,7 @@ public interface DataTree<T> {
     public Integer getParentId();
 
     /**
-     * 子的集合
+     * 子集合
      * @param childList
      */
     public void setChildList(List<T> childList);
