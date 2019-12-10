@@ -15,6 +15,7 @@ public class MerchandiseOrderPO {
             id,//订单唯一id 自动
             orderId,//订单编号（被引用，如物流） 必要
             tradeId,//交易订单id（引用交易订单表） 不必要
+            shopId,//门店id（引用门店表shop_message） 必要
             goodsId,//商品id（引用商品表goods_product） 必要
             count,//商品数量 必要
             userId,//用户id（引用用户表member） 必要

@@ -5,12 +5,15 @@
 <mapper namespace="com.csdj.chainsupermarket.dao.orderform.MerchandiseOrderMapper">
     <select id="list" resultType="com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO">
         <!-- 查询商品订单列表 -->
-        SELECT id,order_id orderId, trade_id tradeId, goods_id goodsId, count, time, user_id userId, dis_id disId, stat,
-        del
+        SELECT id,order_id orderId, trade_id tradeId,shop_id shopId, goods_id goodsId, count, time, user_id userId,
+        dis_id disId, stat, del
         FROM merchandise_order
         <where>
             <if test="userId!=null">
                 AND user_id=#{userId}<!-- 用户ID -->
+            </if>
+            <if test="shopId!=null">
+                AND shop_id=#{shopId}<!-- 门店ID -->
             </if>
             <if test="stat!=null">
                 AND stat=#{stat}<!-- 订单状态 -->
