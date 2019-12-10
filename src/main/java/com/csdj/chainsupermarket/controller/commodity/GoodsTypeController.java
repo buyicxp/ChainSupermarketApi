@@ -59,6 +59,7 @@ public class GoodsTypeController {
 
     @RequestMapping(value = "/one")
     public Integer one(Integer id,Integer stop,Integer parentid){
+        //判断ID
 //        if(id==0){
 //            id=1;
 //        }else {

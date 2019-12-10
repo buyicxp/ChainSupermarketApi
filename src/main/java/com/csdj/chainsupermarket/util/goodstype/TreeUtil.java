@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class TreeUtil {
     /**
-     * 获取顶层节点
+     * 获取顶层的节点
      *
      * @param topId
      * @param entityList
