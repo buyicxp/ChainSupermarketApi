@@ -20,7 +20,7 @@ public class TreeUtil {
      * @return
      */
     public static <T extends DataTree<T>> List<T> getTreeList(Integer topId, List<T> entityList) {
-        /* 存储顶层的数据*/
+        /* 存储顶层数据*/
         List<T> resultList = new ArrayList<>();
 
         Map<Object, T> treeMap = new HashMap<>();
