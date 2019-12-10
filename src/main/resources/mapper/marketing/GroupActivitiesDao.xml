@@ -8,7 +8,7 @@
 		INSERT INTO group_activities
 			(activity_name,activity_number,activity_price,validhours,limited_quantity,start_time,end_time,creation_time,store_id)
 		VALUES
-			(#{activityName},#{activityNumber},88,#{validHours},#{limitedQuantity},#{startTime},#{endTime},#{creationTime},#{storeId})
+			(#{activityName},#{activityNumber},#{activity_price},#{validHours},#{limitedQuantity},#{startTime},#{endTime},#{creationTime},#{storeId})
 	</insert>
 
     <!-- 查询活动名称是否冲突 -->
@@ -18,7 +18,7 @@
 
     <!-- 根据条件查询所有数据 -->
     <select id="findGroupActivities" parameterType="map" resultType="GroupActivities">
-        SELECT * FROM group_activities where 1 = 1
+        SELECT * FROM group_activities where activity_state = 1
         <if test="activityName != null and activityName != ''">
             AND ACTIVITY_NAME LIKE CONCAT('%',#{activityName},'%')
         </if>
@@ -28,7 +28,7 @@
 
     <!-- 查询总数 -->
     <select id="getCount"  resultType="int">
-        select count(1) from group_activities where 1 = 1
+        select count(1) from group_activities where activity_state = 1
         <if test="activityName != null and activityName != ''">
             AND ACTIVITY_NAME LIKE CONCAT('%',#{activityName},'%')
         </if>

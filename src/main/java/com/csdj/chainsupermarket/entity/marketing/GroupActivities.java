@@ -10,16 +10,59 @@ import java.util.Date;
  * @Version : 1.0
  */
 public class GroupActivities {
+    /**
+     * 活动id，自增列
+     */
     private String activitiesId;
+    
+    /**
+     * 活动名称
+     */
     private String activityName;
+    
+    /**
+     * 成团人数
+     */
     private int activityNumber;
+    
+    /**
+     * 同时参团数
+     */
     private String activityPrice;
+    
+    /**
+     * 成团时限
+     */
     private int validHours;
+    
+    /**
+     * 限购数量
+     */
     private int limitedQuantity;
+    
+    /**
+     * 活动开始时间
+     */
     private String startTime;
+    
+    /**
+     * 活动结束时间
+     */
     private String endTime;
+    
+    /**
+     * 活动创建时间
+     */
     private String creationTime;
+    
+    /**
+     * 参与活动的门店ID
+     */
     private String storeId;
+    
+    /**
+     * 活动状态 0为已过期，1为正在进行中或者未开始
+     */
     private int activityState;
     
     public String getActivitiesId() {
