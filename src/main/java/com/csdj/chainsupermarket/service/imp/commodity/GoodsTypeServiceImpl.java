@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Service("goodsTypeService")
 @Transactional(rollbackFor = Exception.class)
+
 public class GoodsTypeServiceImpl implements GoodsTypeService {
     /**
      * 将dao层作为成员变量
@@ -89,6 +90,17 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
     public Integer getParentId(Integer parentid,Integer stop) {
 
         return goodsTypeMapper.getParentId(parentid,stop);
+    }
+
+    /**
+     * 父类查询
+     *
+     * @return
+     */
+    @Override
+    public List<GoodsType> getTypeNameList() {
+
+        return goodsTypeMapper.getTypeNameList();
     }
 
 }

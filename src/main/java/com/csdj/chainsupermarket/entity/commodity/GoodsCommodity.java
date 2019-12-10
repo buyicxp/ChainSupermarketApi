@@ -11,7 +11,7 @@ import java.util.List;
  * @author 温朝明
  * @date 2019/12/10
  */
-public class GoodsCommodity {
+public class GoodsCommodity{
     /**
      *主键ID
      */

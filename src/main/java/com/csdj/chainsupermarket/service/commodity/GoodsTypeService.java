@@ -44,11 +44,19 @@ public interface GoodsTypeService {
      * @return
      */
     public Integer getGoodsTypeOne(Integer id,Integer stop);
+
     /**
      * 修改子类
      * @param parentid
+     * @param stop
      * @return
      */
     public Integer getParentId(Integer parentid,Integer stop);
+
+    /**
+     * 父类查询
+     * @return
+     */
+    public List<GoodsType> getTypeNameList();
 
 }

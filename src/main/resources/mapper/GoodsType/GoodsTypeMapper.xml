@@ -21,12 +21,18 @@
     <update id="getGoodsTypeDel" parameterType="int">
         UPDATE goods_type SET del = 1 WHERE id = #{id}
     </update>
+    <!-- 父类停启用 -->
     <!--父类 1为停用状态，变停用--><!-- 0为停用状态，变启用 -->
     <update id="getGoodsTypeOne" parameterType="int">
         UPDATE goods_type SET STOP = #{stop} WHERE id = #{id}
     </update>
+    <!-- 子类停启用 -->
     <!--子类 1为停用状态，变停用--><!-- 0为停用状态，变启用 -->
     <update id="getParentId" parameterType="int">
         UPDATE goods_type SET STOP = #{stop} WHERE parentid = #{parentid}
     </update>
+    <!-- 父类类型提供 -->
+    <select id="getTypeNameList" resultType="GoodsType">
+        SELECT id,type_name typename FROM goods_type WHERE parentid = 0
+    </select>
 </mapper>

@@ -48,4 +48,10 @@ public interface GoodsTypeMapper {
      * @return
      */
     public Integer getParentId(@Param("parentid") Integer parentid,@Param("stop")Integer stop);
+
+    /**
+     * 父类查询
+     * @return
+     */
+    public List<GoodsType> getTypeNameList();
 }

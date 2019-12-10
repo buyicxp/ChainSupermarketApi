@@ -76,4 +76,11 @@ public class GoodsTypeController {
         }
         return count;
     }
+
+    @RequestMapping(value = "/typeNameList")
+    public Object typeNameList(){
+        List<GoodsType> list = goodsTypeService.getTypeNameList();
+        return list;
+    }
+
 }
