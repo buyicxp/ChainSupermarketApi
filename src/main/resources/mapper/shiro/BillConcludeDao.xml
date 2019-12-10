@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.orderform.BillConcludeDao">
+
+
+
+    <insert id="insert" parameterType="MerchandiseOrderPO">
+        INSERT INTO merchandise_order VALUES(null,#{tradeId},#{goodsId},#{count},#{time},#{userId},#{disId},#{stat},#{del},#{orderId},#{})
+    </insert>
+
+    <update id="update" parameterType="int">
+        update merchandise_order set stat=4 where id=#{id}
+    </update>
+
+    <update id="amend" parameterType="int">
+        update merchandise_order set stat=2 where id=#{id}
+    </update>
+</mapper>
