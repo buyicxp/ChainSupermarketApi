@@ -35,6 +35,7 @@ public class OrderFormController {
             @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "betTime", required = false) String betTime,
             @RequestParam(value = "andTime", required = false) String andTime,
+            @RequestParam(value = "shopId", required = false) Integer shopId,
             @RequestParam("index") Integer index,
             @RequestParam("size") Integer size
     ) {
@@ -50,8 +51,8 @@ public class OrderFormController {
                 result.put("code", 400);
                 return result;
             }
-            result.put("data", orderFormService.summary(userId, stat, del, id, betTime, andTime, index, size));
-            result.put("count", orderFormService.count(userId, stat, del, id, betTime, andTime));
+            result.put("data", orderFormService.summary(userId, shopId, stat, del, id, betTime, andTime, index, size));
+            result.put("count", orderFormService.count(userId, shopId, stat, del, id, betTime, andTime));
             result.put("msg", "Success");
             result.put("code", 200);
         } catch (Exception e) {

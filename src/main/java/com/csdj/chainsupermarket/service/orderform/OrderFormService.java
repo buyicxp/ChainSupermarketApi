@@ -26,6 +26,7 @@ public interface OrderFormService {
      * 查询商品订单摘要列表
      *
      * @param userId  用户ID
+     * @param shopId  门店ID
      * @param stat    订单状态
      * @param del     是否已删除
      * @param orderId 订单编号
@@ -35,12 +36,13 @@ public interface OrderFormService {
      * @param size    查询数量
      * @return 订单表现类
      */
-    List<OrderFormVO> summary(Integer userId, Integer stat, Integer del, String orderId, String betTime, String andTime, Integer index, Integer size);
+    List<OrderFormVO> summary(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime, Integer index, Integer size);
 
     /**
      * 查询商品订单数量
      *
      * @param userId  用户ID
+     * @param shopId  门店ID
      * @param stat    订单状态
      * @param del     是否已删除
      * @param orderId 订单编号
@@ -48,5 +50,5 @@ public interface OrderFormService {
      * @param andTime 订单生成时间_大
      * @return 数量
      */
-    int count(Integer userId, Integer stat, Integer del, String orderId, String betTime, String andTime);
+    int count(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime);
 }

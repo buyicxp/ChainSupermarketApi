@@ -33,7 +33,7 @@ public class OrderFormServiceImpl implements OrderFormService {
     @Override
     public List<OrderFormDetailVO> detailById(String id) {
         List<OrderFormDetailVO> list = new ArrayList<>();
-        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(null, null, null
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(null, null, null, null
                 , id, null, null, null, null);
         for (MerchandiseOrderPO m : merchandiseOrderList) {
             OrderFormDetailVO orderFormDetailVO = new OrderFormDetailVO();
@@ -57,10 +57,10 @@ public class OrderFormServiceImpl implements OrderFormService {
     }
 
     @Override
-    public List<OrderFormVO> summary(Integer userId, Integer stat, Integer del, String orderId, String betTime, String andTime
+    public List<OrderFormVO> summary(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime
             , Integer index, Integer size) {
         List<OrderFormVO> list = new ArrayList<>();
-        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, stat, del, orderId, betTime
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, shopId, stat, del, orderId, betTime
                 , andTime, index, size);
         List<StatPO> statList = merchandiseOrderStatMapper.list(null);
         for (MerchandiseOrderPO m : merchandiseOrderList) {
@@ -91,7 +91,7 @@ public class OrderFormServiceImpl implements OrderFormService {
     }
 
     @Override
-    public int count(Integer userId, Integer stat, Integer del, String orderId, String betTime, String andTime) {
-        return merchandiseOrderMapper.count(userId, stat, del, orderId, betTime, andTime);
+    public int count(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime) {
+        return merchandiseOrderMapper.count(userId, shopId, stat, del, orderId, betTime, andTime);
     }
 }
