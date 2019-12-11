@@ -12,7 +12,8 @@ import lombok.Data;
 @Data
 public class OrderFormVO {
     private Integer
-            id,//订单编号
+            id,//订单绝对id，删除用
+            orderId,//订单编号
             count,//商品数量
             del;//删除状态（未删0，已删1）
     private Double

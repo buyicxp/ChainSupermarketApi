@@ -39,7 +39,7 @@ public class OrderFormController {
             @RequestParam("index") Integer index,
             @RequestParam("size") Integer size
     ) {
-        Map<String, Object> result = new HashMap<>(3);
+        Map<String, Object> result = new HashMap<>(4);
         try {
             if (betTime != null && notValidDate(betTime)) {
                 result.put("msg", "Bad request at betTime=" + betTime);
