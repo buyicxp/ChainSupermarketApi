@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.service.marketing;
 
+import com.csdj.chainsupermarket.entity.marketing.UsageRestriction;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,4 +13,13 @@ import org.apache.ibatis.annotations.Mapper;
  * @ Version       :  1.0
  */
 public interface UsageRestrictionService {
+    /**
+     * @Description  ：查询使用限制
+     * @author       : JY
+     * @param        : [couponId] 优惠券ID
+     * @return       : com.csdj.chainsupermarket.entity.marketing.UsageRestriction
+     * @exception    :
+     * @date         : 2019/12/9 20:49
+     */
+    UsageRestriction findById(int couponId);
 }

@@ -14,5 +14,13 @@ import java.util.List;
  * @ Version       :  1.0
  */
 public interface CouponTypeService {
-
+    /**
+     * @Description  ：查询所有优惠券类型
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.CouponType>
+     * @exception    :
+     * @date         : 2019/12/9 13:46
+     */
+    List<CouponType> findByAll();
 }

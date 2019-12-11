@@ -3,6 +3,8 @@ package com.csdj.chainsupermarket.dao.marketing;
 import com.csdj.chainsupermarket.entity.marketing.PreferentialType;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @ Description   :  优惠类型持久层接口
  * @ Author        :  JY
@@ -23,4 +25,13 @@ public interface PreferentialTypeMapper {
      * @date         : 2019/12/7 13:54
      */
     PreferentialType findPreferentialTypeById(Integer preferentialId);
+    /**
+     * @Description  ：查询所有优惠类型
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.PreferentialType>
+     * @exception    :
+     * @date         : 2019/12/10 9:05
+     */
+    List<PreferentialType> findByAll();
 }

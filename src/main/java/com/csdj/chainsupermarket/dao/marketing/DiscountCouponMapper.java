@@ -31,10 +31,20 @@ public interface DiscountCouponMapper {
     /**
      * @Description  ：添加优惠券
      * @author       : JY
-     * @param        : [discountCoupon]
+     * @param        : [map]
      * @return       : int
      * @exception    :
      * @date         : 2019/12/9 10:52
      */
-    int addDiscountCoupon(DiscountCoupon discountCoupon);
+    int addDiscountCoupon(Map map);
+    /**
+     * @Description  ：查询单个优惠券
+     * @author       : JY
+     * @param        : [couponId] 优惠券主键
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/9 20:50
+     */
+    DiscountCoupon findById(int couponId);
+
 }

@@ -20,7 +20,7 @@
         <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
         <result column="DEADLINE" property="deadline" jdbcType="TIMESTAMP" />
 
-        <result column="SP_ID" property="spId" jdbcType="INTEGER" />
+
         <result column="MONEY" property="money" jdbcType="VARCHAR" />
 
         <result column="STALE_DATED" property="staleDated" jdbcType="INTEGER" />
@@ -29,15 +29,16 @@
         <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
 
         <!--   couponType   computingTime     preferentialType-->
-<!--        <result column="PREFERENTIAL_ID" property="preferentialId" jdbcType="INTEGER" />-->
+        <association property="shop" column="SP_ID" select="com.csdj.chainsupermarket.dao.shop.minuteshop.ShopMessageMapper.findById"/>
         <association property="couponType" column="COUPON_TYPE_ID" select="com.csdj.chainsupermarket.dao.marketing.CouponTypeMapper.findCouponTypeById"/>
         <association property="computingTime" column="COMPUTING_ID" select="com.csdj.chainsupermarket.dao.marketing.ComputingTimeMapper.findComputingTimeById"/>
         <association property="preferentialType" column="PREFERENTIAL_ID" select="com.csdj.chainsupermarket.dao.marketing.PreferentialTypeMapper.findPreferentialTypeById"/>
+        <association property="distributionType" column="distribution_id" select="com.csdj.chainsupermarket.dao.marketing.DistributionTypeMapper.findById"/>
     </resultMap>
 
     <!-- 表所有字段 -->
     <sql id="allColumns">
-        COUPON_ID, COUPON_NAME, COUPON_TYPE_ID, FACE_VALUE, LIMIT_GET, PAYMENT_AMOUNT,
+        COUPON_ID, COUPON_NAME, COUPON_TYPE_ID, FACE_VALUE, distribution_id,LIMIT_GET, PAYMENT_AMOUNT,
         BEGINTIME, ENDTIME, PERIOD_OF_VALIDITY, EFFECTIVE_DAYS, EFFECTIVE_PERIOD, START_TIME,
         DEADLINE, COMPUTING_ID, SP_ID, MONEY, PREFERENTIAL_ID, STALE_DATED,
         STATUS, GMT_CREATE, GMT_MODIFIED
@@ -47,5 +48,11 @@
         select <include refid="allColumns"></include>
         from discount_coupon
         where  status =0
+    </select>
+    <!--查询单个优惠券-->
+    <select id="findById" resultMap="map" parameterType="int">
+        select <include refid="allColumns"></include>
+        from discount_coupon
+        where  status =0 and COUPON_ID = #{couponId}
     </select>
 </mapper>

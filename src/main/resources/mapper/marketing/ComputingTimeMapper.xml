@@ -16,10 +16,17 @@
     <sql id="allColumns">
         COMPUTING_ID, COMPUTING_NAME, GMT_CREATE, GMT_MODIFIED
     </sql>
-
+    <!--查询单个计算时间方式-->
     <select id="findComputingTimeById" resultMap="map" parameterType="Integer">
         select  <include refid="allColumns"></include>
         from COMPUTING_TIME
         where COMPUTING_ID = #{computingId}
     </select>
+
+    <!--查询所有计算时间方式-->
+    <select id="findByAll" resultMap="map">
+        select  <include refid="allColumns"></include>
+        from COMPUTING_TIME
+    </select>
+
 </mapper>

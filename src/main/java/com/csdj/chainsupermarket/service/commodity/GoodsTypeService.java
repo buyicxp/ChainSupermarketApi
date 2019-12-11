@@ -59,4 +59,24 @@ public interface GoodsTypeService {
      */
     public List<GoodsType> getTypeNameList();
 
+    /**
+     * @Description  ：查询所有父类
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.commodity.GoodsType>
+     * @exception    :
+     * @date         : 2019/12/10 17:32
+     */
+    public List<GoodsType> findByAll();
+
+    /**
+     * @Description  ：查询单个父类
+     * @author       : JY
+     * @param        : [id]
+     * @return       : com.csdj.chainsupermarket.entity.commodity.GoodsType
+     * @exception    :
+     * @date         : 2019/12/10 17:33
+     */
+    public GoodsType findById(int id);
+
 }

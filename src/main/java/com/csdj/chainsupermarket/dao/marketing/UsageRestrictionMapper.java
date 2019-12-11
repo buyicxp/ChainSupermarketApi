@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.dao.marketing;
 
+import com.csdj.chainsupermarket.entity.marketing.UsageRestriction;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +14,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UsageRestrictionMapper {
-
+    /**
+     * @Description  ：查询使用限制
+     * @author       : JY
+     * @param        : [couponId] 优惠券ID
+     * @return       : com.csdj.chainsupermarket.entity.marketing.UsageRestriction
+     * @exception    :
+     * @date         : 2019/12/9 20:49
+     */
+    UsageRestriction findById(int couponId);
 }

@@ -3,6 +3,8 @@ package com.csdj.chainsupermarket.dao.marketing;
 import com.csdj.chainsupermarket.entity.marketing.CouponType;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @ Description   : 优惠券类型持久层接口
  * @ Author        :  JY
@@ -25,4 +27,13 @@ public interface CouponTypeMapper {
      */
     CouponType findCouponTypeById(int couponTypeId);
 
+    /**
+     * @Description  ：查询所有优惠券类型
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.CouponType>
+     * @exception    :
+     * @date         : 2019/12/9 13:46
+     */
+    List<CouponType> findByAll();
 }

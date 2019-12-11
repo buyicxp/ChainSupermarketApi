@@ -35,4 +35,13 @@
     <select id="getTypeNameList" resultType="GoodsType">
         SELECT id,type_name typename FROM goods_type WHERE parentid = 0
     </select>
+
+    <!-- 查询所有父类-->
+    <select id="findByAll" resultType="GoodsType">
+        SELECT id,type_name typename FROM goods_type WHERE parentid = 0
+    </select>
+    <!--查询单个父类-->
+    <select id="findById" resultType="GoodsType" parameterType="int">
+        SELECT id,type_name typename FROM goods_type WHERE parentid = 0 and id=#{id}
+    </select>
 </mapper>

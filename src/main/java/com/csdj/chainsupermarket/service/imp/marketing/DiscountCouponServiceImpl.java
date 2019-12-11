@@ -6,6 +6,7 @@ import com.csdj.chainsupermarket.service.marketing.DiscountCouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @Service
 public class DiscountCouponServiceImpl implements DiscountCouponService,Runnable {
-    @Autowired
+    @Resource
     DiscountCouponMapper dao;
     private boolean flag = true;
     private static final Object obj = new Object() ;
@@ -29,6 +30,11 @@ public class DiscountCouponServiceImpl implements DiscountCouponService,Runnable
     public List<DiscountCoupon> findByAll() {
         Map map = new HashMap();
         return dao.findByAll(map);
+    }
+
+    @Override
+    public DiscountCoupon findById(int couponId) {
+        return dao.findById(couponId);
     }
 
     @Override

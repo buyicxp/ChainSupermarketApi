@@ -78,9 +78,17 @@ public class GoodsTypeController {
     }
 
     @RequestMapping(value = "/typeNameList")
-    public Object typeNameList(){
+    public List<GoodsType> typeNameList(){
         List<GoodsType> list = goodsTypeService.getTypeNameList();
         return list;
     }
 
+    @RequestMapping("goods/findByAll")
+    public List<GoodsType> findByAll(){
+        return goodsTypeService.findByAll();
+    }
+    @RequestMapping("goods/findById")
+    public GoodsType findById(int id){
+        return goodsTypeService.findById(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.service.marketing;
 
+import com.csdj.chainsupermarket.dao.marketing.DistributionTypeMapper;
 import com.csdj.chainsupermarket.entity.marketing.DistributionType;
 
 import java.util.List;
@@ -15,5 +16,23 @@ import java.util.List;
  */
 public interface DistributionTypeService {
 
+    /**
+     * @Description  ：查询单个发放类型
+     * @author       : JY
+     * @param        : [distributionId] 发放类型主键
+     * @return       : com.csdj.chainsupermarket.entity.marketing.DistributionType
+     * @exception    :
+     * @date         : 2019/12/9 14:20
+     */
+    DistributionType findById(int distributionId);
 
+    /**
+     * @Description  ：查询所有的发放类型
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.DistributionType>
+     * @exception    :
+     * @date         : 2019/12/9 14:49
+     */
+    List<DistributionType> findByAll();
 }
