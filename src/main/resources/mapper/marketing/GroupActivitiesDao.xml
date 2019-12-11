@@ -8,7 +8,8 @@
 		INSERT INTO group_activities
 			(activity_name,activity_number,activity_price,validhours,limited_quantity,start_time,end_time,creation_time,store_id)
 		VALUES
-			(#{activityName},#{activityNumber},#{activity_price},#{validHours},#{limitedQuantity},#{startTime},#{endTime},#{creationTime},#{storeId})
+			(#{activityName},#{activityNumber},#{activityPrice},#{validHours},#{limitedQuantity},'2019-12-10 00:00:00','2020-01-31 00:00:00',#{creationTime},'[{"id":"1"},{"id":"2"},{"id":"3"},{"id":"4"}]'
+			)
 	</insert>
 
     <!-- 查询活动名称是否冲突 -->
@@ -47,6 +48,9 @@
             <if test="validHours != null" >
                 VALIDHOURS = #{validHours},
             </if>
+            <if test="activityPrice != null" >
+                activity_price = #{activityPrice},
+            </if>
             <if test="limitedQuantity != null" >
                 LIMITED_QUANTITY = #{limitedQuantity},
             </if>
@@ -56,14 +60,8 @@
             <if test="endTime != null" >
                 END_TIME = #{endTime},
             </if>
-            <if test="creationTime != null" >
-                CREATION_TIME = #{creationTime},
-            </if>
             <if test="storeId != null" >
                 STORE_ID = #{storeId},
-            </if>
-            <if test="activityState != null" >
-                ACTIVITY_STATE = #{activityState},
             </if>
         </set>
         WHERE ACTIVITIES_ID = #{activitiesId}
@@ -71,12 +69,16 @@
 
     <!-- 根据主键批量删除数据 -->
     <delete id="deleteGroupActivitiesByIds" parameterType="String">
-		DELETE FROM GROUP_ACTIVITIES WHERE ACTIVITIES_ID =
-			#{activitiesId}
+		UPDATE group_activities SET activity_state = 0 WHERE ACTIVITIES_ID = #{activitiesId}
 	</delete>
 
     <!-- 根据活动结束时间修改活动状态 &lt;是小于符号,XMl需要转义-->
     <update id="selectByEndTime" >
 		UPDATE group_activities SET activity_state = 0 WHERE end_time &lt; #{endTime}
 	</update>
+
+    <!-- 查询所有数据，设置活动接口 -->
+    <select id="findAllGroupActivities" parameterType="map" resultType="GroupActivities">
+        SELECT * FROM group_activities where activity_state = 1
+    </select>
 </mapper> 

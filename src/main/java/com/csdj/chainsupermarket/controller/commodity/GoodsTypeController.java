@@ -78,9 +78,10 @@ public class GoodsTypeController {
     }
 
     @RequestMapping(value = "/typeNameList")
-    public List<GoodsType> typeNameList(){
-        List<GoodsType> list = goodsTypeService.getTypeNameList();
-        return list;
+    public Object typeNameList(){
+        String str =JSON.toJSONString(goodsTypeService.getTypeNameList());
+        String result = "{\"status\":200,\"message\":" + str + "}";
+        return result;
     }
 
     @RequestMapping("goods/findByAll")

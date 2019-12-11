@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.advertising.AdVerTiListVoMapper">
+    <!--根据广告名称和广告类型查询-->
+    <select id="findAdVerTiListVOList" parameterType="AdVerTiListVO" >
+       select l.*,t.advertising_name as advertisingName from adverti_list l,advertising_type t
+       <where >
+           <if test="l.adverti_name!=null||l.adverti_name!=''">
+               and l.adverti_name like concat('%', #{advertiName}, '%')
+           </if>
+           <if test="l.advertising_type_id!=null||l.advertising_type_id!=''">
+               and l.advertising_type_id=#{advertisingTypeId}
+           </if>
+               and t.advertising_id=l.advertising_type_id
+       </where>
+   </select>
+    <!--查询广告类型的ID和名称-->
+    <select id="findAdvertisingTypeList" parameterType="AdvertisingTypeVO">
+        select * from advertising_type
+    </select>
+    <!--添加广告信息-->
+    <insert id="addAdVerTiListVO" parameterType="AdVerTiListVO">
+        insert into adverti_list (adverti_image,adverti_name,adverti_link,usable,orderby_by,createtime,enteringtime,updatetime,advertising_type_id,advert_content,commodity_id)
+           values(#{adVerTiImage},#{adVerTiName},#{adVerTiLink},#{usable},#{orderByBy},#{createTime},#{enteringTime},#{updateTime},#{advertisingTypeId},#{advertContent},#{commodityId})
+    </insert>
+    <!--修改广告信息-->
+    <update id="updAdVerTiListVO" parameterType="AdVerTiListVO">
+        update adverti_list
+             set adverti_image=#{adVerTiImage},adverti_name=#{adVerTiName},adverti_link=#{adVerTiLink},usable=#{usable},orderby_by=#{orderByBy},createtime=#{createTime},enteringtime=#{enteringTime},updatetime=#{updateTime},advertising_type_id=#{advertisingTypeId},advert_content=#{advertContent},commodity_id=#{commodityId}
+    </update>
+    <!--删除广告信息-->
+    <delete id="delAdVerTiListVO" parameterType="Integer">
+        delete from adverti_list where advertilist_id=#{adVerTiListId}
+    </delete>
+    <!--查询广告信息编号 -->
+    <select id="getByIdAdVerTiListVO">
+        select * from adverti_list where advertilist_id=#{adVerTiListId}
+    </select>
+    <select id="getAdVerTiListVo" parameterType="AdVerTiListVO" resultType="AdVerTiListVO">
+        select advertilist_id as adVerTiListId,adverti_image as adVerTiImage,adverti_name as adVerTiName,adverti_link as adVerTiLink, usable as usable,orderby_by as orderByBy,createtime as createTime,enteringtime as enteringTime,advertising_type_id as advertisingTypeId,advert_content as advertContent from adverti_list
+    </select>
+</mapper>

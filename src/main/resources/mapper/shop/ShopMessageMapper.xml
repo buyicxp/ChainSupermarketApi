@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SHOP_MESSAGE 门店-->
+<mapper namespace="com.csdj.chainsupermarket.dao.shop.minuteshop.ShopMessageMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="ShopMessage">
+        <id column="SP_ID" property="spId" jdbcType="BIGINT" />
+        <result column="SP_NAME" property="spName" jdbcType="VARCHAR" />
+        <result column="SP_CITY" property="spCity" jdbcType="VARCHAR" />
+        <result column="SP_SHOPMANAGER" property="spShopmanager" jdbcType="VARCHAR" />
+        <result column="SP_PHONE" property="spPhone" jdbcType="VARCHAR" />
+        <result column="SP_OPERATING" property="spOperating" jdbcType="VARCHAR" />
+        <result column="SP_CREATIONTIME" property="spCreationtime" jdbcType="TIMESTAMP" />
+        <result column="SP_INITIALPASS" property="spInitialpass" jdbcType="VARCHAR" />
+        <result column="SP_SHOPPHONE" property="spShopphone" jdbcType="VARCHAR" />
+        <result column="SP_ADDRESS" property="spAddress" jdbcType="VARCHAR" />
+        <result column="NULLONE" property="nullone" jdbcType="VARCHAR" />
+        <result column="NULLTWO" property="nulltwo" jdbcType="VARCHAR" />
+        <result column="NULLTHREE" property="nullthree" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        SP_ID, SP_NAME, SP_CITY, SP_SHOPMANAGER, SP_PHONE, SP_OPERATING,
+        SP_CREATIONTIME, SP_INITIALPASS, SP_SHOPPHONE, SP_ADDRESS, NULLONE, NULLTWO,
+        NULLTHREE
+    </sql>
+
+    <!-- 查询单个门店 -->
+    <select id="findById" parameterType="int" resultMap="map">
+        select <include refid="allColumns"></include>
+        from SHOP_MESSAGE
+        where SP_ID=#{spId}
+    </select>
+    <!-- 查询所有门店 -->
+    <select id="findByAll" resultMap="map">
+        select <include refid="allColumns"></include>
+        from SHOP_MESSAGE
+    </select>
+</mapper>

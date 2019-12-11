@@ -33,7 +33,8 @@ public class GoodsCommodityController {
     public String getBrand(@RequestParam(value = "start")int start,
                            @RequestParam(value = "pageSize") int pageSize,
                            @RequestParam(value="goodsTitle")String goodsTitle,
-                           @RequestParam(value="ccategoryid")int ccategoryid){
+                           @RequestParam(value="ccategoryid")Integer ccategoryid){
+        System.out.println(ccategoryid);
         String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsTitle,ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;

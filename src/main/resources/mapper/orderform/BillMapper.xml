@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.orderform.BillMapper">
+    <!-- 查询门店列表 -->
+    <resultMap id="ShopMessageMap" type="ShopMessage">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在entity中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="spId" column="sp_id" />
+        <!-- 定义普通属性 -->
+        <result property="spName" column="sp_name" />
+    </resultMap>
+    <select id="findShopName" resultMap="ShopMessageMap">
+        SELECT sp_id,sp_name FROM shop_message
+    </select>
+
+    <!-- 根据订单id修改订单数据 -->
+    <update id="updMerchandiseOrder" parameterType="MerchandiseOrderPO">
+        update merchandise_order set trade_id=#{tradeId}, goods_id=#{goodsId}, `count`=#{count}, user_id=#{userId}, dis_id=#{disId}, stat=#{stat}, shop_id=#{shopId}
+        where id=#{id}
+    </update>
+
+    <!-- 根据订单id删除订单(修改订单删除状态) -->
+    <update id="delMerchandiseOrder" parameterType="Integer">
+        update merchandise_order set del=1 where id=#{id}
+    </update>
+
+    <!-- 根据门店id查询门店新增会员数 -->
+    <select id="findShopMemberNewCount" resultType="Integer">
+        SELECT COUNT(1) FROM `member`
+        WHERE `vip_create` BETWEEN CURRENT_DATE() AND DATE_SUB(CURRENT_DATE(),INTERVAL -1 DAY)
+        <if test="shopId>0">
+            shopid=#{shopId}
+        </if>
+    </select>
+
+    <!-- 根据门店id查询门店订单数 -->
+    <select id="findShopBillCount" resultType="Integer">
+        SELECT count(*) FROM merchandise_order
+        <where>
+            <if test="shopId>0">
+                shop_id=#{shopId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据门店id查询门店营业额 -->
+    <select id="findShopBillMoneySum" resultType="Double">
+        select sum(amount) from trade_order
+        <where>
+            <if test="shopId>0">
+                id in (select trade_id from merchandise_order where shop_id=#{shopId});
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据门店id查询商品价格 -->
+    <select id="findGoodsPrice" resultType="GoodsCommodity">
+        select id,price from goods_commodity
+        where id in
+        (select goods_id from merchandise_order
+        <where>
+            <if test="shopId>0">
+                shop_id=#{shopId}
+            </if>
+        </where>)
+    </select>
+
+    <!-- 根据门店id查询订单商品数量 -->
+    <select id="findBillGoodsCount" resultType="MerchandiseOrderPO">
+        select goods_id as goodsId,sum(`count`) as `count` from merchandise_order
+        <where>
+            <if test="shopId>0">
+                shop_id=#{shopId}
+            </if>
+        </where>
+        group by goods_id
+    </select>
+</mapper>

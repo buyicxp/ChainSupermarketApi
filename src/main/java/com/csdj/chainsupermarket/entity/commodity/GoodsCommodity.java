@@ -89,14 +89,14 @@ public class GoodsCommodity{
      */
     private double weight;
 
-    /*
-     是否参加活动(0未参加,1已参加) 默认0
+    /**
+     *是否参加活动(0未参加,1已参加) 默认0
      */
     private int condition;
 
-    /*
-    类型名称
-    */
+    /**
+     *类型名称
+     */
     private String typeName;
 
     /**
@@ -118,6 +118,19 @@ public class GoodsCommodity{
      *删除状态
      */
     private int del;
+
+    /**
+     * 商品详情
+     */
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getBounds() {
         return bounds;

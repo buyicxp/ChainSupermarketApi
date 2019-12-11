@@ -2,6 +2,7 @@ package com.csdj.chainsupermarket.util.marketing;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * T表示是一个泛型类。
  */
 @Component
-public class PageUtil<T> {
+public class PageUtil<T> implements Serializable {
 	/**
 	 * 当前页码
 	 */
