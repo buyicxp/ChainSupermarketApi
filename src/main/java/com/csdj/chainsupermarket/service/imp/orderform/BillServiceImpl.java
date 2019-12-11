@@ -18,7 +18,7 @@ import java.util.List;
  * @Version V1.0
  **/
 @Service
-public class BillServiceImp implements BillService {
+public class BillServiceImpl implements BillService {
     @Resource
     private BillMapper billMapper;
 
@@ -28,13 +28,13 @@ public class BillServiceImp implements BillService {
     }
 
     @Override
-    public int updMerchandiseOrderPOService(MerchandiseOrderPO obj){
-        return billMapper.updMerchandiseOrderPO(obj);
+    public int updMerchandiseOrderService(MerchandiseOrderPO obj){
+        return billMapper.updMerchandiseOrder(obj);
     }
 
     @Override
-    public int delMerchandiseOrderPOService(Integer id){
-        return billMapper.delMerchandiseOrderPO(id);
+    public int delMerchandiseOrderService(Integer id){
+        return billMapper.delMerchandiseOrder(id);
     }
 
     @Override

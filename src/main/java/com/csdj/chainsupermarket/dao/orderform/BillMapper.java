@@ -28,14 +28,14 @@ public interface BillMapper {
      * @param obj 订单对象
      * @return 返回影响行数
      */
-    int updMerchandiseOrderPO(MerchandiseOrderPO obj);
+    int updMerchandiseOrder(MerchandiseOrderPO obj);
 
     /**
      * 根据订单id删除订单(修改订单删除状态)
      * @param id 订单id
      * @return 返回影响行数
      */
-    int delMerchandiseOrderPO(@Param("id") Integer id);
+    int delMerchandiseOrder(@Param("id") Integer id);
 
     /**
      * 根据门店id查询门店总会员数
