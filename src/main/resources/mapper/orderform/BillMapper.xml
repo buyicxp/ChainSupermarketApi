@@ -17,13 +17,13 @@
     </select>
 
     <!-- 根据订单id修改订单数据 -->
-    <update id="updMerchandiseOrderPO" parameterType="MerchandiseOrderPO">
+    <update id="updMerchandiseOrder" parameterType="MerchandiseOrderPO">
         update merchandise_order set trade_id=#{tradeId}, goods_id=#{goodsId}, `count`=#{count}, user_id=#{userId}, dis_id=#{disId}, stat=#{stat}, shop_id=#{shopId}
         where id=#{id}
     </update>
 
     <!-- 根据订单id删除订单(修改订单删除状态) -->
-    <update id="delMerchandiseOrderPO" parameterType="Integer">
+    <update id="delMerchandiseOrder" parameterType="Integer">
         update merchandise_order set del=1 where id=#{id}
     </update>
 
