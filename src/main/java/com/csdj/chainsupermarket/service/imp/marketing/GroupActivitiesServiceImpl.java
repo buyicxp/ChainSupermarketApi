@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +90,11 @@ public class GroupActivitiesServiceImpl implements GroupActivitiesService {
     @Override
     public int selectByEndTime(String endTime) {
         return dao.selectByEndTime(endTime);
+    }
+    
+    @Override
+    public List<GroupActivities> findAllGroupActivities() {
+        return dao.findAllGroupActivities();
     }
     
     

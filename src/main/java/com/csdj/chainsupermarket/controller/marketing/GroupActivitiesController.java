@@ -1,8 +1,12 @@
 package com.csdj.chainsupermarket.controller.marketing;
 
+import com.alibaba.fastjson.JSON;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
 import com.csdj.chainsupermarket.service.marketing.GroupActivitiesService;
 import com.csdj.chainsupermarket.util.marketing.PageUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author :阿浩i
@@ -24,6 +29,11 @@ import java.util.Map;
 public class GroupActivitiesController {
     @Resource
     private GroupActivitiesService service;
+    @Autowired
+    StringRedisTemplate srt;
+    @Autowired
+    RedisTemplate<String,Object> rt;
+    
     
     /**
      * 查询所有拼团活动
@@ -39,6 +49,7 @@ public class GroupActivitiesController {
         PageUtil<GroupActivities> pageUtil = service.findGroupActivities(index, pageSize, activityName);
         Map<String, Object> map = new HashMap();
         int Total = service.getCount(activityName);
+        
         map.put("Total", Total);
         map.put("pageUtil", pageUtil);
         return map;
@@ -96,5 +107,20 @@ public class GroupActivitiesController {
             map.put("Msg", "删除失败!!!");
         }
         return map;
+    }
+    
+    /**
+     * 查询所有数据，设置活动接口
+     * @author    阿浩i
+     * @param
+     * @return    java.util.Map<java.lang.String,java.lang.Object>
+     * @date      2019/12/11 11:24
+     */
+    @RequestMapping("/getAll")
+    public Map<String,Object> getAll(){
+        Map<String,Object> result=new HashMap<>();
+        result.put("data",service.findAllGroupActivities());
+        System.out.println(com.alibaba.fastjson.JSON.toJSONString(result));
+        return result;
     }
 }

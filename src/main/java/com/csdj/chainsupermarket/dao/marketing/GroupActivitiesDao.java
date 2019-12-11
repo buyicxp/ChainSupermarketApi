@@ -76,4 +76,13 @@ public interface GroupActivitiesDao {
      * @date      2019/12/6 14:10
      */
     int selectByEndTime(String endTime);
+    
+    /**
+     * 查询所有数据，设置活动接口
+     * @author    阿浩i
+     * @param
+     * @return    java.util.List<com.csdj.chainsupermarket.entity.marketing.GroupActivities>
+     * @date      2019/12/11 11:19
+     */
+    List<GroupActivities> findAllGroupActivities();
 }
