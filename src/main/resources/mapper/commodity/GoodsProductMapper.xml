@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- COMPUTING_TIME 计算时间方式 -->
+<mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsProductMapper">
+    <insert id="addGoods" parameterType="GoodsProduct">
+        INSERT INTO `goods_product`
+        (`id`,`colorid`,`sizeid`,`detailsid`,`activityid`,
+        `goods_name`,`goods_title`,`categoryid`,`goods_code`,
+        `picturepath`,`bigpicturepath`,`createdate`,`activityprice`,
+        `price`,`weight`,`locking`,`already`,`dis_id`,
+        `upper_down`,`del`,`bounds`,`presell`)
+        VALUES (0,#{colorId},#{sizeId},#{detailsId},
+        #{activityId},#{goodsName},#{goodsTitle},#{categoryId},
+        #{goodsCode},#{picturePath},#{bigPicturePath},#{createDate},#{activityPrice},
+        #{price},#{weigth},#{locking},#{already},0,
+        1,0,#{bounds},#{presell});
+    </insert>
+</mapper>
