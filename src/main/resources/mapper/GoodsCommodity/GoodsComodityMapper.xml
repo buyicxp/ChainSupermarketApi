@@ -49,7 +49,7 @@
 
         <result property="content" column="content"/>
 
-        <result property="detailsId" column="detailsid"/>
+        <result property="details" column="details"/>
     </resultMap>
 
     <!--分页查询-->
@@ -67,13 +67,13 @@
 
     <!--按类型查询商品-->
     <select id="selectCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gd.content
-        from `goods_commodity` gc,`goods_type` gt,`goods_details` gd
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        from `goods_commodity` gc,`goods_type` gt
         <where>
             <if test="ccategoryid!=null and ccategoryid.trim()!=''">
                 and gc.ccategoryid=#{ccategoryid}
             </if>
-            and gc.ccategoryid=gt.id and gc.detailsid=gd.id and gc.upper_down=0 and gc.del=0
+            and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
         </where>
     </select>
 
@@ -92,5 +92,35 @@
         update `goods_Commodity` set `upper_down`=0 where id=#{id}
     </update>
 
+    <!--添加商品-->
+    <insert id="addCommodity">
+        insert into `goods_Commodity`(`colorid`,`sizeid`,`details`,`activityid`,`goods_name`,`goods_title`,`ccategoryid`,`goods_code`,`picturepath`,`bigpicturepath`,`createdate`,`activityprice`,`price`,`weight`,`condition`,`upper_down`,`del`,`bounds`,`presell`)
+        values (#{colorid},#{sizeid},#{details},#{activityid},#{goods_name},#{goods_title},#{ccategoryid},#{goods_code},#{picturepath},#{bigpicturepath},#{createdate},#{activityprice},#{price},#{weight},#{condition},#{upper_down},#{del},#{bounds},#{presell})
+    </insert>
 
+    <!--限时活动商品-->
+    <select id="boundsCommodity" resultMap="CommodityMap">
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         FROM `goods_commodity` gc,`goods_type` gt
+         WHERE gt.id=gc.ccategoryid AND gc.bounds!=0 AND gc.upper_down=0 AND gc.del=0;
+    </select>
+
+    <!--预售活动商品-->
+    <select id="presellCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid  and gc.presell!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--拼团活动商品-->
+    <select id="activeCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid and gc.activityid!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--通过ID查询单个商品-->
+    <select id="getCommodity" resultMap="CommodityMap">
+        select id,goods_title,picturepath,price from `goods_commodity` where id=#{id}
+    </select>
 </mapper>

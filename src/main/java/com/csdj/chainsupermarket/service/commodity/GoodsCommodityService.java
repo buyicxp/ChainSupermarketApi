@@ -68,6 +68,24 @@ public interface GoodsCommodityService {
      */
     int addCommodity(GoodsCommodity goodsCommodity);
 
+    /**
+     * 限购商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> boundsCommodity();
 
+    /**
+     * 预售商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> presellCommodity();
+
+    /**
+     * 拼团商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> activeCommodity();
+
+    GoodsCommodity getCommodity(@Param("id")Integer id);
 
 }

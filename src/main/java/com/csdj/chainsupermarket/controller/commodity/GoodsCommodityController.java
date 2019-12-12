@@ -51,7 +51,6 @@ public class GoodsCommodityController {
         String str =JSON.toJSONString(goodsCommodityService.pageCommodity(start,pageSize));
         String result = "{\"status\":200,\"message\":" + str + "}";
         List<GoodsCommodity> list=goodsCommodityService.pageCommodity(start,pageSize);
-        System.out.println(str);
         return result;
     }
 
@@ -100,7 +99,7 @@ public class GoodsCommodityController {
     @RequestMapping(value = "/grounding")
     public Object upComm(@RequestParam(value="id")int id){
         int num=goodsCommodityService.grounding(id);
-        if(num>0){
+        if (num>0){
             return true;
         }
         return false;
@@ -125,7 +124,7 @@ public class GoodsCommodityController {
      * @return
      */
     @RequestMapping("/selectCom")
-    public Object seleCom(@RequestParam(value="ccategoryid",required =false)int ccategoryid){
+    public Object seleCom(@RequestParam(value="ccategoryid",required =false)Integer ccategoryid){
         String str =JSON.toJSONString(goodsCommodityService.selectCommodity(ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;
@@ -141,10 +140,39 @@ public class GoodsCommodityController {
     public Object addCom(GoodsCommodity goodsCommodity){
         int num=goodsCommodityService.addCommodity(goodsCommodity);
         if(num>0){
+            System.out.println(true);
             return true;
         }
         return false;
     }
 
+    /**
+     * 限购商品
+     * @return 商品列表
+     */
+    @RequestMapping("/boundsCom")
+    public Object boundsCom(){
+        String str =JSON.toJSONString(goodsCommodityService.boundsCommodity());
+        return str;
+    }
 
+    /**
+     * 预售商品
+     * @return 商品列表
+     */
+    @RequestMapping("/presellCom")
+    public Object presellCom(){
+        String str =JSON.toJSONString(goodsCommodityService.presellCommodity());
+        return str;
+    }
+
+    /**
+     * 拼团商品
+     * @return 商品列表
+     */
+    @RequestMapping("/activeCom")
+    public Object activeCom(){
+        String str =JSON.toJSONString(goodsCommodityService.activeCommodity());
+        return str;
+    }
 }
