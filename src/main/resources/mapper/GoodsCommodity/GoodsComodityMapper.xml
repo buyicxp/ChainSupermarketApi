@@ -11,7 +11,7 @@
             <if test="goodsTitle!=null and goodsTitle.trim()!=''">
                 and gc.`goods_title`like concat('%',#{goodsTitle},'%')
             </if>
-            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+            <if test="ccategoryid!=null and ccategoryid!=''">
                 and gc.`ccategoryid`=#{ccategoryid}
             </if>
             and gc.ccategoryid=gt.id and gc.del!=1
