@@ -146,33 +146,5 @@ public class GoodsCommodityController {
         return false;
     }
 
-    /**
-     * 拼团商品
-     * @return 商品列表
-     */
-    @RequestMapping("/activeCom")
-    public Object activeCom(){
-        String str =JSON.toJSONString(goodsCommodityService.activeCommodity());
-        return str;
-    }
 
-    /**
-     * 限购商品
-     * @return 商品列表
-     */
-    @RequestMapping("/boundsCom")
-    public Object boundsCom(){
-        String str =JSON.toJSONString(goodsCommodityService.boundsCommodity());
-        return str;
-    }
-
-    /**
-     * 预售商品
-     * @return 商品列表
-     */
-    @RequestMapping("/presellCom")
-    public Object presellCom(){
-        String str =JSON.toJSONString(goodsCommodityService.presellCommodity());
-        return str;
-    }
 }
