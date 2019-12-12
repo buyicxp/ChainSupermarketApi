@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @ClassName OrderFormDetailVO
- * @Description: 订单详情实体类
+ * @Description: 订单详情表现类
  * @Author 曾耀民
  * @Date 2019/12/09
  * @Version 1.0
@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class OrderFormDetailVO {
     private Integer
+            tradeId,//交易订单id
             goodsId,//商品id
             stat,//商品状态
             del,//删除标记

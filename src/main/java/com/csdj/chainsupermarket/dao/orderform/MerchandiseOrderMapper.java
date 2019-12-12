@@ -47,4 +47,12 @@ public interface MerchandiseOrderMapper {
      */
     int count(@Param("userId") Integer userId, @Param("shopId") Integer shopId, @Param("stat") Integer stat, @Param("del") Integer del
             , @Param("orderId") String orderId, @Param("betTime") String betTime, @Param("andTime") String andTime);
+
+    /**
+     * 根据唯一ID获取单个商品订单信息
+     *
+     * @param id 唯一ID
+     * @return 商品订单实体类
+     */
+    MerchandiseOrderPO get(@Param("id") Integer id);
 }
