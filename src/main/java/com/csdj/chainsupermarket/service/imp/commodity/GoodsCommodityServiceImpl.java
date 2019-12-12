@@ -58,22 +58,9 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     }
 
     @Override
-    public List<GoodsCommodity> activeCommodity(Integer activityid) {
-        return goodsCommodityMapper.activeCommodity(activityid);
-    }
-
-    @Override
-    public List<GoodsCommodity> boundsCommodity(Integer bounds) {
-        return goodsCommodityMapper.boundsCommodity(bounds);
-    }
-
-    @Override
-    public List<GoodsCommodity> presellCommodity(Integer presell) {
-        return goodsCommodityMapper.presellCommodity(presell);
-    }
-
-    @Override
     public int addCommodity(GoodsCommodity goodsCommodity) {
         return goodsCommodityMapper.addCommodity(goodsCommodity);
     }
+
+
 }

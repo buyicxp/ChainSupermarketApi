@@ -4,7 +4,6 @@ import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
 import com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO;
 import com.csdj.chainsupermarket.entity.shop.minuteshop.ShopMessage;
 import com.csdj.chainsupermarket.service.orderform.BillService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,11 +27,10 @@ public class BillController {
     /**
      * 查询门店列表
      * @return 返回门店集合json
-     * @throws Exception 声明异常
      */
-    @RequestMapping("/getfindShopName")
+    @RequestMapping("/getFindShopName")
     @ResponseBody
-    public List<ShopMessage> getfindShopName() throws Exception {
+    public List<ShopMessage> getFindShopName(){
         return billService.findShopNameService();
     }
 
@@ -40,32 +38,29 @@ public class BillController {
      * 修改订单数据
      * @param obj 订单对象
      * @return 影响行数
-     * @throws Exception 声明异常
      */
-    @RequestMapping("/getupdMerchandiseOrderPO")
-    public int getupdMerchandiseOrderPO(@RequestBody MerchandiseOrderPO obj) throws Exception {
-        return billService.updMerchandiseOrderPOService(obj);
+    @RequestMapping("/getUpdMerchandiseOrder")
+    public int getUpdMerchandiseOrder(@RequestBody MerchandiseOrderPO obj){
+        return billService.updMerchandiseOrderService(obj);
     }
 
     /**
      * 删除订单(修改订单删除状态)
      * @param id 订单id
      * @return 影响行数
-     * @throws Exception 声明异常
      */
-    @RequestMapping("/getdelMerchandiseOrderPO")
-    public int getdelMerchandiseOrderPO(Integer id) throws Exception {
-        return billService.delMerchandiseOrderPOService(id);
+    @RequestMapping("/getDelMerchandiseOrder")
+    public int getDelMerchandiseOrder(Integer id){
+        return billService.delMerchandiseOrderService(id);
     }
 
     /**
      * 根据门店id查询门店总会员数
      * @param shopId 门店id
      * @return 返回总会员数
-     * @throws Exception 声明异常
      */
-    @RequestMapping("/getfindShopMemberNewCount")
-    public int getfindShopMemberNewCount(Long shopId) throws Exception {
+    @RequestMapping("/getFindShopMemberNewCount")
+    public int getFindShopMemberNewCount(Long shopId){
         return billService.findShopMemberNewCountService(shopId);
     }
 
@@ -74,8 +69,8 @@ public class BillController {
      * @param shopId 门店id
      * @return 返回订单数
      */
-    @RequestMapping("/getfindShopBillCount")
-    public int getfindShopBillCount(Integer shopId) throws Exception {
+    @RequestMapping("/getFindShopBillCount")
+    public int getFindShopBillCount(Integer shopId){
         return billService.findShopBillCountService(shopId);
     }
 
@@ -84,8 +79,8 @@ public class BillController {
      * @param shopId 门店id
      * @return 返回营业额
      */
-    @RequestMapping("/getfindShopBillMoneySum")
-    public Double getfindShopBillMoneySum(Integer shopId) throws Exception {
+    @RequestMapping("/getFindShopBillMoneySum")
+    public Double getFindShopBillMoneySum(Integer shopId){
         Double count=billService.findShopBillMoneySumService(shopId);
         if(count==null){
             count=0.0;
@@ -97,12 +92,11 @@ public class BillController {
      * 根据门店id查询订单优惠额
      * @param shopId 门店id
      * @return 返回订单优惠额
-     * @throws Exception
      */
-    @RequestMapping("/getfindShopPerference")
-    public Double getfindShopPerference(Integer shopId) throws Exception {
-        //优惠额perference
-        Double perference=0.0;
+    @RequestMapping("/getFindShopPreference")
+    public Double getFindShopPreference(Integer shopId){
+        //优惠额PreferenceMoney
+        double preferenceMoney;
         //应付金额amoutPayable
         Double amoutPayable=0.0;
         //实付金额--门店营业额shopMoneySum
@@ -114,14 +108,13 @@ public class BillController {
         List<GoodsCommodity> listPrice=billService.findGoodsPriceService(shopId);
         //根据门店id查询订单商品数量
         List<MerchandiseOrderPO> listCount=billService.findBillGoodsCountService(shopId);
-        for(int i=0;i<listPrice.size();i++){
-            GoodsCommodity goods=(GoodsCommodity) listPrice.get(i);
-            MerchandiseOrderPO counts=(MerchandiseOrderPO) listCount.get(i);
-            //amoutPayable=amoutPayable+goods.getPrice()*counts.getCount();
+        for(int number=0;number<listPrice.size();number++){
+            GoodsCommodity goods= listPrice.get(number);
+            MerchandiseOrderPO bills= listCount.get(number);
+            amoutPayable=amoutPayable+goods.getPrice()*bills.getCount();
         }
-        //优惠额=应付金额-实付金额
-        perference=amoutPayable-shopMoneySum;
+        preferenceMoney=amoutPayable-shopMoneySum;
         //返回优惠额
-        return perference;
+        return preferenceMoney;
     }
 }

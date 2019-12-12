@@ -1,7 +1,13 @@
 package com.csdj.chainsupermarket.service.imp.marketing;
 
 
+import com.csdj.chainsupermarket.dao.marketing.ComputingTimeMapper;
+import com.csdj.chainsupermarket.entity.marketing.ComputingTime;
+import com.csdj.chainsupermarket.service.marketing.ComputingTimeService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -14,7 +20,16 @@ import org.springframework.stereotype.Service;
  * @ Version       :  1.0
  */
 @Service
-public class ComputingTimeServiceImpl {
+public class ComputingTimeServiceImpl implements ComputingTimeService {
+    @Resource
+    ComputingTimeMapper dao;
+    @Override
+    public ComputingTime findComputingTimeById(int computingId) {
+        return dao.findComputingTimeById(computingId);
+    }
 
-
+    @Override
+    public List<ComputingTime> findByAll() {
+        return dao.findByAll();
+    }
 }

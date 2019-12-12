@@ -33,5 +33,9 @@
         from PREFERENTIAL_TYPE
         where PREFERENTIAL_ID = #{preferentialId}
     </select>
-
+    <!--查询所有优惠类型-->
+    <select id="findByAll" resultMap="map" >
+        select <include refid="allColumns"></include>
+        from PREFERENTIAL_TYPE
+    </select>
 </mapper>

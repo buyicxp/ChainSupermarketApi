@@ -78,7 +78,8 @@ public class OrderFormServiceImpl implements OrderFormService {
             orderFormVO.setTime(m.getTime());
             orderFormVO.setCount(m.getCount());
             orderFormVO.setDel(m.getDel());
-            orderFormVO.setId(m.getOrderId());
+            orderFormVO.setId(m.getId());
+            orderFormVO.setOrderId(m.getOrderId());
             orderFormVO.setName("未定义商品名称");
             orderFormVO.setContactInformation("未定义配送信息");
             orderFormVO.setDefray("未定义支付状态");

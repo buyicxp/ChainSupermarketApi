@@ -14,5 +14,13 @@ import java.util.List;
  * @ Version       :  1.0
  */
 public interface UnavailableTypeService {
-
+    /**
+     * @Description  ：查询优惠券的不可用类型
+     * @author       : JY
+     * @param        : [couponId]
+     * @return       : com.csdj.chainsupermarket.entity.marketing.UnavailableType
+     * @exception    :
+     * @date         : 2019/12/9 21:41
+     */
+    UnavailableType findById(int couponId);
 }

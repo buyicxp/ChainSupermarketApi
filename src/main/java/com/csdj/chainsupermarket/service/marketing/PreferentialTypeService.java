@@ -15,6 +15,23 @@ import java.util.List;
  * @ Version       :  1.0
  */
 public interface PreferentialTypeService {
-
+    /**
+     * @Description  ：  查询单个优惠类型
+     * @author       : JY
+     * @param        : [preferentialId] 优惠类型主键
+     * @return       : com.csdj.chainsupermarket.entity.marketing.PreferentialType
+     * @exception    :
+     * @date         : 2019/12/7 13:54
+     */
+    PreferentialType findPreferentialTypeById(Integer preferentialId);
+    /**
+     * @Description  ：查询所有优惠类型
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.PreferentialType>
+     * @exception    :
+     * @date         : 2019/12/10 9:05
+     */
+    List<PreferentialType> findByAll();
 
 }

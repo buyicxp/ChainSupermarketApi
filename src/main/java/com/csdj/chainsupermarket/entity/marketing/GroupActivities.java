@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.entity.marketing;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  * @CreateDate :  2019/12/3 16:10
  * @Version : 1.0
  */
-public class GroupActivities {
+public class GroupActivities implements Serializable {
     /**
      * 活动id，自增列
      */

@@ -103,4 +103,14 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
         return goodsTypeMapper.getTypeNameList();
     }
 
+    @Override
+    public List<GoodsType> findByAll() {
+        return goodsTypeMapper.findByAll();
+    }
+
+    @Override
+    public GoodsType findById(int id) {
+        return goodsTypeMapper.findById(id);
+    }
+
 }

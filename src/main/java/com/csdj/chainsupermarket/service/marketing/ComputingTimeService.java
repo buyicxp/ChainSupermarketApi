@@ -15,5 +15,22 @@ import java.util.Map;
  * @ Version       :  1.0
  */
 public interface ComputingTimeService {
-
+    /**
+     * @Description  ： 查询单个计算时间方式
+     * @author       : JY
+     * @param        : [computingId]
+     * @return       : com.csdj.chainsupermarket.entity.marketing.ComputingTime
+     * @exception    :
+     * @date         : 2019/12/7 13:50
+     */
+    ComputingTime findComputingTimeById(int computingId);
+    /**
+     * @Description  ：查询所有计算时间方式
+     * @author       : JY
+     * @param        : []
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.ComputingTime>
+     * @exception    :
+     * @date         : 2019/12/9 23:40
+     */
+    List<ComputingTime> findByAll();
 }

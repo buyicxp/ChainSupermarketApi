@@ -1,12 +1,13 @@
 package com.csdj.chainsupermarket.entity.marketing;
 
+import com.csdj.chainsupermarket.entity.shop.minuteshop.ShopMessage;
 import lombok.Data;
 
 import java.util.Date;
 
 /**
  * DISCOUNT_COUPON
- * 优惠券实体类   门店外键没加
+ * 优惠券实体类
  * @author bianj
  * @version 1.0.0 2019-12-04
  */
@@ -26,6 +27,9 @@ public class DiscountCoupon implements java.io.Serializable {
 
     /** 面值 */
     private Integer faceValue;
+
+    /** 发放类型 */
+    private DistributionType distributionType;
 
     /** 每人限领张数 */
     private Integer limitGet;
@@ -58,7 +62,7 @@ public class DiscountCoupon implements java.io.Serializable {
     private ComputingTime computingTime;
 
     /** 门店编号：外键 */
-    private Integer spId;
+    private ShopMessage shop;
 
     /** 订单金额 */
     private Integer money;

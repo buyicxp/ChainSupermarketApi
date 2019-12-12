@@ -13,7 +13,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- UNAVAILABLE_TYPE -->
+<!-- UNAVAILABLE_TYPE 优惠券的不可用类型 -->
 <mapper namespace="com.csdj.chainsupermarket.dao.marketing.UnavailableTypeMapper">
     <!-- 结果映射 -->
     <resultMap id="map" type="UnavailableType">
@@ -21,7 +21,7 @@
         <result column="COMMDITY_ID" property="commdityId" jdbcType="BIGINT" />
         <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
-<!--        <association property="discountCoupon" column="COUPON_ID" select="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper.findDiscountCouponByIds"></association>-->
+        <association property="discountCoupon" column="COUPON_ID" select="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper.findById"></association>
     </resultMap>
 
     <!-- 表所有字段 -->
@@ -29,5 +29,9 @@
         UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED
     </sql>
 
-
+    <select id="findById" resultMap="map" parameterType="int">
+        select <include refid="allColumns"></include>
+        from UNAVAILABLE_TYPE
+        where COUPON_ID = #{couponId}
+    </select>
 </mapper>

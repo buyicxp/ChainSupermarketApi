@@ -6,6 +6,8 @@ import com.csdj.chainsupermarket.service.marketing.CouponCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * @ Description   :  优惠券领取记录业务层实现层
  * @ Author        :  JY
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CouponCollectionServiceImpl implements CouponCollectionService {
-    @Autowired
+    @Resource
     CouponCollectionMapper dao;
     @Override
     public int findAlreadyReceived(int couponId) {

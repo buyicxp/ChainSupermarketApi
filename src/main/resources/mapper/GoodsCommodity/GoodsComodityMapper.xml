@@ -8,10 +8,10 @@
         SELECT gc.`id`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`del`
         FROM `goods_commodity` gc,`goods_type` gt
         <where>
-            <if test="goodsTitle!=null and goodsTitle!=''">
+            <if test="goodsTitle!=null and goodsTitle.trim()!=''">
                 and gc.`goods_title`like concat('%',#{goodsTitle},'%')
             </if>
-            <if test="ccategoryid!=null and ccategoryid!=''">
+            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
                 and gc.`ccategoryid`=#{ccategoryid}
             </if>
             and gc.ccategoryid=gt.id and gc.del!=1
@@ -19,19 +19,37 @@
         limit #{start},#{pageSize}
     </select>
 
-
     <resultMap id="CommodityMap" type="GoodsCommodity">
+        <!--商品id-->
         <id property="id" column="id"/>
+        <!--图片路径-->
         <result property="picturepath" column="picturepath"/>
+        <!--商品标题-->
         <result property="goodsTitle" column="goods_title"/>
+        <!--商品码-->
         <result property="goodsCode" column="goods_code"/>
+        <!--录入时间-->
         <result property="createdate" column="createdate"/>
+        <!--商品类型-->
         <result property="typeName" column="type_Name"/>
+        <!--是否参加活动-->
         <result property="condition" column="condition"/>
+        <!--上下架状态-->
         <result property="upperDown" column="upper_down"/>
+        <!--价格-->
         <result property="price" column="price"/>
+        <!--重量-->
         <result property="weight" column="weight"/>
+        <!--删除状态-->
         <result property="del" column="del"/>
+        <!--限购活动id-->
+        <result property="bounds" column="bounds"/>
+        <!--拼团活动id-->
+        <result property="activityId" column="activityid"/>
+
+        <result property="content" column="content"/>
+
+        <result property="detailsId" column="detailsid"/>
     </resultMap>
 
     <!--分页查询-->
@@ -49,14 +67,15 @@
 
     <!--按类型查询商品-->
     <select id="selectCommodity" resultMap="CommodityMap">
-        select
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gd.content
+        from `goods_commodity` gc,`goods_type` gt,`goods_details` gd
+        <where>
+            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+                and gc.ccategoryid=#{ccategoryid}
+            </if>
+            and gc.ccategoryid=gt.id and gc.detailsid=gd.id and gc.upper_down=0 and gc.del=0
+        </where>
     </select>
-
-    <!--修改商品信息-->
-    <update id="upCommodity">
-        update `goods_Commodity`(`goods_title`,`picturepath`,`createdate`,`type_Name`,`condition`,`price`,`weight`)
-        values(#{goodsTitle},#{picturepath},#{createdate},#{typeName},#{condition},#{price},#{weight})
-    </update>
 
     <!--删除商品-->
     <update id="delCommodity">
@@ -73,11 +92,5 @@
         update `goods_Commodity` set `upper_down`=0 where id=#{id}
     </update>
 
-    <!--添加商品-->
-    <insert id="addCommodity">
-        insert into `goods_Commodity`(`colorid`,`sizeid`,`detailsid`,`activityid`,`goods_name`,`goods_title`,`ccategoryid`,`goods_code`,`picturepath`,`bigpicturepath`,`createdate`,`activityprice`,`price`,`weight`,`condition`,`upper_down`,`del`,`bounds`,`presell`)
-        values (#{colorid},#{sizeid},#{detailsid},#{activityid},#{goods_name},#{goods_title},#{ccategoryid},#{goods_code},#{picturepath},#{bigpicturepath},#{createdate},#{activityprice},#{price},#{weight},#{condition},#{upper_down},#{del},#{bounds},#{presell},)
-    </insert>
 
-    <!---->
 </mapper>

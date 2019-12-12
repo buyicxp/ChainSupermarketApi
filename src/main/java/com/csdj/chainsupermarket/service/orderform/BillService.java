@@ -25,14 +25,14 @@ public interface BillService {
      * @param obj 订单对象
      * @return 返回影响行数
      */
-    int updMerchandiseOrderPOService(MerchandiseOrderPO obj);
+    int updMerchandiseOrderService(MerchandiseOrderPO obj);
 
     /**
      * 删除订单(修改订单删除状态)
      * @param id 订单id
      * @return 返回影响行数
      */
-    int delMerchandiseOrderPOService(Integer id);
+    int delMerchandiseOrderService(Integer id);
 
     /**
      * 根据门店id查询门店总会员数

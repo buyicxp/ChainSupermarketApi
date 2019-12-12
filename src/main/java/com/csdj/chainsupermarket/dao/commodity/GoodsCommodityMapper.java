@@ -67,30 +67,11 @@ public interface GoodsCommodityMapper {
     List<GoodsCommodity> selectCommodity(@Param("ccategoryid")Integer ccategoryid);
 
     /**
-     * 查询拼图团活动的商品
-     * @param activityid 拼团id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> activeCommodity(@Param("activityid")Integer activityid);
-
-    /**
-     * 查询限购活动的商品
-     * @param bounds 限购活动id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> boundsCommodity(@Param("bounds")Integer bounds);
-
-    /**
-     * 查询预售活动的商品
-     * @param presell 预售活动id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> presellCommodity(@Param("presell")Integer presell);
-
-    /**
      * 添加商品
      * @param goodsCommodity 商品实体类
      * @return 添加成功
      */
     int addCommodity(GoodsCommodity goodsCommodity);
+
+
 }

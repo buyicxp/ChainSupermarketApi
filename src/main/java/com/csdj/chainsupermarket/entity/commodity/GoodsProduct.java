@@ -101,31 +101,6 @@ public class GoodsProduct {
     public GoodsProduct() {
     }
 
-    /**
-     * 有参构造
-     * @param id
-     * @param colorId
-     * @param sizeId
-     * @param details
-     * @param goodsName
-     * @param goodsTitle
-     * @param categoryId
-     * @param goodsCode
-     * @param picturePath
-     * @param bigPicturePath
-     * @param createDate
-     * @param price
-     * @param activityPrice
-     * @param weigth
-     * @param locking
-     * @param already
-     * @param disId
-     * @param activityId
-     * @param bounds
-     * @param presell
-     * @param upperDowm
-     * @param del
-     */
     public GoodsProduct(int id, int colorId, int sizeId, String details, String goodsName, String goodsTitle, int categoryId, String goodsCode, String picturePath, String bigPicturePath, String createDate, double price, double activityPrice, double weigth, int locking, int already, int disId, int activityId, int bounds, int presell, int upperDowm, int del) {
         this.id = id;
         this.colorId = colorId;
@@ -151,17 +126,13 @@ public class GoodsProduct {
         this.del = del;
     }
 
-    /**
-     * 显示信息
-     * @return
-     */
     @Override
     public String toString() {
         return "GoodsProduct{" +
                 "id=" + id +
                 ", colorId=" + colorId +
                 ", sizeId=" + sizeId +
-                ", details=" + details +
+                ", details='" + details + '\'' +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsTitle='" + goodsTitle + '\'' +
                 ", categoryId=" + categoryId +
@@ -211,7 +182,7 @@ public class GoodsProduct {
         return details;
     }
 
-    public void setDetailsId(String details) {
+    public void setDetails(String details) {
         this.details = details;
     }
 

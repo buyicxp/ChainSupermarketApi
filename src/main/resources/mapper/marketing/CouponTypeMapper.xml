@@ -20,7 +20,12 @@
     <!-- 查询单个优惠券类型 -->
     <select id="findCouponTypeById" resultMap="map" parameterType="Integer">
         select <include refid="allColumns"></include>
-        from COUPON_TYPE where COUPON_TYPE_ID=#{couponTypeId}
+        from COUPON_TYPE
+        where COUPON_TYPE_ID=#{couponTypeId}
     </select>
 
+    <select id="findByAll" resultMap="map" >
+        select <include refid="allColumns"></include>
+        from COUPON_TYPE
+    </select>
 </mapper>

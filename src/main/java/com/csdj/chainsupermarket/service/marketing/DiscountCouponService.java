@@ -23,4 +23,14 @@ public interface DiscountCouponService {
      * @date         : 2019/12/7 14:52
      */
     List<DiscountCoupon> findByAll();
+
+    /**
+     * @Description  ：查询单个优惠券
+     * @author       : JY
+     * @param        : [couponId] 优惠券主键
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/9 20:50
+     */
+    DiscountCoupon findById(int couponId);
 }
