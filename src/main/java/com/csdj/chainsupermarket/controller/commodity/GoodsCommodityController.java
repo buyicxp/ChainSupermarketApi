@@ -32,10 +32,10 @@ public class GoodsCommodityController {
     @RequestMapping(value ="/listCommodity",method = RequestMethod.POST)
     public String getBrand(@RequestParam(value = "start")int start,
                            @RequestParam(value = "pageSize") int pageSize,
-                           @RequestParam(value="goodsTitle",required = false)String goodsTitle,
+                           @RequestParam(value="goodsName",required = false)String goodsName,
                            @RequestParam(value="ccategoryid",required = false)Integer ccategoryid){
         System.out.println(ccategoryid);
-        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsTitle,ccategoryid));
+        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsName,ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;
     }

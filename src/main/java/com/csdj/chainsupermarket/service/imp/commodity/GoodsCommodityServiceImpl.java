@@ -22,9 +22,9 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     }
 
     @Override
-    public List<GoodsCommodity> listCommodity(int currentPage, int pageSize,String goodsTitle,Integer ccategoryid) {
+    public List<GoodsCommodity> listCommodity(int currentPage, int pageSize,String goodsName,Integer ccategoryid) {
         int start = (currentPage-1)*pageSize;
-        return goodsCommodityMapper.listCommodity(start,pageSize,goodsTitle,ccategoryid);
+        return goodsCommodityMapper.listCommodity(start,pageSize,goodsName,ccategoryid);
     }
 
     @Override

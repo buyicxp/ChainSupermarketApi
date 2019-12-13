@@ -22,7 +22,7 @@ public interface GoodsCommodityMapper {
      */
     List<GoodsCommodity> listCommodity(@Param(value = "start") int start,
                                        @Param(value = "pageSize") int pageSize,
-                                       @Param(value="goodsTitle")String goodsTitle,
+                                       @Param(value="goodsName")String goodsName,
                                        @Param(value="ccategoryid")Integer ccategoryid);
 
     /**
@@ -91,5 +91,11 @@ public interface GoodsCommodityMapper {
      */
     List<GoodsCommodity> activeCommodity();
 
+
+    /**
+     * 通过id查询商品详情
+     * @param id
+     * @return
+     */
     GoodsCommodity getCommodity(@Param("id")Integer id);
 }

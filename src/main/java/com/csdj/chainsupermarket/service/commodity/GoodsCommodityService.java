@@ -18,7 +18,7 @@ public interface GoodsCommodityService {
      * 查询商品列表
      * @return 商品信息
      */
-    List<GoodsCommodity> listCommodity(int currentPage, int pageSize, String goodsTitle, Integer ccategoryid);
+    List<GoodsCommodity> listCommodity(int currentPage, int pageSize, String goodsName, Integer ccategoryid);
 
     /**
      *查询总数
@@ -86,6 +86,11 @@ public interface GoodsCommodityService {
      */
     List<GoodsCommodity> activeCommodity();
 
+    /**
+     * 通过id查询商品详情
+     * @param id
+     * @return
+     */
     GoodsCommodity getCommodity(@Param("id")Integer id);
 
 }
