@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsCommodityMapper">
+    <!--按条件查询商品列表-->
+    <select id="listCommodity" resultMap="CommodityMap">
+        SELECT gc.`id`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`del`
+        FROM `goods_commodity` gc,`goods_type` gt
+        <where>
+            <if test="goodsName!=null and goodsName.trim()!=''">
+                and gc.`goods_name`like concat('%',#{goodsName},'%')
+            </if>
+            <if test="ccategoryid!=null and ccategoryid!=''">
+                and gc.`ccategoryid`=#{ccategoryid}
+            </if>
+            and gc.ccategoryid=gt.id and gc.del!=1
+        </where>
+        order by createdate desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <resultMap id="CommodityMap" type="GoodsCommodity">
+        <!--商品id-->
+        <id property="id" column="id"/>
+        <!--图片路径-->
+        <result property="picturepath" column="picturepath"/>
+        <!--商品名称-->
+        <result property="goodsName" column="goods_name"/>
+        <!--商品标题-->
+        <result property="goodsTitle" column="goods_title"/>
+        <!--商品码-->
+        <result property="goodsCode" column="goods_code"/>
+        <!--录入时间-->
+        <result property="createdate" column="createdate"/>
+        <!--商品类型-->
+        <result property="typeName" column="type_Name"/>
+        <!--是否参加活动-->
+        <result property="condition" column="condition"/>
+        <!--上下架状态-->
+        <result property="upperDown" column="upper_down"/>
+        <!--价格-->
+        <result property="price" column="price"/>
+        <!--重量-->
+        <result property="weight" column="weight"/>
+        <!--删除状态-->
+        <result property="del" column="del"/>
+        <!--限购活动id-->
+        <result property="bounds" column="bounds"/>
+        <!--拼团活动id-->
+        <result property="activityId" column="activityid"/>
+
+        <result property="content" column="content"/>
+
+        <result property="details" column="details"/>
+    </resultMap>
+
+    <!--分页查询-->
+    <select id="pageCommodity" resultMap="CommodityMap">
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`
+        FROM `goods_commodity` gc,`goods_type` gt
+        where gc.ccategoryid=gt.id and gc.del!=1 order by gc.createdate desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <!--查询总记录数-->
+    <select id="countCommodity" resultType="java.lang.Integer">
+        select count(1) from goods_commodity where del!=1
+    </select>
+
+    <!--按类型查询商品-->
+    <select id="selectCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        from `goods_commodity` gc,`goods_type` gt
+        <where>
+            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+                and gc.ccategoryid=#{ccategoryid}
+            </if>
+            and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
+        </where>
+    </select>
+
+    <!--删除商品-->
+    <update id="delCommodity">
+        update `goods_Commodity` set `del`=1 where id=#{id}
+    </update>
+
+    <!--下架商品-->
+    <update id="underCarriage">
+        update `goods_Commodity` set `upper_down`=1 where id=#{id}
+    </update>
+
+    <!--上架商品-->
+    <update id="grounding">
+        update `goods_Commodity` set `upper_down`=0 where id=#{id}
+    </update>
+
+    <!--添加商品-->
+    <insert id="addCommodity">
+        insert into `goods_Commodity`(`colorid`,`sizeid`,`details`,`activityid`,`goods_name`,`goods_title`,`ccategoryid`,`goods_code`,`picturepath`,`bigpicturepath`,`createdate`,`activityprice`,`price`,`weight`,`condition`,`upper_down`,`del`,`bounds`,`presell`)
+        values (#{colorid},#{sizeid},#{details},#{activityid},#{goodsname},#{goodstitle},#{ccategoryid},#{goodscode},#{picturepath},#{bigpicturepath},#{createdate},#{activityprice},#{price},#{weight},#{condition},#{upperdown},#{del},#{bounds},#{presell})
+    </insert>
+
+    <!--限时活动商品-->
+    <select id="boundsCommodity" resultMap="CommodityMap">
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         FROM `goods_commodity` gc,`goods_type` gt
+         WHERE gt.id=gc.ccategoryid AND gc.bounds!=0 AND gc.upper_down=0 AND gc.del=0;
+    </select>
+
+    <!--预售活动商品-->
+    <select id="presellCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid  and gc.presell!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--拼团活动商品-->
+    <select id="activeCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid and gc.activityid!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--通过ID查询单个商品-->
+    <select id="getCommodity" resultMap="CommodityMap">
+        select id,goods_name,picturepath,price from `goods_commodity` where id=#{id}
+    </select>
+</mapper>

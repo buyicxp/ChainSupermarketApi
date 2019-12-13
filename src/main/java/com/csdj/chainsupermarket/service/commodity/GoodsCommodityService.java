@@ -18,7 +18,7 @@ public interface GoodsCommodityService {
      * 查询商品列表
      * @return 商品信息
      */
-    List<GoodsCommodity> listCommodity(int currentPage, int pageSize, String goodsTitle, Integer ccategoryid);
+    List<GoodsCommodity> listCommodity(int currentPage, int pageSize, String goodsName, Integer ccategoryid);
 
     /**
      *查询总数
@@ -62,31 +62,36 @@ public interface GoodsCommodityService {
     List<GoodsCommodity> selectCommodity(@Param("ccategoryid")Integer ccategoryid);
 
     /**
-     * 查询拼图团活动的商品
-     * @param activityid 拼团id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> activeCommodity(@Param("activityid")Integer activityid);
-
-    /**
-     * 查询限购活动的商品
-     * @param bounds 限购活动id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> boundsCommodity(@Param("bounds")Integer bounds);
-
-    /**
-     * 查询预售活动的商品
-     * @param presell 预售活动id
-     * @return 商品列表
-     */
-    List<GoodsCommodity> presellCommodity(@Param("presell")Integer presell);
-
-    /**
      * 添加商品
      * @param goodsCommodity 商品实体类
      * @return 添加成功
      */
+    int addCommodity(GoodsCommodity goodsCommodity);
+
+    /**
+     * 限购商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> boundsCommodity();
+
+    /**
+     * 预售商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> presellCommodity();
+
+    /**
+     * 拼团商品
+     * @return 商品列表
+     */
+    List<GoodsCommodity> activeCommodity();
+
+    /**
+     * 通过id查询商品详情
+     * @param id
+     * @return
+     */
+<<<<<<< HEAD
     int addCommodity(GoodsCommodity goodsCommodity);
     /**
      * 查询商品
@@ -100,5 +105,8 @@ public interface GoodsCommodityService {
      * @return
      */
     GoodsCommodity findGoodsById(int id);
+=======
+    GoodsCommodity getCommodity(@Param("id")Integer id);
+>>>>>>> origin/master
 
 }

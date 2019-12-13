@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.article.ArticleTypeMapper">
+
+
+    <resultMap id="ArticleTypeMap" type="ArticleType">
+        <id column="art_id" property="artId"/>
+        <result column="tcategory_name" property="tcategoryName"/>
+        <result column="tsuperior_category" property="tsuperiorCategory"/>
+        <result column="tsketch" property="tsketch"/>
+        <result column="tcreate" property="tcreate"/>
+        <result column="art_judge" property="artJudge"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modifed" property="gmtModifed"/>
+    </resultMap>
+
+    <select id="pageInfoArticleType" resultMap="ArticleTypeMap">
+        SELECT a.`art_id`,a.`tcategory_name`,a.`tsuperior_category`,a.`tsketch`,a.`tcreate`,a.`art_judge`,a.`gmt_create`,a.`gmt_modifed`
+        FROM article_type a
+    </select>
+
+    <insert id="insertArticleType">
+      INSERT  INTO `article_type`(`tcategory_name`,`tsketch`,`tcreate`,`art_judge`,`gmt_create`,`gmt_modifed`)
+        VALUES (#{tcategoryName},#{tsketch},#{tcreate},#{artJudge},NOW(),NOW())
+    </insert>
+
+    <select id="listArticleType" resultMap="ArticleTypeMap">
+       select * from article_type
+    </select>
+</mapper>

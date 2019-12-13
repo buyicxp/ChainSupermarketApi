@@ -22,9 +22,9 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     }
 
     @Override
-    public List<GoodsCommodity> listCommodity(int currentPage, int pageSize,String goodsTitle,Integer ccategoryid) {
+    public List<GoodsCommodity> listCommodity(int currentPage, int pageSize,String goodsName,Integer ccategoryid) {
         int start = (currentPage-1)*pageSize;
-        return goodsCommodityMapper.listCommodity(start,pageSize,goodsTitle,ccategoryid);
+        return goodsCommodityMapper.listCommodity(start,pageSize,goodsName,ccategoryid);
     }
 
     @Override
@@ -58,26 +58,27 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     }
 
     @Override
-    public List<GoodsCommodity> activeCommodity(Integer activityid) {
-        return goodsCommodityMapper.activeCommodity(activityid);
-    }
-
-    @Override
-    public List<GoodsCommodity> boundsCommodity(Integer bounds) {
-        return goodsCommodityMapper.boundsCommodity(bounds);
-    }
-
-    @Override
-    public List<GoodsCommodity> presellCommodity(Integer presell) {
-        return goodsCommodityMapper.presellCommodity(presell);
-    }
-
-    @Override
     public int addCommodity(GoodsCommodity goodsCommodity) {
         return goodsCommodityMapper.addCommodity(goodsCommodity);
     }
 
     @Override
+    public List<GoodsCommodity> boundsCommodity() {
+        return goodsCommodityMapper.boundsCommodity();
+    }
+
+    @Override
+    public List<GoodsCommodity> presellCommodity() {
+        return goodsCommodityMapper.presellCommodity();
+    }
+
+    @Override
+    public List<GoodsCommodity> activeCommodity() {
+        return goodsCommodityMapper.activeCommodity();
+    }
+
+    @Override
+<<<<<<< HEAD
     public List<GoodsCommodity> findGoods() {
         return goodsCommodityMapper.findGoods();
     }
@@ -86,4 +87,11 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     public GoodsCommodity findGoodsById(int id) {
         return goodsCommodityMapper.findGoodsById(id);
     }
+=======
+    public GoodsCommodity getCommodity(Integer id) {
+        return goodsCommodityMapper.getCommodity(id);
+    }
+
+
+>>>>>>> origin/master
 }

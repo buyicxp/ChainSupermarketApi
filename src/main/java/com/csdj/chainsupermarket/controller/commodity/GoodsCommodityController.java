@@ -34,10 +34,10 @@ public class GoodsCommodityController {
     @RequestMapping(value ="/listCommodity",method = RequestMethod.POST)
     public String getBrand(@RequestParam(value = "start")int start,
                            @RequestParam(value = "pageSize") int pageSize,
-                           @RequestParam(value="goodsTitle")String goodsTitle,
-                           @RequestParam(value="ccategoryid")Integer ccategoryid){
+                           @RequestParam(value="goodsName",required = false)String goodsName,
+                           @RequestParam(value="ccategoryid",required = false)Integer ccategoryid){
         System.out.println(ccategoryid);
-        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsTitle,ccategoryid));
+        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsName,ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;
     }
@@ -101,7 +101,7 @@ public class GoodsCommodityController {
     @RequestMapping(value = "/grounding")
     public Object upComm(@RequestParam(value="id")int id){
         int num=goodsCommodityService.grounding(id);
-        if(num>0){
+        if (num>0){
             return true;
         }
         return false;
@@ -125,61 +125,57 @@ public class GoodsCommodityController {
      * @param ccategoryid
      * @return
      */
-    @RequestMapping("selectCom")
-    public Object seleCom(@RequestParam(value="ccategoryid")int ccategoryid){
+    @RequestMapping("/selectCom")
+    public Object seleCom(@RequestParam(value="ccategoryid",required =false)Integer ccategoryid){
         String str =JSON.toJSONString(goodsCommodityService.selectCommodity(ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;
     }
 
-    /**
-     * 拼团活动商品
-     * @param activityid 拼团活动id
-     * @return 商品列表
-     */
-    @RequestMapping("activeCom")
-    public Object activeCom(@RequestParam(value="activityid")int activityid){
-        String str =JSON.toJSONString(goodsCommodityService.activeCommodity(activityid));
-        String result = "{\"status\":200,\"message\":" + str + "}";
-        return result;
-    }
-
-    /**
-     * 限购活动商品
-     * @param bounds 限购活动id
-     * @return 商品列表
-     */
-    @RequestMapping("boundsCom")
-    public Object boundsCom(@RequestParam(value="bounds")int bounds){
-        String str =JSON.toJSONString(goodsCommodityService.boundsCommodity(bounds));
-        String result = "{\"status\":200,\"message\":" + str + "}";
-        return result;
-    }
-
-    /**
-     * 预售活动商品
-     * @param presell 预售活动id
-     * @return 商品列表
-     */
-    @RequestMapping("presellCom")
-    public Object presellCom(@RequestParam(value="presell")int presell){
-        String str =JSON.toJSONString(goodsCommodityService.presellCommodity(presell));
-        String result = "{\"status\":200,\"message\":" + str + "}";
-        return result;
-    }
 
     /**
      * 添加商品
      * @param goodsCommodity 商品实体类
      * @return 是否成功
      */
-    @RequestMapping("addCom")
+    @RequestMapping("/addCom")
     public Object addCom(GoodsCommodity goodsCommodity){
         int num=goodsCommodityService.addCommodity(goodsCommodity);
         if(num>0){
+            System.out.println(true);
             return true;
         }
         return false;
+    }
+
+    /**
+     * 限购商品
+     * @return 商品列表
+     */
+    @RequestMapping("/boundsCom")
+    public Object boundsCom(){
+        String str =JSON.toJSONString(goodsCommodityService.boundsCommodity());
+        return str;
+    }
+
+    /**
+     * 预售商品
+     * @return 商品列表
+     */
+    @RequestMapping("/presellCom")
+    public Object presellCom(){
+        String str =JSON.toJSONString(goodsCommodityService.presellCommodity());
+        return str;
+    }
+
+    /**
+     * 拼团商品
+     * @return 商品列表
+     */
+    @RequestMapping("/activeCom")
+    public Object activeCom(){
+        String str =JSON.toJSONString(goodsCommodityService.activeCommodity());
+        return str;
     }
     @RequestMapping("/goodsList")
     public Map findGoods(){

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 商品信息
@@ -30,7 +29,7 @@ public class GoodsCommodity{
     /**
      *产品详情ID
      */
-    private int detailsId;
+    private String details;
 
     /**
      *对应活动
@@ -196,12 +195,12 @@ public class GoodsCommodity{
         this.sizeId = sizeId;
     }
 
-    public int getDetailsId() {
-        return detailsId;
+    public String getDetails() {
+        return details;
     }
 
-    public void setDetailsId(int detailsId) {
-        this.detailsId = detailsId;
+    public void setDetailsId(String details) {
+        this.details = details;
     }
 
     public int getActivityId() {

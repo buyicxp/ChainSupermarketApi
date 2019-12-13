@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.shop.minuteshop.MessageMapper">
+    <resultMap id="ShopMessageMap" type="ShopMessage">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在entity中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="spId" column="sp_id" />
+        <!-- 定义普通属性 -->
+        <result property="spName" column="sp_name" />
+        <result property="spCity" column="sp_city" />
+        <result property="spShopmanager" column="sp_shopmanager" />
+        <result property="spPhone" column="sp_phone" />
+        <result property="spOperating" column="sp_operating" />
+        <result property="spCreationtime" column="sp_creationtime" />
+        <result property="spInitialpass" column="sp_Initialpass" />
+        <result property="spShopphone" column="sp_Shopphone" />
+        <result property="spAddress" column="sp_Address" />
+    </resultMap>
+    <!--查询门店列表-->
+    <select id="listShopMessage" resultMap="ShopMessageMap"   >
+        select `sp_id`,
+        `sp_name`, `sp_city`,
+        `sp_shopmanager`,
+        `sp_phone`,
+        `sp_operating`,
+        `sp_creationtime`,
+        `sp_Initialpass`,
+        `sp_Shopphone`,
+        `sp_Address` from `shop_message`
+        <where>
+            <if test="name!=null and name!=''">
+                and  `sp_name`=#{name}
+            </if>
+            <if test="operating!=null and operating!=''">
+                and  `sp_operating`=#{operating}
+            </if>
+        </where>
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询门店记录数-->
+    <select id="countShopMessage"  resultType="Integer" parameterType="String" >
+        select count(1) from `shop_message`
+        <where>
+            <if test="name!=null and name!=''">
+                and  `sp_name`=#{name}
+            </if>
+            <if test="operating!=null and operating!=''">
+                and  `sp_operating`=#{operating}
+            </if>
+        </where>
+    </select>
+    <!--添加门店-->
+    <insert id="saveShopMessage"  keyProperty="spId" useGeneratedKeys="true" >
+        INSERT INTO `shop_message` (
+         `sp_name`,
+         `sp_city`,
+         `sp_shopmanager`,
+          `sp_phone`,
+          `sp_operating`,
+          `sp_creationtime`,
+          `sp_Initialpass`,
+           `sp_Shopphone`,
+            `sp_Address`) 
+            VALUES ( #{spName}, #{spCity}, #{spShopmanager},#{spPhone}, #{spOperating}, #{spCreationtime}, #{spInitialpass}, #{spShopphone}, #{spAddress});
+        <selectKey keyProperty="spId" resultType="java.lang.Integer" order="AFTER" keyColumn="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <!--根据id查询要修改的门店-->
+    <select id="getShopMessage" resultMap="ShopMessageMap"  parameterType="Integer">
+        select `sp_id`,
+        `sp_name`, `sp_city`,
+        `sp_shopmanager`,
+        `sp_phone`,
+        `sp_operating`,
+        `sp_creationtime`,
+        `sp_Initialpass`,
+        `sp_Shopphone`,
+        `sp_Address` from `shop_message`
+        where sp_id=#{id}
+    </select>
+    <!--修改门店-->
+    <update id="updateShopMessage">
+        UPDATE `shop_message` SET `sp_name`=#{spName}, `sp_city`=#{spCity}, `sp_shopmanager`=#{spShopmanager}, `sp_phone`=#{spPhone},  `sp_Initialpass`=#{spInitialpass}, `sp_Shopphone`=#{spShopphone}, `sp_Address`=#{spAddress} WHERE (`sp_id`=#{spId});
+    </update>
+    <!--停用门店-->
+    <update id="disableShopMessage">
+        UPDATE `shop_message` SET `sp_operating`=#{operating} WHERE (`sp_id`=#{id});
+    </update>
+    <!--查询门店名称-->
+    <select id="listShopMessageName" resultMap="ShopMessageMap"  >
+        select `sp_id`,`sp_name`from `shop_message`
+    </select>
+</mapper>
