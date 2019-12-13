@@ -76,9 +76,7 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     public List<GoodsCommodity> activeCommodity() {
         return goodsCommodityMapper.activeCommodity();
     }
-
     @Override
-<<<<<<< HEAD
     public List<GoodsCommodity> findGoods() {
         return goodsCommodityMapper.findGoods();
     }
@@ -87,11 +85,9 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     public GoodsCommodity findGoodsById(int id) {
         return goodsCommodityMapper.findGoodsById(id);
     }
-=======
+    @Override
     public GoodsCommodity getCommodity(Integer id) {
         return goodsCommodityMapper.getCommodity(id);
     }
 
-
->>>>>>> origin/master
 }
