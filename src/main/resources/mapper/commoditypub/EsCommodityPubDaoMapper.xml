@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.commodity.CommodityPubDao">
+    <insert id="insertCommodityPub" parameterType="CommodityPub">
+        INSERT INTO chainsupermarket.commodity_pub (id, goods_id, details, goods_name, goods_title, picture_path, create_date, activity_price, price, `condition`, upper_down, `drop`, category, timestamp)
+        VALUES (#{id}, #{goods_id}, #{details}, #{goods_name}, #{goods_title}, #{picture_path}, #{create_date}, #{activity_price}, #{price}, #{condition}, #{upper_down}, #{drop}, #{category}, #{timestamp});
+    </insert>
+    <update id="updateCommodityPub" parameterType="CommodityPub">
+        UPDATE chainsupermarket.commodity_pub
+        <trim prefix="set" suffixOverrides="," suffix="WHERE (`goods_id`=#{goods_id});">
+            <if test="details!=null">`details`=#{details},</if>
+            <if test="goods_name!=null">`goods_name`=#{goods_name},</if>
+            <if test="goods_title!=null">`goods_title`=#{goods_title},</if>
+            <if test="picture_path!=null">`picture_path`=#{picture_path},</if>
+            <if test="create_date!=null">`create_date`=#{create_date},</if>
+            <if test="activity_price!=null">`activity_price`=#{activity_price},</if>
+            <if test="condition!=null">`condition`=#{condition},</if>
+            <if test="upper_down!=null">`upper_down`=#{upper_down},</if>
+            <if test="drop!=null">`drop`=#{drop},</if>
+            <if test="category!=null">`category`=#{category},</if>
+            <if test="timestamp!=null">`timestamp`=#{timestamp},</if>
+        </trim>
+    </update>
+    <delete id="deleteCommodityPub" parameterType="Integer">
+        DELETE FROM chainsupermarket.commodity_pub WHERE goods_id=#{goods_id}
+    </delete>
+</mapper>
