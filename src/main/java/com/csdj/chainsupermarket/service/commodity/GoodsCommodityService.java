@@ -87,13 +87,6 @@ public interface GoodsCommodityService {
     List<GoodsCommodity> activeCommodity();
 
     /**
-     * 通过id查询商品详情
-     * @param id
-     * @return
-     */
-<<<<<<< HEAD
-    int addCommodity(GoodsCommodity goodsCommodity);
-    /**
      * 查询商品
      * @return
      */
@@ -105,8 +98,6 @@ public interface GoodsCommodityService {
      * @return
      */
     GoodsCommodity findGoodsById(int id);
-=======
     GoodsCommodity getCommodity(@Param("id")Integer id);
->>>>>>> origin/master
 
 }
