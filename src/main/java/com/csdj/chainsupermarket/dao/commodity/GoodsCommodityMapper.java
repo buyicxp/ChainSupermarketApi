@@ -93,4 +93,15 @@ public interface GoodsCommodityMapper {
      * @return 添加成功
      */
     int addCommodity(GoodsCommodity goodsCommodity);
+    /**
+     * 查询商品
+     * @return
+     */
+    List<GoodsCommodity> findGoods();
+    /**
+     * 根据id查询商品
+     * @param id
+     * @return
+     */
+    GoodsCommodity findGoodsById(int id);
 }

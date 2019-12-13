@@ -1,20 +1,10 @@
-package com.csdj.chainsupermarket.entity.marketing;/*
- * Welcome to use the TableGo Tools.
- * 
- * http://vipbooks.iteye.com
- * http://blog.csdn.net/vipbooks
- * http://www.cnblogs.com/vipbooks
- * 
- * Author:bianj
- * Email:edinsker@163.com
- * Version:5.8.8
- */
-
+package com.csdj.chainsupermarket.entity.marketing;
 /**
- * ACTIVITY_TYPE
- * 
- * @author bianj
- * @version 1.0.0 2019-12-04
+ * @version 版本号        1.0
+ * @author： 作者名称     张晟
+ * @date 创建时间        2019/12/4/0004 16:04
+ * Modified Date: 修改日期
+ * Why & What is modified  修改原因描述
  */
 
 public class ActivityTypeVO implements java.io.Serializable {
@@ -27,8 +17,6 @@ public class ActivityTypeVO implements java.io.Serializable {
     /** 满减/满赠 */
     private String typeName;
 
-    /** 满足多少金额可参加活动 */
-    private Integer money;
 
     /**
      * 获取主键
@@ -73,17 +61,12 @@ public class ActivityTypeVO implements java.io.Serializable {
      * 
      * @return 满足多少金额可参加活动
      */
-    public Integer getMoney() {
-        return this.money;
-    }
 
-    /**
-     * 设置满足多少金额可参加活动
-     * 
-     * @param money
-     *          满足多少金额可参加活动
-     */
-    public void setMoney(Integer money) {
-        this.money = money;
+    @Override
+    public String toString() {
+        return "ActivityTypeVO{" +
+                "typeid=" + typeid +
+                ", typeName='" + typeName + '\'' +
+                '}';
     }
 }

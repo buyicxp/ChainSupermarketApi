@@ -19,7 +19,12 @@
         limit #{start},#{pageSize}
     </select>
 
-
+    <select id="findGoods" resultMap="CommodityMap">
+        select * from goods_product
+    </select>
+    <select id="findGoodsById" resultMap="CommodityMap" parameterType="int">
+        select * from goods_product where id=#{id}
+    </select>
     <resultMap id="CommodityMap" type="GoodsCommodity">
         <id property="id" column="id"/>
         <result property="picturepath" column="picturepath"/>

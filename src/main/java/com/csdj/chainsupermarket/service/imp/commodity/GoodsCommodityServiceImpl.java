@@ -76,4 +76,14 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     public int addCommodity(GoodsCommodity goodsCommodity) {
         return goodsCommodityMapper.addCommodity(goodsCommodity);
     }
+
+    @Override
+    public List<GoodsCommodity> findGoods() {
+        return goodsCommodityMapper.findGoods();
+    }
+
+    @Override
+    public GoodsCommodity findGoodsById(int id) {
+        return goodsCommodityMapper.findGoodsById(id);
+    }
 }

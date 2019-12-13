@@ -6,7 +6,9 @@ import com.csdj.chainsupermarket.service.commodity.GoodsCommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -178,5 +180,12 @@ public class GoodsCommodityController {
             return true;
         }
         return false;
+    }
+    @RequestMapping("/goodsList")
+    public Map findGoods(){
+        Map map=new HashMap();
+        List<GoodsCommodity> findGoods=goodsCommodityService.findGoods();
+        map.put("findGoods",findGoods);
+        return map;
     }
 }

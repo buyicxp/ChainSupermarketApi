@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.controller.marketing;
 
+import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
 import com.csdj.chainsupermarket.entity.marketing.ActivityRangeVO;
 import com.csdj.chainsupermarket.entity.marketing.ActivityTypeVO;
 import com.csdj.chainsupermarket.entity.marketing.FullActivityVO;
@@ -7,10 +8,10 @@ import com.csdj.chainsupermarket.service.marketing.ActivityRangeService;
 import com.csdj.chainsupermarket.service.marketing.ActivityTypeService;
 import com.csdj.chainsupermarket.service.marketing.FullActivityService;
 import com.csdj.chainsupermarket.util.shiro.PageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -24,19 +25,28 @@ import java.util.Map;
  * Modified Date: 修改日期
  * Why & What is modified  修改原因描述
  */
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/fullActivity")
 public class FullActivityController {
-    @Autowired
-    FullActivityService fullActivityService;
-    @Autowired
-    ActivityRangeService activityRangeService;
-    @Autowired
-    ActivityTypeService activityTypeService;
+    @Resource
+    private FullActivityService fullActivityService;
+    @Resource
+    private ActivityRangeService activityRangeService;
+    @Resource
+    private ActivityTypeService activityTypeService;
 
+    /**
+     * 分页查询所有满减满赠活动
+     * @param index
+     * @param pageSize
+     * @param activityName
+     * @param request
+     * @param typeid
+     * @param rangeid
+     * @return
+     */
     @RequestMapping("/list")
-    @ResponseBody
     public Map find(@RequestParam(defaultValue = "1") int index,@RequestParam(defaultValue = "4") int pageSize
             , String activityName, HttpServletRequest request,@RequestParam(defaultValue = "0") int typeid,@RequestParam(defaultValue = "0") int rangeid) {
         HttpSession session = request.getSession();
@@ -78,8 +88,13 @@ public class FullActivityController {
         map.put("pu",pu);
         return map;
     }
+
+    /**
+     * 删除活动（实际数据不删除，改变状态）
+     * @param activityid
+     * @return
+     */
     @RequestMapping("/delete")
-    @ResponseBody
     public Map delete(int  activityid){
         Map<String,Object>map=new HashMap<>();
             int res=fullActivityService.delete(activityid);
@@ -92,5 +107,29 @@ public class FullActivityController {
         return map;
     }
 
+    @RequestMapping("/update")
+    public Map update(int activityid,String activityState){
+        Map<String,Object>map=new HashMap<>();
+        int res=fullActivityService.update(activityid,activityState);
+        if (res >= 1) {
+            map.put("Msg", "修改成功");
+        } else {
+            map.put("Msg", "修改失败");
+        }
+        System.out.println(res);
+        return map;
+    }
+    @RequestMapping("/add")
+    public Map add(@RequestBody FullActivityVO fullActivityVO){
+        Map map=new HashMap();
+        int res=fullActivityService.add(fullActivityVO);
+        if (res >= 1) {
+            map.put("Msg", "添加成功");
+        } else {
+            map.put("Msg", "添加失败");
+        }
+        System.out.println(res);
+        return map;
+    }
 
 }

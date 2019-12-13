@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.dao.marketing;
 
+import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
 import com.csdj.chainsupermarket.entity.marketing.FullActivityVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -17,9 +18,10 @@ import java.util.Map;
 @Mapper
 public interface FullActivityDao {
     /**
-     * 分页查询，
-     * @param 当前页码
-     * @param 每页的数据大小
+     * 分页查询数据
+     * @param index 当前页码
+     * @param pageSize 每页数据大小
+     * @param activityName 活动名称
      * @return
      */
      List<FullActivityVO> findPage(Map map);
@@ -35,9 +37,25 @@ public interface FullActivityDao {
      */
      FullActivityVO findById(int activityid);
 
-     int update(FullActivityVO fullActivityVO);
+    /**
+     * 修改活动状态
+     * @param map
+     * @return
+     */
+     int update(Map map);
 
+    /**
+     * 删除数据（修改状态0：未删除 1：删除）状态为1的不显示
+     * @param activityid
+     * @return
+     */
      int delete(int activityid);
 
+    /**
+     * 添加满减满赠活动信息
+     * @param fullActivityVO
+     * @return
+     */
      int add(FullActivityVO fullActivityVO);
+
 }

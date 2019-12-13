@@ -1,5 +1,6 @@
 package com.csdj.chainsupermarket.util.marketing;
 
+import com.csdj.chainsupermarket.entity.marketing.FullActivityVO;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
 import com.csdj.chainsupermarket.service.marketing.GroupActivitiesService;
 import org.springframework.scheduling.annotation.Scheduled;

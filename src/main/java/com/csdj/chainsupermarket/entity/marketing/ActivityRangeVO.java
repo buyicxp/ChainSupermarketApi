@@ -1,20 +1,10 @@
-package com.csdj.chainsupermarket.entity.marketing;/*
- * Welcome to use the TableGo Tools.
- * 
- * http://vipbooks.iteye.com
- * http://blog.csdn.net/vipbooks
- * http://www.cnblogs.com/vipbooks
- * 
- * Author:bianj
- * Email:edinsker@163.com
- * Version:5.8.8
- */
-
+package com.csdj.chainsupermarket.entity.marketing;
 /**
- * ACTIVITY_RANGE
- * 
- * @author bianj
- * @version 1.0.0 2019-12-04
+ * @version 版本号        1.0
+ * @author： 作者名称     张晟
+ * @date 创建时间        2019/12/4/0004 16:04
+ * Modified Date: 修改日期
+ * Why & What is modified  修改原因描述
  */
 public class ActivityRangeVO implements java.io.Serializable {
     /** 版本号 */
@@ -25,12 +15,6 @@ public class ActivityRangeVO implements java.io.Serializable {
 
     /** 活动范围 */
     private String activityRange;
-
-    /** 商品id（外键） */
-    private Long goodsid;
-
-    /** 商品类型id（外键） */
-    private Long goodsTypeid;
 
     /**
      * 获取范围id
@@ -75,36 +59,11 @@ public class ActivityRangeVO implements java.io.Serializable {
      * 
      * @return 商品id（外键）
      */
-    public Long getGoodsid() {
-        return this.goodsid;
-    }
-
-    /**
-     * 设置商品id（外键）
-     * 
-     * @param goodsid
-     *          商品id（外键）
-     */
-    public void setGoodsid(Long goodsid) {
-        this.goodsid = goodsid;
-    }
-
-    /**
-     * 获取商品类型id（外键）
-     * 
-     * @return 商品类型id（外键）
-     */
-    public Long getGoodsTypeid() {
-        return this.goodsTypeid;
-    }
-
-    /**
-     * 设置商品类型id（外键）
-     * 
-     * @param goodsTypeid
-     *          商品类型id（外键）
-     */
-    public void setGoodsTypeid(Long goodsTypeid) {
-        this.goodsTypeid = goodsTypeid;
+    @Override
+    public String toString() {
+        return "ActivityRangeVO{" +
+                "rangeid=" + rangeid +
+                ", activityRange='" + activityRange + '\'' +
+                '}';
     }
 }

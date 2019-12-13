@@ -1,23 +1,18 @@
-package com.csdj.chainsupermarket.entity.marketing;/*
- * Welcome to use the TableGo Tools.
- * 
- * http://vipbooks.iteye.com
- * http://blog.csdn.net/vipbooks
- * http://www.cnblogs.com/vipbooks
- * 
- * Author:bianj
- * Email:edinsker@163.com
- * Version:5.8.8
- */
+package com.csdj.chainsupermarket.entity.marketing;
+
+import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
+import com.csdj.chainsupermarket.entity.commodity.GoodsType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
-
 /**
- * FULL_ACTIVITY
- * 
- * @author bianj
- * @version 1.0.0 2019-12-04
+ * @version 版本号        1.0
+ * @author： 作者名称     张晟
+ * @date 创建时间        2019/12/4/0004 16:04
+ * Modified Date: 修改日期
+ * Why & What is modified  修改原因描述
  */
+
 public class FullActivityVO implements java.io.Serializable {
     /** 版本号 */
     private static final long serialVersionUID = 433599641835467301L;
@@ -32,6 +27,7 @@ public class FullActivityVO implements java.io.Serializable {
     private ActivityTypeVO type;
 
     /** 活动时间 */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Timestamp activityTime;
 
     /** 活动范围（外键） */
@@ -48,6 +44,17 @@ public class FullActivityVO implements java.io.Serializable {
 
     /** 删除改变状态为不显示 */
     private Integer deleteState;
+    /**
+     * 商品（外键）
+     */
+    private GoodsCommodity goodsCommodity;
+    /**
+     * 商品类别（外键）
+     */
+    private GoodsType goodsType;
+    /** 满足多少金额可参加活动 */
+    private Integer money;
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -123,5 +130,47 @@ public class FullActivityVO implements java.io.Serializable {
 
     public void setDeleteState(Integer deleteState) {
         this.deleteState = deleteState;
+    }
+
+    public GoodsCommodity getGoodsCommodity() {
+        return goodsCommodity;
+    }
+
+    public void setGoodsCommodity(GoodsCommodity goodsCommodity) {
+        this.goodsCommodity = goodsCommodity;
+    }
+
+    public GoodsType getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(GoodsType goodsType) {
+        this.goodsType = goodsType;
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    @Override
+    public String toString() {
+        return "FullActivityVO{" +
+                "activityid=" + activityid +
+                ", activityName='" + activityName + '\'' +
+                ", type=" + type +
+                ", activityTime=" + activityTime +
+                ", range=" + range +
+                ", activityState='" + activityState + '\'' +
+                ", executingState='" + executingState + '\'' +
+                ", activityDetail='" + activityDetail + '\'' +
+                ", deleteState=" + deleteState +
+                ", goodsCommodity=" + goodsCommodity +
+                ", goodsType=" + goodsType +
+                ", money=" + money +
+                '}';
     }
 }
