@@ -1,5 +1,8 @@
 package com.csdj.chainsupermarket.entity.marketing;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +32,7 @@ public class GroupActivities implements Serializable {
     /**
      * 同时参团数
      */
-    private String activityPrice;
+    private int activitySameTime;
     
     /**
      * 成团时限
@@ -44,12 +47,32 @@ public class GroupActivities implements Serializable {
     /**
      * 活动开始时间
      */
-    private String startTime;
+    private Date startTime;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getStartTime() {
+        return startTime;
+    }
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getEndTime() {
+        return endTime;
+    }
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
     
     /**
      * 活动结束时间
      */
-    private String endTime;
+    private Date endTime;
     
     /**
      * 活动创建时间
@@ -90,12 +113,12 @@ public class GroupActivities implements Serializable {
         this.activityNumber = activityNumber;
     }
     
-    public String getActivityPrice() {
-        return activityPrice;
+    public int getActivitySameTime() {
+        return activitySameTime;
     }
     
-    public void setActivityPrice(String activityPrice) {
-        this.activityPrice = activityPrice;
+    public void setActivitySameTime(int activitySameTime) {
+        this.activitySameTime = activitySameTime;
     }
     
     public int getValidHours() {
@@ -114,21 +137,7 @@ public class GroupActivities implements Serializable {
         this.limitedQuantity = limitedQuantity;
     }
     
-    public String getStartTime() {
-        return startTime;
-    }
     
-    public void setStartTime(Date startTime) {
-        this.startTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(startTime);
-    }
-    
-    public String getEndTime() {
-        return endTime;
-    }
-    
-    public void setEndTime(Date endTime) {
-        this.endTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(endTime);
-    }
     
     public String getCreationTime() {
         return creationTime;

@@ -1,12 +1,10 @@
 package com.csdj.chainsupermarket.controller.marketing;
 
-import com.alibaba.fastjson.JSON;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
+import com.csdj.chainsupermarket.entity.shop.minuteshop.ShopMessage;
 import com.csdj.chainsupermarket.service.marketing.GroupActivitiesService;
+import com.csdj.chainsupermarket.service.shop.minuteshop.ShopMessageService;
 import com.csdj.chainsupermarket.util.marketing.PageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author :阿浩i
  * @Description : 拼团活动控制器
@@ -29,11 +26,8 @@ import java.util.concurrent.TimeUnit;
 public class GroupActivitiesController {
     @Resource
     private GroupActivitiesService service;
-    @Autowired
-    StringRedisTemplate srt;
-    @Autowired
-    RedisTemplate<String,Object> rt;
-    
+    @Resource
+    ShopMessageService shopMessageService;
     
     /**
      * 查询所有拼团活动
@@ -46,12 +40,19 @@ public class GroupActivitiesController {
      */
     @RequestMapping("/list")
     public Map list(int index, int pageSize, String activityName){
-        PageUtil<GroupActivities> pageUtil = service.findGroupActivities(index, pageSize, activityName);
         Map<String, Object> map = new HashMap();
+        PageUtil<GroupActivities> pageUtil = service.findGroupActivities(index, pageSize, activityName);
         int Total = service.getCount(activityName);
-        
         map.put("Total", Total);
         map.put("pageUtil", pageUtil);
+        return map;
+    }
+    
+    @RequestMapping("/shopList")
+    public Map shopList(){
+        Map<String, Object> map = new HashMap();
+        List<ShopMessage> shopList = shopMessageService.findByAll();
+        map.put("shopList", shopList);
         return map;
     }
     
@@ -75,15 +76,16 @@ public class GroupActivitiesController {
                 map.put("Msg", "修改失败!!!");
             }
         } else {
-            if (service.selectByActivityName(groupActivities.getActivityName())) {
+            boolean flag = service.selectByActivityName(groupActivities.getActivityName());
+            if (!flag) {
+                map.put("Msg", "该活动名称已存在!!!");
+            } else {
                 int res = service.addGroup(groupActivities);
                 if (res >= 1) {
                     map.put("Msg", "添加成功!!!");
                 } else {
                     map.put("Msg", "添加失败!!!");
                 }
-            } else {
-                map.put("Msg", "该活动名称已存在!!!");
             }
         }
         return map;
@@ -110,7 +112,7 @@ public class GroupActivitiesController {
     }
     
     /**
-     * 查询所有数据，设置活动接口
+     * 查询所有活动数据，设置活动接口
      * @author    阿浩i
      * @param
      * @return    java.util.Map<java.lang.String,java.lang.Object>
@@ -120,7 +122,6 @@ public class GroupActivitiesController {
     public Map<String,Object> getAll(){
         Map<String,Object> result=new HashMap<>();
         result.put("data",service.findAllGroupActivities());
-        System.out.println(com.alibaba.fastjson.JSON.toJSONString(result));
         return result;
     }
 }
