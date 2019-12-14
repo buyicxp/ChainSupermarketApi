@@ -219,4 +219,15 @@ public class GoodsCommodityController {
         String str =JSON.toJSONString(goodsCommodityService.activeCommodity());
         return str;
     }
+
+    /**
+     * 通过id查询单个商品信息
+     * @param id 商品id
+     * @return 商品信息
+     */
+    @RequestMapping("/getById")
+    public Object getComById(@RequestParam(value="id")Integer id){
+        String str =JSON.toJSONString(goodsCommodityService.getComById(id));
+        return str;
+    }
 }

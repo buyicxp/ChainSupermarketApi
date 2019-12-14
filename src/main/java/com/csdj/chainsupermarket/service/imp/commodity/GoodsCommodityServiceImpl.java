@@ -90,4 +90,9 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
         return goodsCommodityMapper.getCommodity(id);
     }
 
+    @Override
+    public GoodsCommodity getComById(Integer id) {
+        return goodsCommodityMapper.getComById(id);
+    }
+
 }

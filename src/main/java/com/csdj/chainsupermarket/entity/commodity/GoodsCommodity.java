@@ -37,7 +37,7 @@ public class GoodsCommodity{
     private int activityId;
 
     /**
-     *产品名称
+     *商品名称
      */
     private String goodsName;
 
@@ -47,7 +47,7 @@ public class GoodsCommodity{
     private  String goodsTitle;
 
     /**
-     *产品分类ID，外键，引用商品分类表
+     *商品分类ID，外键，引用商品分类表
      */
     private int ccategoryId;
 
@@ -57,12 +57,12 @@ public class GoodsCommodity{
     private String goodsCode;
 
     /**
-     *产品图片路径
+     *商品图片路径
      */
     private String picturepath;
 
     /**
-     *产品大图路径
+     *商品大图路径
      */
     private String bigpicturepath;
 

@@ -20,7 +20,7 @@
         limit #{start},#{pageSize}
     </select>
 
-    <resultMap id="CommodityMap" type="com.csdj.chainsupermarket.entity.commodity.GoodsCommodity">
+    <resultMap id="CommodityMap" type="GoodsCommodity">
         <!--商品id-->
         <id property="id" column="id"/>
         <!--图片路径-->
@@ -49,7 +49,7 @@
         <result property="bounds" column="bounds"/>
         <!--拼团活动id-->
         <result property="activityId" column="activityid"/>
-
+        <!--详情-->
         <result property="details" column="details"/>
     </resultMap>
 
@@ -71,10 +71,10 @@
         select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
         from `goods_commodity` gc,`goods_type` gt
         <where>
-            <if test="ccategoryid!=null and ccategoryid !=''">
+            <if test="ccategoryid!=null and ccategoryid!=''">
                 and gc.ccategoryid=#{ccategoryid}
             </if>
-                and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
+            and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
         </where>
     </select>
     <!--查询所有商品-->
@@ -108,21 +108,21 @@
 
     <!--限时活动商品-->
     <select id="boundsCommodity" resultMap="CommodityMap">
-        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
          FROM `goods_commodity` gc,`goods_type` gt
          WHERE gt.id=gc.ccategoryid AND gc.bounds!=0 AND gc.upper_down=0 AND gc.del=0;
     </select>
 
     <!--预售活动商品-->
     <select id="presellCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
          from `goods_commodity` gc,`goods_type` gt
          where gt.id=gc.ccategoryid  and gc.presell!=0 and gc.upper_down=0 and gc.del=0;
     </select>
 
     <!--拼团活动商品-->
     <select id="activeCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
          from `goods_commodity` gc,`goods_type` gt
          where gt.id=gc.ccategoryid and gc.activityid!=0 and gc.upper_down=0 and gc.del=0;
     </select>
@@ -130,5 +130,25 @@
     <!--通过ID查询单个商品-->
     <select id="getCommodity" resultMap="CommodityMap">
         select id,goods_name,picturepath,price from `goods_commodity` where id=#{id}
+    </select>
+
+    <!--查询单个商品信息-->
+    <select id="getComById" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        from `goods_Commodity` gc,`goods_type` gt
+        <where>
+            <if test="id!=null and id.trim()!=''">
+                and gc.id=#{id}
+            </if>
+            and gc.ccategoryid=gt.id
+        </where>
+    </select>
+
+    <select id="findGoods" resultMap="CommodityMap">
+    select * from goods_product
+    </select>
+
+    <select id="findGoodsById" resultMap="CommodityMap" parameterType="int">
+    select * from goods_product where id=#{id}
     </select>
 </mapper>

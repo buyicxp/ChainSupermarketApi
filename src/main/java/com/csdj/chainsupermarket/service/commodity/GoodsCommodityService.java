@@ -98,6 +98,9 @@ public interface GoodsCommodityService {
      * @return
      */
     GoodsCommodity findGoodsById(int id);
+
     GoodsCommodity getCommodity(@Param("id")Integer id);
+
+    GoodsCommodity getComById(@Param("id")Integer id);
 
 }
