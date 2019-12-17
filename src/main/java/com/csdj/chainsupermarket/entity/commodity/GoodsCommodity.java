@@ -27,7 +27,7 @@ public class GoodsCommodity{
     private int sizeId;
 
     /**
-     *产品详情ID
+     *商品详情
      */
     private String details;
 
@@ -117,19 +117,6 @@ public class GoodsCommodity{
      *删除状态
      */
     private int del;
-
-    /**
-     * 商品详情
-     */
-    private String content;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     public int getBounds() {
         return bounds;

@@ -50,8 +50,6 @@
         <!--拼团活动id-->
         <result property="activityId" column="activityid"/>
 
-        <result property="content" column="content"/>
-
         <result property="details" column="details"/>
     </resultMap>
 
