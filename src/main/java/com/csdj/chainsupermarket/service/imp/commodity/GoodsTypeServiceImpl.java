@@ -2,11 +2,13 @@ package com.csdj.chainsupermarket.service.imp.commodity;
 
 import com.csdj.chainsupermarket.dao.commodity.GoodsTypeMapper;
 import com.csdj.chainsupermarket.entity.commodity.GoodsType;
+import com.csdj.chainsupermarket.entity.commodity.GoodsTypeDTO;
 import com.csdj.chainsupermarket.service.commodity.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -103,6 +105,71 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
         return goodsTypeMapper.getTypeNameList();
     }
 
+    /**
+     * 修改类型
+     *
+     * @param goodsType
+     * @return
+     */
+    @Override
+    public Integer getGoodsTypeUpdate(GoodsTypeDTO goodsType) {
+        //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        //String date = format.format();
+        GoodsType go = new GoodsType();
+        go.setId(goodsType.getId());
+        go.setTypename(goodsType.getTypename());
+        go.setTypecount(goodsType.getTypecount());
+
+        go.setModifyby("李四");
+        go.setModifybydate(new Date());
+        return goodsTypeMapper.getGoodsTypeUpdate(go);
+    }
+
+    /**
+     * 父类增加
+     *
+     * @param goodsType
+     * @return
+     */
+    @Override
+    public Integer getGoodsTypeAddfu(GoodsTypeDTO goodsType) {
+        GoodsType go = new GoodsType();
+        go.setTypename(goodsType.getTypename());
+        go.setTypecount(goodsType.getTypecount());
+
+        go.setCreatename("小三");
+        go.setCreatadate(new Date());
+        go.setModifyby("李四");
+        go.setModifybydate(new Date());
+        go.setParentId(0);
+//        if(goodsType.getParentId() == 0){
+//            go.setParentId(0);
+//        }else{
+//            goodsType.setParentId(goodsType.getId());
+//        }
+        return goodsTypeMapper.getGoodsTypeAddfu(go);
+    }
+
+    /**
+     * 子类增加
+     *
+     * @param goodsType
+     * @return
+     */
+    @Override
+    public Integer getGoodsTypeAddzi(GoodsTypeDTO goodsType) {
+        GoodsType god = new GoodsType();
+        god.setTypename(goodsType.getTypename());
+        god.setTypecount(goodsType.getTypecount());
+
+        god.setCreatename("小三");
+        god.setCreatadate(new Date());
+        god.setModifyby("李四");
+        god.setModifybydate(new Date());
+        god.setParentId(goodsType.getId());
+        return goodsTypeMapper.getGoodsTypeAddzi(god);
+    }
+
     @Override
     public List<GoodsType> findByAll() {
         return goodsTypeMapper.findByAll();
@@ -112,5 +179,6 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
     public GoodsType findById(int id) {
         return goodsTypeMapper.findById(id);
     }
+
 
 }

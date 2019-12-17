@@ -74,4 +74,26 @@ public interface GoodsTypeMapper {
      * @date         : 2019/12/10 17:33
      */
     public GoodsType findById(int id);
+
+    /**
+     * 修改类型
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeUpdate(GoodsType goodsType);
+
+    /**
+     * 父类增加
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeAddfu(GoodsType goodsType);
+
+    /**
+     * 子类增加
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeAddzi(GoodsType goodsType);
+
 }

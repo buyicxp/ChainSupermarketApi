@@ -6,7 +6,7 @@
     <!--分页查询全部的记录-->
     <select id="getGoodsTypeList" resultType="GoodsType" parameterType="int">
         SELECT id,type_name typename,type_count typecount,creatadate,parentid parentId,stop
-        FROM goods_type where parentid = #{parentid} and del = 0
+        FROM goods_type where parentid = #{parentid} and del = 0 ORDER BY creatadate DESC
         <if test="currentPage != null">
             <if test="pageSize != null">
                 LIMIT #{currentPage},#{pageSize}
@@ -44,4 +44,56 @@
     <select id="findById" resultType="GoodsType" parameterType="int">
         SELECT id,type_name typename FROM goods_type WHERE parentid = 0 and id=#{id}
     </select>
+
+    <!-- 类型修改 -->
+    <update id="getGoodsTypeUpdate" parameterType="GoodsType">
+        UPDATE goods_type
+        SET type_name=#{typename},type_count=#{typecount},modifyby=#{modifyby},modifybydate=#{modifybydate}
+        WHERE id = #{id}
+    </update>
+    <!-- 父类增加 -->
+    <insert id="getGoodsTypeAddfu" parameterType="GoodsType">
+        INSERT INTO goods_type (
+  `type_name`,
+  `type_count`,
+  `creatadate`,
+  `createname`,
+  `modifyby`,
+  `modifybydate`,
+  `parentid`
+)
+VALUES
+  (
+    #{typename},
+    #{typecount},
+    #{creatadate},
+    #{createname},
+    #{modifyby},
+    #{modifybydate},
+    #{parentId}
+  )
+    </insert>
+    <!-- 子类增加 -->
+    <insert id="getGoodsTypeAddzi" parameterType="GoodsType">
+        INSERT INTO goods_type (
+  `type_name`,
+  `type_count`,
+  `creatadate`,
+  `createname`,
+  `modifyby`,
+  `modifybydate`,
+  `parentid`
+)
+VALUES
+  (
+    #{typename},
+    #{typecount},
+    #{creatadate},
+    #{createname},
+    #{modifyby},
+    #{modifybydate},
+    #{parentId}
+  )
+    </insert>
+
 </mapper>

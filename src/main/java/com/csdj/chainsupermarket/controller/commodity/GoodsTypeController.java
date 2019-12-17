@@ -2,6 +2,7 @@ package com.csdj.chainsupermarket.controller.commodity;
 
 import com.alibaba.fastjson.JSON;
 import com.csdj.chainsupermarket.entity.commodity.GoodsType;
+import com.csdj.chainsupermarket.entity.commodity.GoodsTypeDTO;
 import com.csdj.chainsupermarket.service.commodity.GoodsTypeService;
 import com.csdj.chainsupermarket.util.goodstype.TreeUtil;
 import org.springframework.web.bind.annotation.*;
@@ -92,4 +93,38 @@ public class GoodsTypeController {
     public GoodsType findById(int id){
         return goodsTypeService.findById(id);
     }
+
+    /**
+     * 类型修改
+     * @param goodsType
+     * @return
+     */
+    @RequestMapping(value = "/update")
+    public Integer update(@RequestBody GoodsTypeDTO goodsType){
+        System.out.println(goodsType.getTypename()+"<><><>"+goodsType.getTypecount());
+        return goodsTypeService.getGoodsTypeUpdate(goodsType);
+    }
+
+    /**
+     * 父类增加
+     * @param goodsType
+     * @return
+     */
+    @RequestMapping(value = "/addfu")
+    public Integer addfu(@RequestBody GoodsTypeDTO goodsType){
+        System.out.println(goodsType.getTypename()+"<1><2><3>"+goodsType.getTypecount());
+        return goodsTypeService.getGoodsTypeAddfu(goodsType);
+    }
+
+    /**
+     * 子类增加
+     * @param goodsType
+     * @return
+     */
+    @RequestMapping(value = "/addzi")
+    public Integer addzi(@RequestBody GoodsTypeDTO goodsType){
+        System.out.println(goodsType.getTypename()+"<4><5><6>"+goodsType.getTypecount()+"<7>"+goodsType.getId()+"+ParentId+"+goodsType.getParentId());
+        return goodsTypeService.getGoodsTypeAddzi(goodsType);
+    }
+
 }
