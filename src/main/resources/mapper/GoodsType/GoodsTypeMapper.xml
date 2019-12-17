@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsTypeMapper">
     <!--分页查询全部的记录-->
-    <select id="getGoodsTypeList" resultType="GoodsType" parameterType="int">
+    <select id="getGoodsTypeList" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsType" parameterType="int">
         SELECT id,type_name typename,type_count typecount,creatadate,parentid parentId,stop
         FROM goods_type where parentid = #{parentid} and del = 0 ORDER BY creatadate DESC
         <if test="currentPage != null">
@@ -32,27 +32,27 @@
         UPDATE goods_type SET STOP = #{stop} WHERE parentid = #{parentid}
     </update>
     <!-- 父类类型提供 -->
-    <select id="getTypeNameList" resultType="GoodsType">
+    <select id="getTypeNameList" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsType">
         SELECT id,type_name typename FROM goods_type WHERE parentid = 0
     </select>
 
     <!-- 查询所有父类-->
-    <select id="findByAll" resultType="GoodsType">
+    <select id="findByAll" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsType">
         SELECT id,type_name typename FROM goods_type WHERE parentid = 0
     </select>
     <!--查询单个父类-->
-    <select id="findById" resultType="GoodsType" parameterType="int">
+    <select id="findById" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsType" parameterType="int">
         SELECT id,type_name typename FROM goods_type WHERE parentid = 0 and id=#{id}
     </select>
 
     <!-- 类型修改 -->
-    <update id="getGoodsTypeUpdate" parameterType="GoodsType">
+    <update id="getGoodsTypeUpdate" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsType">
         UPDATE goods_type
         SET type_name=#{typename},type_count=#{typecount},modifyby=#{modifyby},modifybydate=#{modifybydate}
         WHERE id = #{id}
     </update>
     <!-- 父类增加 -->
-    <insert id="getGoodsTypeAddfu" parameterType="GoodsType">
+    <insert id="getGoodsTypeAddfu" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsType">
         INSERT INTO goods_type (
   `type_name`,
   `type_count`,
@@ -74,7 +74,7 @@ VALUES
   )
     </insert>
     <!-- 子类增加 -->
-    <insert id="getGoodsTypeAddzi" parameterType="GoodsType">
+    <insert id="getGoodsTypeAddzi" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsType">
         INSERT INTO goods_type (
   `type_name`,
   `type_count`,
