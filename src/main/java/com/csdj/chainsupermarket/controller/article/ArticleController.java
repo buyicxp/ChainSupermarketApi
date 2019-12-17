@@ -66,4 +66,28 @@ public class ArticleController {
 
         return i ;
     }
+
+    /**
+     * 查询推荐文章的所有文章 返回给小程序前台
+     * @return 返回Article类型的List集合
+     */
+    @RequestMapping(value = "/listArticleApplet.do")
+    @ResponseBody
+    public Object listArticleApplet(){
+
+        return asi.listArticleApplet();
+    }
+
+    /**
+     * 按小程序传过来的id查询文章 返回给小程序
+     * @param artId 文章列表的id
+     * @return 返回的是文章列表的一个单个对象
+     */
+    @RequestMapping(value = "/getArticleApplet.do")
+    @ResponseBody
+    public Object getArticleApplet(int artId){
+
+        return asi.getArticleApplet(artId);
+    }
+
 }

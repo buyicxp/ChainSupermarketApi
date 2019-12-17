@@ -50,4 +50,15 @@
       INSERT  INTO `article` (art_name,art_images,art_category_id,art_sort,art_create,art_judge,art_content,gmt_modifed,gmt_create)
         VALUES (#{artName},#{artImages},#{artCategoryId},#{artSort},#{artCreate},#{artJudge},#{artContent},NOW(),NOW())
     </insert>
+
+    <select id="listArticleApplet"  resultMap="ArticleMap">
+    SELECT a.art_id,a.art_Images,a.art_name,a.`art_category_id`,a.art_sort,a.`gmt_create`,a.`gmt_modifed`,a.art_judge,a.`gmt_create`,a.art_create
+    FROM article a WHERE a.art_category_id=1
+    </select>
+
+    <select id="getArticleApplet"  resultMap="ArticleMap">
+        SELECT a.art_id,a.art_Images,a.art_name,a.`art_category_id`,a.art_sort,a.`gmt_create`,a.`gmt_modifed`,a.art_judge,a.`gmt_create`,a.art_create
+        FROM article a WHERE a.`art_id`=#{artId}
+    </select>
+
 </mapper>
