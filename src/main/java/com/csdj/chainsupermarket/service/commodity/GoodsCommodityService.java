@@ -5,12 +5,17 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 商品列表
+ * @author 温朝明
+ * @date 2019/12/16
+ */
 public interface GoodsCommodityService {
     /**
      * 分页查询
-     * @param currentPage
-     * @param pageSize
-     * @return
+     * @param currentPage 当前页码
+     * @param pageSize 页面大小
+     * @return 商品列表
      */
     List<GoodsCommodity> pageCommodity(int currentPage, int pageSize);
 
@@ -28,7 +33,7 @@ public interface GoodsCommodityService {
 
     /**
      * 删除商品
-     * @param id
+     * @param id 商品id
      * @return 删除结果
      */
     int delCommodity(@Param("id")Integer id);
@@ -49,7 +54,7 @@ public interface GoodsCommodityService {
 
     /**
      * 修改商品
-     * @param goodsCommodity
+     * @param goodsCommodity 商品信息
      * @return 执行结果
      */
     int upCommodity(GoodsCommodity goodsCommodity);
@@ -88,19 +93,30 @@ public interface GoodsCommodityService {
 
     /**
      * 查询商品
-     * @return
+     * @return 商品列表
      */
     List<GoodsCommodity> findGoods();
 
     /**
      * 根据id查询商品
-     * @param id
-     * @return
+     * @param id 商品id
+     * @return 商品列表
      */
     GoodsCommodity findGoodsById(int id);
 
+
+    /**
+     * 根据id查询商品
+     * @param id 商品id
+     * @return 商品列表
+     */
     GoodsCommodity getCommodity(@Param("id")Integer id);
 
+    /**
+     * 根据id查询商品
+     * @param id 商品id
+     * @return 商品列表
+     */
     GoodsCommodity getComById(@Param("id")Integer id);
 
 }

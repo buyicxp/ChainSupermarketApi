@@ -1,15 +1,10 @@
 package com.csdj.chainsupermarket.controller.commodity;
 
 import com.alibaba.fastjson.JSON;
-import com.csdj.chainsupermarket.entity.commodity.CommodityPub;
 import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
-import com.csdj.chainsupermarket.service.commodity.EsCommodityPubService;
 import com.csdj.chainsupermarket.service.commodity.GoodsCommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 
@@ -26,22 +21,20 @@ public class GoodsCommodityController {
     @Autowired
     private GoodsCommodityService goodsCommodityService;
 
-    @Resource
-    private EsCommodityPubService esCommodityPubService;
     /**
      * 按条件查询商品列表（分页）
      * @param start 起始页
      * @param pageSize 页面大小
-     * @param goodsTitle 商品名称
-     * @return
+     * @param goodsName 商品名称
+     * @return 商品列表
      */
     @RequestMapping(value ="/listCommodity",method = RequestMethod.POST)
     public String getBrand(@RequestParam(value = "start")int start,
                            @RequestParam(value = "pageSize") int pageSize,
-                           @RequestParam(value="goodsTitle",required = false)String goodsTitle,
+                           @RequestParam(value="goodsName",required = false)String goodsName,
                            @RequestParam(value="ccategoryid",required = false)Integer ccategoryid){
         System.out.println(ccategoryid);
-        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsTitle,ccategoryid));
+        String str = JSON.toJSONString(goodsCommodityService.listCommodity(start,pageSize,goodsName,ccategoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         return result;
     }
@@ -77,12 +70,6 @@ public class GoodsCommodityController {
     @RequestMapping(value = "/delCommodity")
     public Object delComm(@RequestParam(value="id")int id){
         int num=goodsCommodityService.delCommodity(id);
-        //创建搜索引擎对象
-        CommodityPub commodityPub =new CommodityPub();
-        commodityPub.setGoods_id(id);
-        commodityPub.setDrop(1);
-        //搜索引擎的修改，将drop状态改为1(删除)
-        esCommodityPubService.updateCommodityPub(commodityPub);
         if(num>0){
             return true;
         }
@@ -97,12 +84,6 @@ public class GoodsCommodityController {
     @RequestMapping(value = "/underCarriage")
     public Object downComm(@RequestParam(value="id")int id){
         int num=goodsCommodityService.underCarriage(id);
-        //创建搜索引擎对象
-        CommodityPub commodityPub =new CommodityPub();
-        commodityPub.setGoods_id(id);
-        commodityPub.setCondition(1);
-        //搜索引擎的修改，将condition状态改为1(下架)
-        esCommodityPubService.updateCommodityPub(commodityPub);
         if(num>0){
             return true;
         }
@@ -117,12 +98,6 @@ public class GoodsCommodityController {
     @RequestMapping(value = "/grounding")
     public Object upComm(@RequestParam(value="id")int id){
         int num=goodsCommodityService.grounding(id);
-        //创建搜索引擎对象
-        CommodityPub commodityPub =new CommodityPub();
-        commodityPub.setGoods_id(id);
-        commodityPub.setCondition(1);
-        //搜索引擎的修改，将condition状态改为0(上架)
-        esCommodityPubService.updateCommodityPub(commodityPub);
         if (num>0){
             return true;
         }
@@ -136,22 +111,16 @@ public class GoodsCommodityController {
      */
     @RequestMapping("/dele")
     public Object dele(@RequestParam("isList") List<Integer> list) {
-        //创建搜索引擎对象
-        CommodityPub commodityPub =new CommodityPub();
         for (Integer ints : list) {
             goodsCommodityService.delCommodity(ints);
-            commodityPub.setGoods_id(ints);
-            commodityPub.setDrop(1);
-            //搜索引擎的修改，将drop状态改为1(删除)
-            esCommodityPubService.updateCommodityPub(commodityPub);
         }
         return true;
     }
 
     /**
      * 按类型查询商品
-     * @param ccategoryid
-     * @return
+     * @param ccategoryid 商品类型的id
+     * @return 商品列表
      */
     @RequestMapping("/selectCom")
     public Object seleCom(@RequestParam(value="ccategoryid",required =false)Integer ccategoryid){
@@ -169,20 +138,6 @@ public class GoodsCommodityController {
     @RequestMapping("/addCom")
     public Object addCom(GoodsCommodity goodsCommodity){
         int num=goodsCommodityService.addCommodity(goodsCommodity);
-        //创建搜索引擎对象
-        CommodityPub commodityPub =new CommodityPub();
-        commodityPub.setGoods_id(goodsCommodity.getId());
-        commodityPub.setCondition(0);
-        commodityPub.setDrop(0);
-        commodityPub.setActivity_price(goodsCommodity.getActivityprice());
-        commodityPub.setGoods_name(goodsCommodity.getGoodsName());
-        commodityPub.setDetails(goodsCommodity.getDetails());
-        commodityPub.setPicture_path(goodsCommodity.getPicturepath());
-        commodityPub.setGoods_title(goodsCommodity.getGoodsTitle());
-        commodityPub.setTimestamp(new Date());
-        commodityPub.setUpper_down(0);
-        //搜索引擎 商品的添加
-        esCommodityPubService.insertCommodityPub(commodityPub);
         if(num>0){
             System.out.println(true);
             return true;

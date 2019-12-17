@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+/**
+ * 商品列表
+ * @author 温朝明
+ * @date 2019/12/16
+ */
 @Service("goods_CommodityService")
 @Transactional
 public class GoodsCommodityServiceImpl implements GoodsCommodityService {

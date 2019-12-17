@@ -77,14 +77,17 @@
             and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
         </where>
     </select>
+
     <!--查询所有商品-->
     <select id="findGoods" resultMap="CommodityMap">
-        select * from goods_product
+        select * from goods_commodity
     </select>
+
     <!--根据id查询商品-->
     <select id="findGoodsById" resultMap="CommodityMap" parameterType="int">
-        select * from goods_product where id=#{id}
+        select * from goods_commodity where id=#{id}
     </select>
+
     <!--删除商品-->
     <update id="delCommodity">
         update `goods_Commodity` set `del`=1 where id=#{id}
@@ -142,13 +145,5 @@
             </if>
             and gc.ccategoryid=gt.id
         </where>
-    </select>
-
-    <select id="findGoods" resultMap="CommodityMap">
-    select * from goods_product
-    </select>
-
-    <select id="findGoodsById" resultMap="CommodityMap" parameterType="int">
-    select * from goods_product where id=#{id}
     </select>
 </mapper>
