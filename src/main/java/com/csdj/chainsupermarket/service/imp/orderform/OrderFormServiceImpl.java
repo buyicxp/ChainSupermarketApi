@@ -7,10 +7,7 @@ import com.csdj.chainsupermarket.dao.orderform.MerchandiseOrderStatMapper;
 import com.csdj.chainsupermarket.dao.orderform.TradeOrderMapper;
 import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
 import com.csdj.chainsupermarket.entity.member.Member;
-import com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO;
-import com.csdj.chainsupermarket.entity.orderform.OrderFormDetailVO;
-import com.csdj.chainsupermarket.entity.orderform.OrderFormVO;
-import com.csdj.chainsupermarket.entity.orderform.StatPO;
+import com.csdj.chainsupermarket.entity.orderform.*;
 import com.csdj.chainsupermarket.service.orderform.OrderFormService;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +68,27 @@ public class OrderFormServiceImpl implements OrderFormService {
     public OrderFormDetailVO get(Integer id) {
         MerchandiseOrderPO merchandiseOrder = merchandiseOrderMapper.get(id);
         return getOrderFormDetail(merchandiseOrder);
+    }
+
+    @Override
+    public List<OrderFormApiVO> listByUser(Integer userId, Integer shopId, Integer stat) {
+        List<OrderFormApiVO> list = new ArrayList<>();
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, shopId, stat, 0
+                , null, null, null, null, null);
+        for (MerchandiseOrderPO m : merchandiseOrderList) {
+            GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(m.getGoodsId());
+            OrderFormApiVO orderFormApiVO = new OrderFormApiVO();
+            orderFormApiVO.setAmount(goodsCommodity.getPrice());
+            orderFormApiVO.setCount(m.getCount());
+            orderFormApiVO.setGoodsImgUrl(goodsCommodity.getPicturepath());
+            orderFormApiVO.setId(m.getId());
+            orderFormApiVO.setOrderId(m.getOrderId());
+            orderFormApiVO.setStatus(m.getStat());
+            orderFormApiVO.setName(goodsCommodity.getGoodsName());
+            orderFormApiVO.setTime(m.getTime());
+            list.add(orderFormApiVO);
+        }
+        return list;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.csdj.chainsupermarket.service.orderform;
 
 import com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO;
+import com.csdj.chainsupermarket.entity.orderform.OrderFormApiVO;
 import com.csdj.chainsupermarket.entity.orderform.OrderFormDetailVO;
 import com.csdj.chainsupermarket.entity.orderform.OrderFormVO;
 
@@ -60,4 +61,14 @@ public interface OrderFormService {
      * @return 订单详情表现类
      */
     OrderFormDetailVO get(Integer id);
+
+    /**
+     * 根据用户信息获取商品订单信息
+     *
+     * @param userId 用户ID
+     * @param shopId 门店ID
+     * @param stat   订单状态
+     * @return 订单API表现类列表
+     */
+    List<OrderFormApiVO> listByUser(Integer userId, Integer shopId, Integer stat);
 }
