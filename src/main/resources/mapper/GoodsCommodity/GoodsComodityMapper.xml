@@ -111,21 +111,21 @@
 
     <!--限时活动商品-->
     <select id="boundsCommodity" resultMap="CommodityMap">
-        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
          FROM `goods_commodity` gc,`goods_type` gt
          WHERE gt.id=gc.ccategoryid AND gc.bounds!=0 AND gc.upper_down=0 AND gc.del=0;
     </select>
 
     <!--预售活动商品-->
     <select id="presellCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
          from `goods_commodity` gc,`goods_type` gt
          where gt.id=gc.ccategoryid  and gc.presell!=0 and gc.upper_down=0 and gc.del=0;
     </select>
 
     <!--拼团活动商品-->
     <select id="activeCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
          from `goods_commodity` gc,`goods_type` gt
          where gt.id=gc.ccategoryid and gc.activityid!=0 and gc.upper_down=0 and gc.del=0;
     </select>
@@ -137,7 +137,7 @@
 
     <!--查询单个商品信息-->
     <select id="getComById" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
         from `goods_Commodity` gc,`goods_type` gt
         where gc.id=#{id} and gc.ccategoryid=gt.id
     </select>
