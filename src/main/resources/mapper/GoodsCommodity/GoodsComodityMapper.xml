@@ -20,7 +20,7 @@
         limit #{start},#{pageSize}
     </select>
 
-    <resultMap id="CommodityMap" type="GoodsCommodity">
+    <resultMap id="CommodityMap" type="com.csdj.chainsupermarket.entity.commodity.GoodsCommodity">
         <!--商品id-->
         <id property="id" column="id"/>
         <!--图片路径-->
