@@ -44,4 +44,40 @@ public class OrderFormControllerApi {
         }
         return result;
     }
+
+    @GetMapping("/cancel")
+    @ResponseBody
+    public Map<String, Object> cancel(
+            @RequestParam("id") Integer id
+    ) {
+        Map<String, Object> result = new HashMap<>(4);
+        try {
+            result.put("data", orderFormService.merge(id, null, 1));
+            result.put("msg", "Success");
+            result.put("code", 200);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+            result.put("msg", "Server error");
+            result.put("code", 500);
+        }
+        return result;
+    }
+
+    @GetMapping("/detail")
+    @ResponseBody
+    public Map<String, Object> detail(
+            @RequestParam("id") Integer id
+    ) {
+        Map<String, Object> result = new HashMap<>(4);
+        try {
+            result.put("data", orderFormService.seek(id));
+            result.put("msg", "Success");
+            result.put("code", 200);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+            result.put("msg", "Server error");
+            result.put("code", 500);
+        }
+        return result;
+    }
 }

@@ -91,6 +91,30 @@ public class OrderFormServiceImpl implements OrderFormService {
         return list;
     }
 
+    @Override
+    public int merge(Integer id, Integer state, Integer del) {
+        return merchandiseOrderMapper.merge(id, state, del);
+    }
+
+    @Override
+    public OrderFormDetailApiVO seek(Integer id) {
+        OrderFormDetailApiVO orderFormDetailApiVO = new OrderFormDetailApiVO();
+        MerchandiseOrderPO merchandiseOrder = merchandiseOrderMapper.get(id);
+        GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(merchandiseOrder.getGoodsId());
+        orderFormDetailApiVO.setTradeId(merchandiseOrder.getTradeId());
+        orderFormDetailApiVO.setTime(merchandiseOrder.getTime());
+        orderFormDetailApiVO.setCount(merchandiseOrder.getCount());
+        orderFormDetailApiVO.setStat(merchandiseOrder.getStat());
+        orderFormDetailApiVO.setGoodsName(goodsCommodity.getGoodsName());
+        orderFormDetailApiVO.setPrice(goodsCommodity.getPrice());
+        orderFormDetailApiVO.setGoodsImgUrl(goodsCommodity.getPicturepath());
+        orderFormDetailApiVO.setAddress("未定义地址");
+        orderFormDetailApiVO.setDis("未定义物流");
+        orderFormDetailApiVO.setContact("未定义联系人");
+        orderFormDetailApiVO.setPhone("未定义电话");
+        return orderFormDetailApiVO;
+    }
+
     /**
      * 获取订单表现对象
      *

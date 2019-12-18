@@ -55,4 +55,14 @@ public interface MerchandiseOrderMapper {
      * @return 商品订单实体类
      */
     MerchandiseOrderPO get(@Param("id") Integer id);
+
+    /**
+     * 根据唯一ID获取单个商品订单信息
+     *
+     * @param id    唯一ID
+     * @param state 要修改的状态
+     * @param del   删除状态
+     * @return 影响行数
+     */
+    int merge(@Param("id") Integer id, @Param("state") Integer state, @Param("del") Integer del);
 }
