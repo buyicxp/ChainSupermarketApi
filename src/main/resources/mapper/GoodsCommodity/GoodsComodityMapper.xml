@@ -139,11 +139,6 @@
     <select id="getComById" resultMap="CommodityMap">
         select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
         from `goods_Commodity` gc,`goods_type` gt
-        <where>
-            <if test="id!=null and id.trim()!=''">
-                and gc.id=#{id}
-            </if>
-            and gc.ccategoryid=gt.id
-        </where>
+        where gc.id=#{id} and gc.ccategoryid=gt.id
     </select>
 </mapper>
