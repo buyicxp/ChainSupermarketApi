@@ -15,5 +15,4 @@ public class ChainsupermarketApplication {
     public static void main(String[] args) {
         SpringApplication.run(ChainsupermarketApplication.class, args);
     }
-
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csdj.chainsupermarket.dao.member.MemberMapper">
+    <resultMap id="BaseResultMap" type="com.csdj.chainsupermarket.entity.member.Member" >
+        <id column="vip_id" property="vipId" jdbcType="BIGINT" />
+        <result column="vip_Images" property="vipImages" jdbcType="VARCHAR" />
+        <result column="vip_mname" property="vipMname" jdbcType="VARCHAR" />
+        <result column="vip_position" property="vipPosition" jdbcType="VARCHAR" />
+        <result column="vip_sex" property="vipSex" jdbcType="INTEGER" />
+        <result column="vip_phone" property="vipPhone" jdbcType="CHAR" />
+        <result column="vip_number" property="vipNumber" jdbcType="INTEGER" />
+        <result column="vip_create" property="vipCreate" jdbcType="TIMESTAMP" />
+        <result column="vip_modified" property="vipModified" jdbcType="TIMESTAMP" />
+        <result column="vip_integral" property="vipIntegral" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modifed" property="gmtModifed" jdbcType="TIMESTAMP" />
+        <result column="vip_card" property="vipCard" jdbcType="CHAR" />
+        <result column="vip_balance" property="vipBalance" jdbcType="DECIMAL" />
+        <result column="vip_address" property="vipAddress" jdbcType="VARCHAR" />
+        <result column="shopid" property="shopId" jdbcType="BIGINT" />
+    </resultMap>
+
+    <!--公共sql-->
+    <sql id="Base_Column_List" >
+           select  vip_id, vip_Images, vip_mname, vip_position, vip_sex, vip_phone, vip_number, vip_create,
+           vip_modified, vip_integral, gmt_create, gmt_modifed, vip_card, vip_balance, vip_address, shopid  from  member
+    </sql>
+
+    <!--查询总记录数-->
+    <select id="countMenber" resultType="int">
+       select count(1) from member
+    </select>
+
+    <!--查询当天会员添加数-->
+    <select id="countNewMenber" resultType="int">
+        SELECT COUNT(1) FROM `member` WHERE `vip_create` BETWEEN CURRENT_DATE() AND DATE_SUB(CURRENT_DATE(),INTERVAL -1 DAY)
+    </select>
+
+    <!--根据条件查询-->
+    <select id="queryMement" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        <where>
+            <if test="vipId != '' and vipId > 0"><!--会员ID-->
+                and vip_id = #{vipId}
+            </if>
+            <if test="vipMname != '' and vipMname != null"><!--会员名称-->
+                and vip_mname like concat('%', #{vipMname}, '%')
+            </if>
+            <if test="vipPosition != '' and vipPosition != null"><!--会员身份-->
+                and vip_position = #{vipPosition}
+            </if>
+            <if test="vipSex != '' and vipSex > 0"><!--会员性别-->
+                and vip_sex = #{vipSex}
+            </if>
+            <if test="vipNumber != '' and vipNumber != null"><!--购买次数-->
+                and vip_number = #{vipNumber}
+            </if>
+            <if test="vipPhone != '' and vipPhone != null"><!--会员电话号码-->
+                and vip_phone = #{vipPhone}
+            </if>
+            <if test="vipModified != null "><!--访问时间-->
+                and vip_modified BETWEEN #{vipCreate}  AND #{vipModified}
+            </if>
+        </where>
+        ORDER BY `vip_create` DESC
+    </select>
+
+    <!--根据Id查询单条信息-->
+    <select id="selectMemberId" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        where vip_id = #{vipId}
+    </select>
+
+</mapper>

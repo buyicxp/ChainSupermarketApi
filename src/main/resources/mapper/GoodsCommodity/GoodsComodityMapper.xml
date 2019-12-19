@@ -8,22 +8,25 @@
         SELECT gc.`id`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`del`
         FROM `goods_commodity` gc,`goods_type` gt
         <where>
-            <if test="goodsTitle!=null and goodsTitle.trim()!=''">
-                and gc.`goods_title`like concat('%',#{goodsTitle},'%')
+            <if test="goodsName!=null and goodsName.trim()!=''">
+                and gc.`goods_name`like concat('%',#{goodsName},'%')
             </if>
-            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+            <if test="ccategoryid!=null and ccategoryid!=''">
                 and gc.`ccategoryid`=#{ccategoryid}
             </if>
             and gc.ccategoryid=gt.id and gc.del!=1
         </where>
+        order by createdate desc
         limit #{start},#{pageSize}
     </select>
 
-    <resultMap id="CommodityMap" type="GoodsCommodity">
+    <resultMap id="CommodityMap" type="com.csdj.chainsupermarket.entity.commodity.GoodsCommodity">
         <!--商品id-->
         <id property="id" column="id"/>
         <!--图片路径-->
         <result property="picturepath" column="picturepath"/>
+        <!--商品名称-->
+        <result property="goodsName" column="goods_name"/>
         <!--商品标题-->
         <result property="goodsTitle" column="goods_title"/>
         <!--商品码-->
@@ -46,17 +49,15 @@
         <result property="bounds" column="bounds"/>
         <!--拼团活动id-->
         <result property="activityId" column="activityid"/>
-
-        <result property="content" column="content"/>
-
-        <result property="detailsId" column="detailsid"/>
+        <!--详情-->
+        <result property="details" column="details"/>
     </resultMap>
 
     <!--分页查询-->
     <select id="pageCommodity" resultMap="CommodityMap">
-        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`
         FROM `goods_commodity` gc,`goods_type` gt
-        where gc.ccategoryid=gt.id and gc.del!=1
+        where gc.ccategoryid=gt.id and gc.del!=1 order by gc.createdate desc
         limit #{start},#{pageSize}
     </select>
 
@@ -67,14 +68,24 @@
 
     <!--按类型查询商品-->
     <select id="selectCommodity" resultMap="CommodityMap">
-        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_title`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gd.content
-        from `goods_commodity` gc,`goods_type` gt,`goods_details` gd
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
+        from `goods_commodity` gc,`goods_type` gt
         <where>
-            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+            <if test="ccategoryid!=null and ccategoryid!=''">
                 and gc.ccategoryid=#{ccategoryid}
             </if>
-            and gc.ccategoryid=gt.id and gc.detailsid=gd.id and gc.upper_down=0 and gc.del=0
+            and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0
         </where>
+    </select>
+
+    <!--查询所有商品-->
+    <select id="findGoods" resultMap="CommodityMap">
+        select * from goods_commodity
+    </select>
+
+    <!--根据id查询商品-->
+    <select id="findGoodsById" resultMap="CommodityMap" parameterType="int">
+        select * from goods_commodity where id=#{id}
     </select>
 
     <!--删除商品-->
@@ -92,5 +103,42 @@
         update `goods_Commodity` set `upper_down`=0 where id=#{id}
     </update>
 
+    <!--添加商品-->
+    <insert id="addCommodity">
+        insert into `goods_Commodity`(`colorid`,`sizeid`,`details`,`activityid`,`goods_name`,`goods_title`,`ccategoryid`,`goods_code`,`picturepath`,`bigpicturepath`,`createdate`,`activityprice`,`price`,`weight`,`condition`,`upper_down`,`del`,`bounds`,`presell`)
+        values (#{colorid},#{sizeid},#{details},#{activityid},#{goodsname},#{goodstitle},#{ccategoryid},#{goodscode},#{picturepath},#{bigpicturepath},#{createdate},#{activityprice},#{price},#{weight},#{condition},#{upperdown},#{del},#{bounds},#{presell})
+    </insert>
 
+    <!--限时活动商品-->
+    <select id="boundsCommodity" resultMap="CommodityMap">
+        SELECT gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
+         FROM `goods_commodity` gc,`goods_type` gt
+         WHERE gt.id=gc.ccategoryid AND gc.bounds!=0 AND gc.upper_down=0 AND gc.del=0;
+    </select>
+
+    <!--预售活动商品-->
+    <select id="presellCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid  and gc.presell!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--拼团活动商品-->
+    <select id="activeCommodity" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
+         from `goods_commodity` gc,`goods_type` gt
+         where gt.id=gc.ccategoryid and gc.activityid!=0 and gc.upper_down=0 and gc.del=0;
+    </select>
+
+    <!--通过ID查询单个商品-->
+    <select id="getCommodity" resultMap="CommodityMap">
+        select id,goods_name,picturepath,price from `goods_commodity` where id=#{id}
+    </select>
+
+    <!--查询单个商品信息-->
+    <select id="getComById" resultMap="CommodityMap">
+        select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`bigpicturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details,gc.`activityprice`
+        from `goods_Commodity` gc,`goods_type` gt
+        where gc.id=#{id} and gc.ccategoryid=gt.id
+    </select>
 </mapper>

@@ -7,6 +7,7 @@ import com.csdj.chainsupermarket.util.marketing.PageUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,7 @@ public class GroupActivitiesServiceImpl implements GroupActivitiesService {
     }
     
     @Override
-    public int selectByEndTime(String endTime) {
+    public int selectByEndTime(Date endTime) {
         return dao.selectByEndTime(endTime);
     }
     

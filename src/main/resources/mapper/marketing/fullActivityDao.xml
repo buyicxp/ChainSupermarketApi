@@ -12,6 +12,7 @@
         <result column="executing_state" property="executingState" />
         <result column="activity_detail" property="activityDetail" />
         <result column="delete_state" property="deleteState" />
+        <result column="money" property="money" />
         <!-- 外键对象，分类对象 -->
         <association property="type" column="activity_nypeid"
                      select="com.csdj.chainsupermarket.dao.marketing.ActivityTypeDao.findById">
@@ -30,14 +31,14 @@
     <select id="findPage" parameterType="map" resultMap="fullActivityMap">
         select * from full_activity
         <where>
-            <if test="activityName!=null">
-                and activity_name like #{activityName}
-            </if>
             <if test="activity_nypeid!=null">
-                and activity_nypeid like #{activityNypeid}
+                and activity_nypeid = #{activityNypeid}
             </if>
             <if test="activity_rangeid!=null">
-                and activity_rangeid like #{activityRangeid}
+                and activity_rangeid = #{activityRangeid}
+            </if>
+            <if test="activityName!=null">
+                and activity_name like #{activityName}
             </if>
                 and delete_state =0
         </where>
@@ -62,24 +63,24 @@
         WHERE activityid=#{activityid}
     </update>
 
+    <update id="update" parameterType="map">
+        UPDATE full_activity
+        <set>
+            <if test="activityState=='启用'">
+                activity_state='停用'
+            </if>
+            <if test="activityState=='停用'">
+                activity_state='启用'
+            </if>
+        </set>
+        WHERE activityid=#{activityid}
+    </update>
+
     <!-- 插入数据 -->
- <!--   <insert id="insertFullActivity" parameterType="map">
-        INSERT INTO FULL_ACTIVITY (<include refid="allColumns" />)
-        VALUES (
-            #{activityid},
-            #{activityName},
-            #{activityNypeid},
-            #{activityTime},
-            #{activityRangeid},
-            #{activityState},
-            #{executingState},
-            #{activityDetail},
-            #{deleteState},
-            #{reserveOne},
-            #{reserveTwo},
-            #{reserveThree}
-        )
-    </insert>-->
+    <insert id="add" parameterType="FullActivityVO">
+            INSERT INTO FULL_ACTIVITY (`activity_name`,`activity_nypeid`,`Activity_time`,`activity_rangeid`,`activity_state`,`executing_state`,`activity_detail`,`delete_state`,`goodsid`,`goodstypeid`,`money`)
+        VALUES ( #{activityName},#{type.typeid},#{activityTime},#{range.rangeid},#{activityState},#{executingState},#{activityDetail},#{deleteState},#{goodsCommodity.id},#{goodsType.id},#{money})
+    </insert>
 
  <!--   &lt;!&ndash; 修改数据 &ndash;&gt;
     <update id="updateFullActivity" parameterType="map">

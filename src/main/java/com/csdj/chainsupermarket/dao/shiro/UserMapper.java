@@ -1,8 +1,8 @@
 package com.csdj.chainsupermarket.dao.shiro;
 
-import com.csdj.chainsupermarket.entity.shop.staff.StaffEmployee;
 import com.csdj.chainsupermarket.entity.shiro.Permission;
 import com.csdj.chainsupermarket.entity.shiro.Role;
+import com.csdj.chainsupermarket.entity.shop.staff.StaffEmployee;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

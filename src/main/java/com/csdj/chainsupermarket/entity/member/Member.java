@@ -6,45 +6,74 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * @author 姜佳豪
- * @date 2019/12/5
- * 会员
+ * @ProjectName: chainsupermarket
+ * @Package: com.csdj.chainsupermarket.entity.member
+ * @ClassName: Member
+ * @Author: 姜某某
+ * @Date: 2019/12/4 16:43
  */
 public class Member {
+
     /** 时间转换 */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 
-    /** 用户ID */
+    /**
+     * 用户ID */
     private Long vipId;
-    /** 用户头像 */
+    /**
+     *  用户头像 */
     private String vipImages;
-    /** 昵称 */
+    /**
+     *  昵称 */
     private String vipMname;
-    /** 身份 */
+    /**
+     *  身份 */
     private String vipPosition;
-    /** 性别（0为男，1为女） */
+    /**
+     *  性别（1为男，2为女） */
     private Integer vipSex;
-    /** 手机号码 */
+    /**
+     *  手机号码 */
     private String vipPhone;
-    /** 消费次数 */
+    /**
+     *  消费次数 */
     private Integer vipNumber;
-    /** 起始时间 */
+    /**
+     *  起始时间 */
     private Date vipCreate;
-    /** 结束时间 */
+    /**
+     *  结束时间 */
     private Date vipModified;
-    /** 会员积分 */
+    /**
+     *  会员积分 */
     private Integer vipIntegral;
-    /** 创建时间 */
+    /**
+     *  创建时间 */
     private Date gmtCreate;
-    /** 末尾时间 */
+    /**
+     *  末尾时间 */
     private Date gmtModifed;
-    /** 会员卡号 */
+    /**
+     *  会员卡号 */
     private String vipCard;
-    /** 线下钱包 */
+    /**
+     *  线下钱包 */
     private Double vipBalance;
-    /** 家庭地址 */
+    /**
+     *  家庭地址 */
     private String vipAddress;
+    /**
+     *  门店id */
+    private Long shopId;
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
 
     public Long getVipId() {
         return vipId;
@@ -187,6 +216,7 @@ public class Member {
         sb.append(", vipCard=").append(vipCard);
         sb.append(", vipBalance=").append(vipBalance);
         sb.append(", vipAddress=").append(vipAddress);
+        sb.append(", shopId=").append(shopId);
         sb.append("]");
         return sb.toString();
     }

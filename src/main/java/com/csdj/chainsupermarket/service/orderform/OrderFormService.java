@@ -1,7 +1,6 @@
 package com.csdj.chainsupermarket.service.orderform;
 
-import com.csdj.chainsupermarket.entity.orderform.OrderFormDetailVO;
-import com.csdj.chainsupermarket.entity.orderform.OrderFormVO;
+import com.csdj.chainsupermarket.entity.orderform.*;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface OrderFormService {
      * @param andTime 订单生成时间_大
      * @param index   查询开始索引
      * @param size    查询数量
-     * @return 订单表现类
+     * @return 订单表现类列表
      */
     List<OrderFormVO> summary(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime, Integer index, Integer size);
 
@@ -51,4 +50,39 @@ public interface OrderFormService {
      * @return 数量
      */
     int count(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime);
+
+    /**
+     * 根据唯一ID获取单个商品订单信息
+     *
+     * @param id 唯一ID
+     * @return 订单详情表现类
+     */
+    OrderFormDetailVO get(Integer id);
+
+    /**
+     * 根据用户信息获取商品订单信息
+     *
+     * @param userId 用户ID
+     * @param shopId 门店ID
+     * @param stat   订单状态
+     * @return 订单API表现类列表
+     */
+    List<OrderFormApiVO> listByUser(Integer userId, Integer shopId, Integer stat);
+
+    /**
+     * 根据唯一ID修改单个商品订单信息
+     *
+     * @param id    唯一ID
+     * @param state 要修改的状态
+     * @param del   删除状态
+     * @return 影响的行数
+     */
+    int merge(Integer id, Integer state, Integer del);
+    /**
+     * 根据唯一ID修改单个商品订单信息
+     *
+     * @param id    唯一ID
+     * @return 订单详情Api表现类
+     */
+    OrderFormDetailApiVO seek(Integer id);
 }

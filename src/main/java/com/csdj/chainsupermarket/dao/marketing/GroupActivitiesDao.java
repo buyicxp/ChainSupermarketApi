@@ -3,6 +3,7 @@ package com.csdj.chainsupermarket.dao.marketing;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,10 @@ public interface GroupActivitiesDao {
      * 查询活动名称是否冲突
      * @author    阿浩i
      * @param     activityName
-     * @return    java.lang.String
+     * @return    GroupActivities
      * @date      2019/12/4 9:03
      */
-    String selectByActivityName(String activityName);
+    GroupActivities selectByActivityName(String activityName);
     
     /**
      * 查询所有活动
@@ -75,7 +76,7 @@ public interface GroupActivitiesDao {
      * @param     endTime
      * @date      2019/12/6 14:10
      */
-    int selectByEndTime(String endTime);
+    int selectByEndTime(Date endTime);
     
     /**
      * 查询所有数据，设置活动接口

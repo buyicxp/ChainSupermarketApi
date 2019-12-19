@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.article.ArticleMapper">
+
+    <resultMap id="ArticleTypeMap" type="ArticleType">
+        <id column="art_id" property="artId"/>
+        <result column="tcategory_name" property="tcategoryName"/>
+        <result column="tsuperior_category" property="tsuperiorCategory"/>
+        <result column="tsketch" property="tsketch"/>
+        <result column="tcreate" property="tcreate"/>
+        <result column="art_judge" property="artJudge"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modifed" property="gmtModifed"/>
+    </resultMap>
+
+    <resultMap id="ArticleMap" type="Article">
+        <id column="art_id" property="artId"/>
+        <result column="art_Images" property="artImages"/>
+        <result column="art_name" property="artName"/>
+        <result column="art_category_id" property="artCategoryId"/>
+        <result column="art_sort" property="artSort"/>
+        <result column="art_create" property="artCreate"/>
+        <result column="gmt_modifed" property="gmtModifed"/>
+        <result column="art_judge" property="artJudge"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="art_content" property="artContent"/>
+        <collection property="articleType" ofType="ArticleType" resultMap="ArticleTypeMap" ></collection>
+    </resultMap>
+
+    <select id="pageInfoArticle" resultMap="ArticleMap">
+        SELECT a.art_id,a.art_Images,a.art_name,t.tcategory_name,a.art_judge,art_sort,a.art_create
+        FROM article a LEFT JOIN article_type t ON(a.art_category_id= t.art_id)
+       <where>
+           <if test="artName !=''">
+               and a.art_name like CONCAT('%',#{artName},'%')
+           </if>
+           <if test="artId != 0">
+               and t.art_id=#{artId}
+           </if>
+       </where>
+    </select>
+
+    <delete id="deleteArticle">
+       delete from article where art_id=#{artId}
+    </delete>
+
+    <insert id="insertArticle">
+      INSERT  INTO `article` (art_name,art_images,art_category_id,art_sort,art_create,art_judge,art_content,gmt_modifed,gmt_create)
+        VALUES (#{artName},#{artImages},#{artCategoryId},#{artSort},#{artCreate},#{artJudge},#{artContent},NOW(),NOW())
+    </insert>
+
+    <select id="listArticleApplet"  resultMap="ArticleMap">
+    SELECT a.art_id,a.art_Images,a.art_name,a.`art_category_id`,a.art_sort,a.`gmt_create`,a.`gmt_modifed`,a.art_judge,a.`gmt_create`,a.art_create
+    FROM article a WHERE a.art_category_id=1
+    </select>
+
+    <select id="getArticleApplet"  resultMap="ArticleMap">
+        SELECT a.art_id,a.art_Images,a.art_name,a.`art_category_id`,a.art_sort,a.`gmt_create`,a.`gmt_modifed`,a.art_judge,a.`gmt_create`,a.art_create
+        FROM article a WHERE a.`art_id`=#{artId}
+    </select>
+
+</mapper>

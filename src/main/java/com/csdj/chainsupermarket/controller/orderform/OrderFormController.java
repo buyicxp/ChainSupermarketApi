@@ -79,6 +79,22 @@ public class OrderFormController {
         return result;
     }
 
+    @GetMapping("/get")
+    @ResponseBody
+    public Map<String, Object> get(@RequestParam("id") Integer id) {
+        Map<String, Object> result = new HashMap<>(3);
+        try {
+            result.put("data", orderFormService.get(id));
+            result.put("msg", "Success");
+            result.put("code", 200);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+            result.put("msg", "Server error");
+            result.put("code", 500);
+        }
+        return result;
+    }
+
     private boolean notValidDate(String strDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {

@@ -1,28 +1,28 @@
 package com.csdj.chainsupermarket.service.marketing;
 
-import com.csdj.chainsupermarket.dao.marketing.ActivityRangeDao;
 import com.csdj.chainsupermarket.entity.marketing.ActivityRangeVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @version 版本号        1.0
  * @author： 作者名称     张晟
- * @date 创建时间        2019/12/5/0005 11:25
+ * @date 创建时间        2019/12/9/0009 13:59
  * Modified Date: 修改日期
  * Why & What is modified  修改原因描述
  */
-@Service
-public class ActivityRangeService {
-    @Autowired
-    ActivityRangeDao activityRangeDao;
-    public List<ActivityRangeVO> findAllRange(){
-        return activityRangeDao.findAllRange();
-    }
+public interface ActivityRangeService {
+    /**
+     * 查询满减满赠活动的所有范围
+     * @return
+     */
+    public List<ActivityRangeVO> findAllRange();
 
-    public ActivityRangeVO findById(int rangeid){
-        return activityRangeDao.findById(rangeid);
-    }
+    /**
+     * 根据id查询活动范围
+     * @param rangeid
+     * @return
+     */
+    public ActivityRangeVO findById(int rangeid);
+
 }

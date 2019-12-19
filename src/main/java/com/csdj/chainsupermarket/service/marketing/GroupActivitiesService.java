@@ -3,6 +3,7 @@ package com.csdj.chainsupermarket.service.marketing;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
 import com.csdj.chainsupermarket.util.marketing.PageUtil;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public interface GroupActivitiesService {
      * @return    java.util.List<com.csdj.chainsupermarket.entity.marketing.GroupActivities>
      * @date      2019/12/6 14:14
      */
-    int selectByEndTime(String endTime);
+    int selectByEndTime(Date endTime);
     
     /**
      * 查询所有数据，设置活动接口

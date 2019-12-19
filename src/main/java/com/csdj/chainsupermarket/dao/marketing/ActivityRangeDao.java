@@ -15,7 +15,17 @@ import java.util.List;
  */
 @Mapper
 public interface ActivityRangeDao {
+    /**
+     * 查询所有活动范围
+     * @return
+     */
     List<ActivityRangeVO> findAllRange();
+
+    /**
+     * 根据id查询活动范围
+     * @param rangeid
+     * @return
+     */
     ActivityRangeVO findById(int rangeid);
 
 }

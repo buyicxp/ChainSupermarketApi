@@ -61,4 +61,28 @@
             </if>
         </where>
     </select>
+    <select id="get" resultType="com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO">
+        <!-- 根据唯一ID获取单个商品订单信息 -->
+        SELECT id,order_id orderId, trade_id tradeId,shop_id shopId, goods_id goodsId, count, time, user_id userId,
+        dis_id disId, stat, del
+        FROM merchandise_order
+        <where>
+            <if test="id!=null">
+                AND id=#{id}<!-- 唯一ID -->
+            </if>
+        </where>
+    </select>
+    <update id="merge">
+        <!-- 根据唯一ID修改单个商品订单信息 -->
+        UPDATE merchandise_order
+        <set>
+            <if test="state!=null">
+                stat=#{state},
+            </if>
+            <if test="del!=null">
+                del=#{del}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
