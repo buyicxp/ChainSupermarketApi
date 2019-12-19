@@ -72,4 +72,17 @@
             </if>
         </where>
     </select>
+    <update id="merge">
+        <!-- 根据唯一ID修改单个商品订单信息 -->
+        UPDATE merchandise_order
+        <set>
+            <if test="state!=null">
+                stat=#{state},
+            </if>
+            <if test="del!=null">
+                del=#{del}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>

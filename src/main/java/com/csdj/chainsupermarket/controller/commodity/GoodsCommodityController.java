@@ -5,10 +5,7 @@ import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
 import com.csdj.chainsupermarket.service.commodity.GoodsCommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -28,8 +25,8 @@ public class GoodsCommodityController {
      * 按条件查询商品列表（分页）
      * @param start 起始页
      * @param pageSize 页面大小
-     * @param goodsTitle 商品名称
-     * @return
+     * @param goodsName 商品名称
+     * @return 商品列表
      */
     @RequestMapping(value ="/listCommodity",method = RequestMethod.POST)
     public String getBrand(@RequestParam(value = "start")int start,
@@ -122,8 +119,8 @@ public class GoodsCommodityController {
 
     /**
      * 按类型查询商品
-     * @param ccategoryid
-     * @return
+     * @param ccategoryid 商品类型的id
+     * @return 商品列表
      */
     @RequestMapping("/selectCom")
     public Object seleCom(@RequestParam(value="ccategoryid",required =false)Integer ccategoryid){
@@ -177,11 +174,15 @@ public class GoodsCommodityController {
         String str =JSON.toJSONString(goodsCommodityService.activeCommodity());
         return str;
     }
-    @RequestMapping("/goodsList")
-    public Map findGoods(){
-        Map map=new HashMap();
-        List<GoodsCommodity> findGoods=goodsCommodityService.findGoods();
-        map.put("findGoods",findGoods);
-        return map;
+
+    /**
+     * 通过id查询单个商品信息
+     * @param id 商品id
+     * @return 商品信息
+     */
+    @RequestMapping("/getById")
+    public Object getComById(@RequestParam(value="id")Integer id){
+        String str =JSON.toJSONString(goodsCommodityService.getComById(id));
+        return str;
     }
 }

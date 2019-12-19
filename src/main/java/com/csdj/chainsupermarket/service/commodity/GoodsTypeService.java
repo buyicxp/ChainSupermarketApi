@@ -1,6 +1,7 @@
 package com.csdj.chainsupermarket.service.commodity;
 
 import com.csdj.chainsupermarket.entity.commodity.GoodsType;
+import com.csdj.chainsupermarket.entity.commodity.GoodsTypeDTO;
 
 import java.util.List;
 
@@ -58,6 +59,25 @@ public interface GoodsTypeService {
      * @return
      */
     public List<GoodsType> getTypeNameList();
+    /**
+     * 修改类型
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeUpdate(GoodsTypeDTO goodsType);
+
+    /**
+     * 父类增加
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeAddfu(GoodsTypeDTO goodsType);
+    /**
+     * 子类增加
+     * @param goodsType
+     * @return
+     */
+    public Integer getGoodsTypeAddzi(GoodsTypeDTO goodsType);
 
     /**
      * @Description  ：查询所有父类
@@ -78,5 +98,6 @@ public interface GoodsTypeService {
      * @date         : 2019/12/10 17:33
      */
     public GoodsType findById(int id);
+
 
 }

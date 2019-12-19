@@ -1,5 +1,7 @@
 package com.csdj.chainsupermarket.entity.marketing;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Date;
  * @author bianj
  * @version 1.0.0 2019-12-04
  */
+@Data
 public class CouponCollection implements java.io.Serializable {
     /** 版本号 */
     private static final long serialVersionUID = -8266898803981640025L;
@@ -18,8 +21,8 @@ public class CouponCollection implements java.io.Serializable {
     /** 优惠券编号：外键 */
     private DiscountCoupon discountCoupon;
 
-    /** 用户编号：外键 */
-    private Long userId;
+    /** 用户编号:外键 */
+    private UserInfo userInfo;
 
     /** 领取时间 */
     private Date drawTime;

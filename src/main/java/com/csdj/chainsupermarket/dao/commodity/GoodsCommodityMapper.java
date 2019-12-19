@@ -5,13 +5,19 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+/**
+ * 商品列表
+ * @author 温朝明
+ * @date 2019/12/16
+ */
 @Repository
 public interface GoodsCommodityMapper {
     /**
      * 分页查询
-     * @param start
-     * @param pageSize
-     * @return
+     * @param start 开始页面
+     * @param pageSize 页面大小
+     * @return 商品列表
      */
     List<GoodsCommodity> pageCommodity(@Param(value = "start") int start,
                                        @Param(value = "pageSize") int pageSize);
@@ -24,6 +30,7 @@ public interface GoodsCommodityMapper {
                                        @Param(value = "pageSize") int pageSize,
                                        @Param(value="goodsName")String goodsName,
                                        @Param(value="ccategoryid")Integer ccategoryid);
+
 
     /**
      *查询总数
@@ -54,7 +61,7 @@ public interface GoodsCommodityMapper {
 
     /**
      * 修改商品
-     * @param goodsCommodity
+     * @param goodsCommodity 商品信息
      * @return 执行结果
      */
     int upCommodity(GoodsCommodity goodsCommodity);
@@ -94,14 +101,27 @@ public interface GoodsCommodityMapper {
 
     /**
      * 查询商品
-     * @return
+     * @return 商品列表
      */
     List<GoodsCommodity> findGoods();
     /**
      * 根据id查询商品
-     * @param id
-     * @return
+     * @param id 商品id
+     * @return 商品列表
      */
     GoodsCommodity findGoodsById(int id);
+
+    /**
+     * 根据id查询商品
+     * @param id 商品id
+     * @return 商品列表
+     */
     GoodsCommodity getCommodity(@Param("id")Integer id);
+
+    /**
+     * 根据id查询商品
+     * @param id 商品id
+     * @return 商品列表
+     */
+    GoodsCommodity getComById(@Param("id")Integer id);
 }

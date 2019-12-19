@@ -4,6 +4,7 @@ package com.csdj.chainsupermarket.entity.marketing;
 
 import lombok.Data;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -27,10 +28,10 @@ public class UsageRestriction implements java.io.Serializable {
     private String restrictionName;
 
     /** 开始时间 */
-    private Date begintime;
+    private Time begintime;
 
     /** 结束时间 */
-    private Date stoptime;
+    private Time stoptime;
 
     /** 创建时间 */
     private Date gmtCreate;

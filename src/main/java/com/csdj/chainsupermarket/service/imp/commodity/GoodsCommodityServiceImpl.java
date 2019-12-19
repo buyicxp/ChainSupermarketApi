@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+/**
+ * 商品列表
+ * @author 温朝明
+ * @date 2019/12/16
+ */
 @Service("goods_CommodityService")
 @Transactional
 public class GoodsCommodityServiceImpl implements GoodsCommodityService {
@@ -26,6 +32,8 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
         int start = (currentPage-1)*pageSize;
         return goodsCommodityMapper.listCommodity(start,pageSize,goodsName,ccategoryid);
     }
+
+
 
     @Override
     public int countCommodity() {
@@ -88,6 +96,11 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
     @Override
     public GoodsCommodity getCommodity(Integer id) {
         return goodsCommodityMapper.getCommodity(id);
+    }
+
+    @Override
+    public GoodsCommodity getComById(Integer id) {
+        return goodsCommodityMapper.getComById(id);
     }
 
 }

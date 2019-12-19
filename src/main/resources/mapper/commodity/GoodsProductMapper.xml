@@ -4,17 +4,130 @@
 
 <!-- COMPUTING_TIME 计算时间方式 -->
 <mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsProductMapper">
+    <resultMap type="GoodsProduct" id="GoodsProductMap">
+        <id column="id" property="id"/>
+        <result column="colorid" property="colorId"/>
+        <result column="sizeid" property="sizeId"/>
+        <result column="details" property="details"/>
+        <result column="activityid" property="activityId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_title" property="goodsTitle"/>
+        <result column="categoryId" property="categoryId"/>
+        <result column="goods_code" property="goodsCode"/>
+        <result column="picturepath" property="picturePath"/>
+        <result column="bigpicturepath" property="bigPicturePath"/>
+        <result column="createdate" property="createDate"/>
+        <result column="price" property="price"/>
+        <result column="activityprice" property="activityPrice"/>
+        <result column="weight" property="weight"/>
+        <result column="locking" property="locking"/>
+        <result column="dis_id" property="disId"/>
+        <result column="already" property="already"/>
+        <result column="upper_down" property="upperDowm"/>
+        <result column="del" property="del"/>
+        <result column="bounds" property="bounds"/>
+        <result column="presell" property="presell"/>
+        <result column="putshelves" property="putshelves"/>
+    </resultMap>
+
     <insert id="addGoods" parameterType="GoodsProduct">
         INSERT INTO `goods_product`
-        (`id`,`colorid`,`sizeid`,`detailsid`,`activityid`,
+        (`id`,`colorid`,`sizeid`,`details`,`activityid`,
         `goods_name`,`goods_title`,`categoryid`,`goods_code`,
         `picturepath`,`bigpicturepath`,`createdate`,`activityprice`,
         `price`,`weight`,`locking`,`already`,`dis_id`,
         `upper_down`,`del`,`bounds`,`presell`)
-        VALUES (0,#{colorId},#{sizeId},#{detailsId},
+        VALUES (0,#{colorId},#{sizeId},#{details},
         #{activityId},#{goodsName},#{goodsTitle},#{categoryId},
         #{goodsCode},#{picturePath},#{bigPicturePath},#{createDate},#{activityPrice},
-        #{price},#{weigth},#{locking},#{already},0,
+        #{price},#{weight},#{locking},#{already},0,
         1,0,#{bounds},#{presell});
     </insert>
+    <!--查询商品列表-->
+    <select id="listProduct" resultMap="GoodsProductMap" parameterType="map">
+        <!--		SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry` FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg-->
+
+        <!--		<where>-->
+        <!--			<if test="goodstitle!=null and goodstitle!=''">-->
+        <!--				and gd.`goods_title`like concat('%',#{goodsTitle},'%')-->
+        <!--			</if>-->
+        <!--			<if test="categoryid!=null and categoryid!=''">-->
+        <!--				and gd.`categoryid`=#{categoryid}-->
+        <!--			</if>-->
+        <!--			and pd.categoryid=ty.id-->
+        <!--		</where>-->
+        SELECT * FROM `goods_product` a,goods_type b
+        <where>
+        a.categoryId=b.id AND a.putshelves=1
+            <if test="goodsTitle!=null and goodsTitle!=''">
+              and  a.goods_title like  concat ('%',#{goodsTitle},'%')
+            </if>
+            <if test="categoryid!=null and categoryid!=''">
+              and a.`categoryid`=#{categoryid}
+            </if>
+        </where>
+        limit #{start},#{pageSize}
+    </select>
+
+    <!--查询商品列表-->
+    <select id="listProductshelves" resultMap="GoodsProductMap" parameterType="map">
+        <!--		SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry` FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg-->
+
+        <!--		<where>-->
+        <!--			<if test="goodstitle!=null and goodstitle!=''">-->
+        <!--				and gd.`goods_title`like concat('%',#{goodsTitle},'%')-->
+        <!--			</if>-->
+        <!--			<if test="categoryid!=null and categoryid!=''">-->
+        <!--				and gd.`categoryid`=#{categoryid}-->
+        <!--			</if>-->
+        <!--			and pd.categoryid=ty.id-->
+        <!--		</where>-->
+        SELECT * FROM `goods_product` a,goods_type b
+        <where>
+            a.categoryId=b.id AND a.putshelves=0
+            <if test="goodsTitle!=null and goodsTitle!=''">
+                and  a.goods_title like  concat ('%',#{goodsTitle},'%')
+            </if>
+            <if test="categoryid!=null and categoryid!=''">
+                and a.`categoryid`=#{categoryid}
+            </if>
+        </where>
+        limit #{start},#{pageSize}
+    </select>
+
+    <!--修改产品拉取状态-->
+    <update id="updateProduct">
+        UPDATE `goods_product` SET  putshelves=#{putshelves} WHERE id =#{id}
+    </update>
+
+
+    <select id="pageProduct" resultMap="GoodsProductMap">
+--         SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry`
+--  FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg  WHERE pd.categoryid=ty.id
+	 SELECT id,picturepath,goods_title ,categoryid,activityprice,price,weight,locking,dis_id FROM `goods_product`
+    </select>
+
+    <!--查询总记录数-->
+    <select id="countProduct" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM goods_product
+    </select>
+
+    <!--删除产品-->
+    <delete id="delProduct">
+         DELETE FROM `goods_product`  WHERE id =#{id}
+    </delete>
+    <!--修改产品信息-->
+    <update id="upProduct">
+        UPDATE `goods_product` SET `price`=#{price},`weight`=#{weight},`dis_id`=#{dis_id} WHERE id =#{id}
+    </update>
+
+    <!--下架产品-->
+    <update id="underCarriage">
+       UPDATE  `goods_product` SET `upper_down`=1 WHERE id=#{id}
+    </update>
+
+    <!--上架产品-->
+    <update id="grounding">
+        update `goods_product` set `upper_down`=0 where id=#{id}
+    </update>
 </mapper>

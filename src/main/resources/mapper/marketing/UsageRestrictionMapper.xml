@@ -26,4 +26,29 @@
         from USAGE_RESTRICTION
         where COUPON_ID=#{couponId}
     </select>
+    <!--添加使用限制-->
+    <insert id="addUsageRestriction" parameterType="map">
+        INSERT INTO `usage_restriction`(RESTRICTION_ID, COUPON_ID, RESTRICTION_NAME, BEGINTIME, STOPTIME, GMT_CREATE,GMT_MODIFIED)
+        VALUES(0,@@IDENTITY,#{restrictionName},#{restrictionBeginTime},#{stoptime},#{now},#{now});
+    </insert>
+
+    <!--根据优惠券ID添加-->
+    <insert id="addInfo" parameterType="map">
+        INSERT INTO `usage_restriction`(RESTRICTION_ID, COUPON_ID, RESTRICTION_NAME, BEGINTIME, STOPTIME, GMT_CREATE,GMT_MODIFIED)
+        VALUES(0,#{couponId},#{restrictionName},#{restrictionBeginTime},#{stoptime},#{now},#{now});
+    </insert>
+    <!--删除使用限制-->
+    <delete id="delUsageRestriction" parameterType="int">
+        delete from usage_restriction where COUPON_ID=#{couponId}
+    </delete>
+    <!--修改使用限制-->
+    <update id="updateUsageRestriction" parameterType="map">
+        UPDATE USAGE_RESTRICTION SET
+            COUPON_ID = #{couponId},
+            RESTRICTION_NAME = #{restrictionName},
+            BEGINTIME = #{restrictionBeginTime},
+            STOPTIME = #{stoptime},
+            GMT_MODIFIED = #{now}
+        WHERE RCOUPON_ID=#{couponId}
+    </update>
 </mapper>

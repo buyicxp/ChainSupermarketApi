@@ -29,7 +29,7 @@ public class ArticleServiceImp implements ArticleService {
      *
      * 文章列表分页查询
      * @param currentPage  从第几条数据开始查
-     * @param pageSiz 每页显示多少数据
+     * @param pageSize 每页显示多少数据
      * @artName 咨询名称(模糊查询)
      * @artId 文章分类Id(模糊查询)
      * @return 一个多个对象的Article类型的PageInfo集合
@@ -69,5 +69,20 @@ public class ArticleServiceImp implements ArticleService {
     public Integer insertArticle(Article article) {
         return am.insertArticle(article);
     }
+
+    /**
+     * 查询推荐文章的所有文章 返回给小程序前台
+     * @return 返回Article类型的List集合
+     */
+    @Override
+    public List<Article> listArticleApplet(){ return am.listArticleApplet(); }
+
+    /**
+     * 按小程序传过来的id查询文章 返回给小程序
+     * @param artId 文章列表的id
+     * @return 返回的是文章列表的一个单个对象
+     */
+    @Override
+    public Article getArticleApplet(int artId){ return am.getArticleApplet(artId); }
 
 }

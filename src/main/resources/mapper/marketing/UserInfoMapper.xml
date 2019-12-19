@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.UserInfoMapper">
+    <!-- 结果映射 -->
+    <resultMap id="map" type="UserInfo">
+        <id column="Sf_employeeId" property="userId"/>
+        <result column="Sf_Employname" property="userName"/>
+    </resultMap>
+    <!--外键查询方法-->
+    <select id="findById" parameterType="int" resultMap="map">
+        select `Sf_employeeId`,`Sf_Employname`
+        from `staff_employee`
+        where Sf_employeeId = #{userId}
+    </select>
+</mapper>

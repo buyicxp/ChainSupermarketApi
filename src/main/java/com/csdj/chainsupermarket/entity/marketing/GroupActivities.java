@@ -89,6 +89,32 @@ public class GroupActivities implements Serializable {
      */
     private int activityState;
     
+    /**
+     * 其他参数
+     */
+    private String parameters;
+    
+    public String getParameters() {
+        return parameters;
+    }
+    
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
+    }
+    
+    public String getRemarks() {
+        return remarks;
+    }
+    
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+    
+    /**
+     * 备注说明
+     */
+    private String remarks;
+    
     public String getActivitiesId() {
         return activitiesId;
     }

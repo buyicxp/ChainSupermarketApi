@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.freight.BillFreightMapper">
+
+    <resultMap id="BillFreightMapperMap" type="BillFreight">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在entity中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="billId" column="bill_id" />
+        <!-- 定义普通属性 -->
+        <result property="billFormId" column="bill_form_id"/>
+        <result property="billFormPrice" column="bill_form_price"/>
+        <result property="billStartAddress" column="bill_start_address"/>
+        <result property="billEndAddress" column="bill_end_address"/>
+        <result property="billPrice" column="Bill_price"/>
+        <result property="billWeight" column="Bill_weight"/>
+        <result property="billState" column="Bill_State"/>
+        <result property="billFreightCharge" column="Bill_freight_charge"/>
+
+    </resultMap>
+
+    <select id="listConditionFreight" resultMap="BillFreightMapperMap">
+        select
+        bill_id,bill_form_id,bill_form_price,bill_start_address,bill_end_address,Bill_price,Bill_weight,Bill_State,Bill_freight_charge
+        from
+        bill_freight
+        <where>
+            <if test="formId != null and billId != 0">
+                and bill_form_id = #{formId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveFreight">
+        insert into  bill_freight
+        (bill_form_id,bill_form_price,bill_start_address,bill_end_address,Bill_price,Bill_weight,Bill_State,Bill_freight_charge)
+        values
+        (#{billFormId},#{billFormPrice},#{billStartAddress},#{billEndAddress},#{billPrice},#{billWeight},#{billState},#{billFreightCharge})
+    </insert>
+
+    <update id="updateFreight">
+        UPDATE bill_freight
+        SET
+        bill_form_price=#{billFormPrice},bill_start_address= #{billStartAddress},
+        bill_end_address=#{billEndAddress},Bill_price= #{billPrice},
+        Bill_weight=#{billWeight},Bill_State= #{billState},
+        Bill_freight_charge=#{billFreightCharge}
+        WHERE
+        bill_id = #{billId}
+    </update>
+
+</mapper>   

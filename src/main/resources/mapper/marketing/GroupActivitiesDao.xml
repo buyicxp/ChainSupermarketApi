@@ -6,9 +6,11 @@
     <!-- 插入数据 -->
     <insert id="addGroup" parameterType="GroupActivities">
 		INSERT INTO group_activities
-			(activity_name,activity_number,activity_same_time,validhours,limited_quantity,start_time,end_time,creation_time,store_id)
+			(activity_name,activity_number,activity_same_time,validhours,limited_quantity
+			    ,start_time,end_time,creation_time,store_id,parameters,remarks)
 		VALUES
-			(#{activityName},#{activityNumber},#{activitySameTime},#{validHours},#{limitedQuantity},#{startTime},#{endTime},#{creationTime},#{storeId})
+			(#{activityName},#{activityNumber},#{activitySameTime},#{validHours}
+			    ,#{limitedQuantity},#{startTime},#{endTime},#{creationTime},#{storeId},#{parameters},#{remarks})
 	</insert>
 
     <!-- 查询活动名称是否冲突 -->

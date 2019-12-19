@@ -58,6 +58,7 @@ public class GoodsType implements DataTree<GoodsType> {
      */
     private List<GoodsType> childList;
 
+
     public GoodsType() {
     }
 

@@ -47,7 +47,7 @@
     <select id="findByAll" resultMap="map">
         select <include refid="allColumns"></include>
         from discount_coupon
-        where  status =0
+        where  status =0 ORDER BY begintime
     </select>
     <!--查询单个优惠券-->
     <select id="findById" resultMap="map" parameterType="int">
@@ -55,4 +55,66 @@
         from discount_coupon
         where  status =0 and COUPON_ID = #{couponId}
     </select>
+    <!--微信小程序： 查询所有可领取的优惠券 -->
+    <select id="selectAll" resultMap="map" parameterType="map">
+        select <include refid="allColumns"></include>
+        from discount_coupon
+        where  status =0 ORDER BY begintime
+    </select>
+
+
+
+
+
+
+    <!--添加优惠券-->
+    <insert id="addDiscountCoupon"  parameterType="map">
+        INSERT INTO `discount_coupon`(COUPON_ID,  COUPON_NAME,  COUPON_TYPE_ID,  FACE_VALUE,  distribution_id, LIMIT_GET,
+         PAYMENT_AMOUNT,BEGINTIME,  ENDTIME,  PERIOD_OF_VALIDITY,  EFFECTIVE_DAYS,  EFFECTIVE_PERIOD,  START_TIME,
+        DEADLINE,  COMPUTING_ID,  SP_ID,  MONEY,  PREFERENTIAL_ID,  STALE_DATED, `STATUS`,  GMT_CREATE,  GMT_MODIFIED)
+        VALUES(NULL,#{couponName},#{couponTypeId},#{faceValue},#{distributionId},#{limitGet},#{paymentAmount},#{begintime},
+        #{endtime},#{periodOfValidity},#{effectiveDays},#{effectivePeriod},#{startTime},#{deadline},#{computingId},
+        #{spId},#{money},#{preferentialId},0,0,#{now},#{now});
+<!--        <if test="restrictionName!=null">-->
+<!--            INSERT INTO `usage_restriction`(RESTRICTION_ID, COUPON_ID, RESTRICTION_NAME, BEGINTIME, STOPTIME, GMT_CREATE,GMT_MODIFIED)-->
+<!--            VALUES(0,@@IDENTITY,#{restrictionName},#{restrictionBeginTime},#{stoptime},#{now},#{now});-->
+<!--            <if test="goodsTypeId!=0">-->
+<!--                INSERT INTO `unavailable_type`(UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED)-->
+<!--                VALUES (0,#{goodsTypeId},(SELECT coupon_id FROM usage_restriction WHERE RESTRICTION_ID=@@IDENTITY),#{now},#{now});-->
+<!--            </if>-->
+<!--        </if>-->
+<!--       <if test="restrictionName==null">-->
+<!--           <if test="goodsTypeId!=0">-->
+<!--               INSERT INTO `unavailable_type`(UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED)-->
+<!--               VALUES (0,#{goodsTypeId},@@IDENTITY,#{now},#{now});-->
+<!--           </if>-->
+<!--       </if>-->
+    </insert>
+    <!--删除优惠券-->
+    <update id="delDiscountCoupon" parameterType="int">
+        update `discount_coupon` set status = 1 where coupon_id=#{couponId}
+    </update>
+    <!--修改优惠券信息-->
+    <update id="updateDiscountCoupon" parameterType="map">
+        UPDATE DISCOUNT_COUPON SET
+            COUPON_NAME = #{couponName},
+            COUPON_TYPE_ID = #{couponTypeId},
+            FACE_VALUE = #{faceValue},
+            LIMIT_GET = #{limitGet},
+            PAYMENT_AMOUNT = #{paymentAmount},
+            BEGINTIME = #{begintime},
+            ENDTIME = #{endtime},
+            PERIOD_OF_VALIDITY = #{periodOfValidity},
+            EFFECTIVE_DAYS = #{effectiveDays},
+            EFFECTIVE_PERIOD = #{effectivePeriod},
+            START_TIME = #{startTime},
+            DEADLINE = #{deadline},
+            COMPUTING_ID = #{computingId},
+            SP_ID = #{spId},
+            MONEY = #{money},
+            PREFERENTIAL_ID = #{preferentialId},
+            STALE_DATED = #{staleDated},
+            GMT_MODIFIED = #{now}
+        WHERE COUPON_ID = #{couponId}
+    </update>
 </mapper>

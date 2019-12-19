@@ -1,12 +1,13 @@
 package com.csdj.chainsupermarket.service.imp.orderform;
 
+import com.csdj.chainsupermarket.dao.commodity.GoodsCommodityMapper;
+import com.csdj.chainsupermarket.dao.member.MemberMapper;
 import com.csdj.chainsupermarket.dao.orderform.MerchandiseOrderMapper;
 import com.csdj.chainsupermarket.dao.orderform.MerchandiseOrderStatMapper;
 import com.csdj.chainsupermarket.dao.orderform.TradeOrderMapper;
-import com.csdj.chainsupermarket.entity.orderform.MerchandiseOrderPO;
-import com.csdj.chainsupermarket.entity.orderform.OrderFormDetailVO;
-import com.csdj.chainsupermarket.entity.orderform.OrderFormVO;
-import com.csdj.chainsupermarket.entity.orderform.StatPO;
+import com.csdj.chainsupermarket.entity.commodity.GoodsCommodity;
+import com.csdj.chainsupermarket.entity.member.Member;
+import com.csdj.chainsupermarket.entity.orderform.*;
 import com.csdj.chainsupermarket.service.orderform.OrderFormService;
 import org.springframework.stereotype.Service;
 
@@ -29,88 +30,143 @@ public class OrderFormServiceImpl implements OrderFormService {
     private MerchandiseOrderMapper merchandiseOrderMapper;
     @Resource
     private TradeOrderMapper tradeOrderMapper;
+    @Resource
+    private GoodsCommodityMapper goodsCommodityMapper;
+    @Resource
+    private MemberMapper memberMapper;
 
     @Override
     public List<OrderFormDetailVO> detailById(String id) {
         List<OrderFormDetailVO> list = new ArrayList<>();
-        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(null, null, null, null
-                , id, null, null, null, null);
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(null, null
+                , null, null, id, null, null, null, null);
         for (MerchandiseOrderPO m : merchandiseOrderList) {
-            OrderFormDetailVO orderFormDetailVO = new OrderFormDetailVO();
-            orderFormDetailVO.setTradeId(m.getTradeId());
-            orderFormDetailVO.setGoodsId(m.getGoodsId());
-            orderFormDetailVO.setTime(m.getTime());
-            orderFormDetailVO.setCount(m.getCount());
-            orderFormDetailVO.setStat(m.getStat());
-            orderFormDetailVO.setDel(m.getDel());
-            orderFormDetailVO.setGoodsName("未定义商品名称");
-            //来自商品表，单价
-            orderFormDetailVO.setConMoney(0.0);
-            //来自商品表，图片URL
-            orderFormDetailVO.setGoodsImgUrl("");
-            orderFormDetailVO.setDis("未定义物流");
-            orderFormDetailVO.setContact("未定义联系人");
-            orderFormDetailVO.setPhone("未定义电话");
-            orderFormDetailVO.setAddress("未定义地址");
-            list.add(orderFormDetailVO);
+            list.add(getOrderFormDetail(m));
         }
         return list;
     }
 
     @Override
-    public List<OrderFormVO> summary(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime
-            , Integer index, Integer size) {
+    public List<OrderFormVO> summary(Integer userId, Integer shopId, Integer stat, Integer del, String orderId
+            , String betTime, String andTime, Integer index, Integer size) {
         List<OrderFormVO> list = new ArrayList<>();
-        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, shopId, stat, del, orderId, betTime
-                , andTime, index, size);
-        List<StatPO> statList = merchandiseOrderStatMapper.list(null);
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, shopId, stat, del, orderId
+                , betTime, andTime, index, size);
         for (MerchandiseOrderPO m : merchandiseOrderList) {
-            OrderFormVO orderFormVO = new OrderFormVO();
-            for (StatPO s : statList) {
-                if (m.getStat().equals(s.getId())) {
-                    orderFormVO.setStatus(s.getName());
-                }
-            }
-            if (m.getStat() != 0 && m.getTradeId() != null && m.getTradeId() != 0) {
-                orderFormVO.setAmount(tradeOrderMapper.get(m.getTradeId()).getAmount());
-                orderFormVO.setDefray("已支付");
-            } else {
-                orderFormVO.setAmount(0.0);
-                orderFormVO.setDefray("未支付");
-            }
-            orderFormVO.setTime(m.getTime());
-            orderFormVO.setCount(m.getCount());
-            orderFormVO.setDel(m.getDel());
-            orderFormVO.setId(m.getId());
-            orderFormVO.setOrderId(m.getOrderId());
-            orderFormVO.setName("未定义商品名称");
-            orderFormVO.setContactInformation("未定义配送信息");
-            orderFormVO.setDis("未定义物流");
-            orderFormVO.setUserName("未定义用户名");
-            orderFormVO.setContactInformation("未定义联系方式");
-            list.add(orderFormVO);
+            list.add(getOrderForm(m));
         }
         return list;
     }
 
     @Override
-    public int count(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime, String andTime) {
+    public int count(Integer userId, Integer shopId, Integer stat, Integer del, String orderId, String betTime
+            , String andTime) {
         return merchandiseOrderMapper.count(userId, shopId, stat, del, orderId, betTime, andTime);
     }
 
     @Override
     public OrderFormDetailVO get(Integer id) {
         MerchandiseOrderPO merchandiseOrder = merchandiseOrderMapper.get(id);
+        return getOrderFormDetail(merchandiseOrder);
+    }
+
+    @Override
+    public List<OrderFormApiVO> listByUser(Integer userId, Integer shopId, Integer stat) {
+        List<OrderFormApiVO> list = new ArrayList<>();
+        List<MerchandiseOrderPO> merchandiseOrderList = merchandiseOrderMapper.list(userId, shopId, stat, 0
+                , null, null, null, null, null);
+        for (MerchandiseOrderPO m : merchandiseOrderList) {
+            GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(m.getGoodsId());
+            OrderFormApiVO orderFormApiVO = new OrderFormApiVO();
+            orderFormApiVO.setAmount(goodsCommodity.getPrice());
+            orderFormApiVO.setCount(m.getCount());
+            orderFormApiVO.setGoodsImgUrl(goodsCommodity.getPicturepath());
+            orderFormApiVO.setId(m.getId());
+            orderFormApiVO.setOrderId(m.getOrderId());
+            orderFormApiVO.setStatus(m.getStat());
+            orderFormApiVO.setName(goodsCommodity.getGoodsName());
+            orderFormApiVO.setTime(m.getTime());
+            list.add(orderFormApiVO);
+        }
+        return list;
+    }
+
+    @Override
+    public int merge(Integer id, Integer state, Integer del) {
+        return merchandiseOrderMapper.merge(id, state, del);
+    }
+
+    @Override
+    public OrderFormDetailApiVO seek(Integer id) {
+        OrderFormDetailApiVO orderFormDetailApiVO = new OrderFormDetailApiVO();
+        MerchandiseOrderPO merchandiseOrder = merchandiseOrderMapper.get(id);
+        GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(merchandiseOrder.getGoodsId());
+        orderFormDetailApiVO.setTradeId(merchandiseOrder.getTradeId());
+        orderFormDetailApiVO.setTime(merchandiseOrder.getTime());
+        orderFormDetailApiVO.setCount(merchandiseOrder.getCount());
+        orderFormDetailApiVO.setStat(merchandiseOrder.getStat());
+        orderFormDetailApiVO.setGoodsName(goodsCommodity.getGoodsName());
+        orderFormDetailApiVO.setPrice(goodsCommodity.getPrice());
+        orderFormDetailApiVO.setGoodsImgUrl(goodsCommodity.getPicturepath());
+        orderFormDetailApiVO.setAddress("未定义地址");
+        orderFormDetailApiVO.setDis("未定义物流");
+        orderFormDetailApiVO.setContact("未定义联系人");
+        orderFormDetailApiVO.setPhone("未定义电话");
+        return orderFormDetailApiVO;
+    }
+
+    /**
+     * 获取订单表现对象
+     *
+     * @return 订单表现对象
+     */
+    private OrderFormVO getOrderForm(MerchandiseOrderPO merchandiseOrder) {
+        GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(merchandiseOrder.getGoodsId());
+        List<StatPO> statList = merchandiseOrderStatMapper.list(null);
+        OrderFormVO orderFormVO = new OrderFormVO();
+        for (StatPO s : statList) {
+            if (merchandiseOrder.getStat().equals(s.getId())) {
+                orderFormVO.setStatus(s.getName());
+            }
+        }
+        if (merchandiseOrder.getStat() != 0 && merchandiseOrder.getTradeId() != null && merchandiseOrder.getTradeId() != 0) {
+            orderFormVO.setAmount(tradeOrderMapper.get(merchandiseOrder.getTradeId()).getAmount());
+            orderFormVO.setDefray("已支付");
+        } else {
+            orderFormVO.setAmount(0.0);
+            orderFormVO.setDefray("未支付");
+        }
+        orderFormVO.setTime(merchandiseOrder.getTime());
+        orderFormVO.setCount(merchandiseOrder.getCount());
+        orderFormVO.setDel(merchandiseOrder.getDel());
+        orderFormVO.setId(merchandiseOrder.getId());
+        orderFormVO.setOrderId(merchandiseOrder.getOrderId());
+        orderFormVO.setName(goodsCommodity.getGoodsName());
+        orderFormVO.setContactInformation("未定义配送信息");
+        orderFormVO.setDis("未定义物流");
+        Member member = memberMapper.selectMemberId(merchandiseOrder.getUserId());
+        orderFormVO.setUserName(member.getVipMname());
+        orderFormVO.setContactInformation(member.getVipPhone());
+        return orderFormVO;
+    }
+
+    /**
+     * 获取表单详细信息视图对象
+     *
+     * @return 表单详细信息视图对象
+     */
+    private OrderFormDetailVO getOrderFormDetail(MerchandiseOrderPO merchandiseOrder) {
         OrderFormDetailVO orderFormDetailVO = new OrderFormDetailVO();
+        GoodsCommodity goodsCommodity = goodsCommodityMapper.getCommodity(merchandiseOrder.getGoodsId());
         orderFormDetailVO.setTradeId(merchandiseOrder.getTradeId());
         orderFormDetailVO.setGoodsId(merchandiseOrder.getGoodsId());
         orderFormDetailVO.setTime(merchandiseOrder.getTime());
         orderFormDetailVO.setCount(merchandiseOrder.getCount());
         orderFormDetailVO.setDel(merchandiseOrder.getDel());
         orderFormDetailVO.setStat(merchandiseOrder.getStat());
-        orderFormDetailVO.setGoodsName("未定义商品名称");
-        orderFormDetailVO.setConMoney(0.0);
-        orderFormDetailVO.setGoodsImgUrl("");
+        orderFormDetailVO.setGoodsName(goodsCommodity.getGoodsName());
+        orderFormDetailVO.setConMoney(goodsCommodity.getPrice());
+        orderFormDetailVO.setGoodsImgUrl(goodsCommodity.getPicturepath());
         orderFormDetailVO.setAddress("未定义地址");
         orderFormDetailVO.setDis("未定义物流");
         orderFormDetailVO.setContact("未定义联系人");
