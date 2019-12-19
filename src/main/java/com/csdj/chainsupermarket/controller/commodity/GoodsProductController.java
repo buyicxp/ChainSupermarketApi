@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author 黄丹
  * @date 2019-12-10
@@ -33,22 +34,22 @@ public class GoodsProductController {
     @RequestMapping("/showPhoto")
     public Map<String, Object> showPhoto(
             @RequestParam("photo") MultipartFile file,
-            @RequestParam(value = "colorId",required = false) int colorId,
-            @RequestParam(value = "sizeId",required = false) int sizeId,
+            @RequestParam(value = "colorId", required = false) int colorId,
+            @RequestParam(value = "sizeId", required = false) int sizeId,
             @RequestParam("details") String details, @RequestParam("goodsName") String goodsName,
             @RequestParam("goodsTitle") String goodsTitle, @RequestParam("categoryId") int categoryId,
             @RequestParam("goodsCode") String goodsCode, @RequestParam("createDate") String createDate,
             @RequestParam("price") double price,
-            @RequestParam(value = "activityPrice" , required = false) double activityPrice,
+            @RequestParam(value = "activityPrice", required = false) double activityPrice,
             @RequestParam("weight") double weight, @RequestParam("locking") int locking,
             @RequestParam("already") int already,
-            @RequestParam(value = "activityId" ,required = false) int activityId,
-            @RequestParam(value = "bounds",required = false) int bounds,
-            @RequestParam(value = "presell",required = false) int presell) {
+            @RequestParam(value = "activityId", required = false) int activityId,
+            @RequestParam(value = "bounds", required = false) int bounds,
+            @RequestParam(value = "presell", required = false) int presell) {
         OutputStream os = null;
         InputStream inputStream = null;
         Map<String, Object> result = new HashMap<>(1);
-        GoodsProduct goodsProduct=null;
+        GoodsProduct goodsProduct = null;
         try {
             if (!file.isEmpty()) {
                 String fileName = file.getOriginalFilename();
@@ -94,7 +95,7 @@ public class GoodsProductController {
                 goodsProduct.setPresell(presell);
                 goodsProduct.setCreateDate(createDate);
                 assert fileName != null;
-                String urePath ="img/"+ sha1.substring(0, 2)+"/"+ sha1 + fileName.substring(fileName.indexOf('.'));
+                String urePath = "img/" + sha1.substring(0, 2) + "/" + sha1 + fileName.substring(fileName.indexOf('.'));
                 goodsProduct.setPicturePath(urePath);
                 goodsProduct.setBigPicturePath(urePath);
 
@@ -116,13 +117,13 @@ public class GoodsProductController {
             }
         }
         logger.info(JSON.toJSONString(goodsProduct));
-        int res =goodsProductService.addGoods(goodsProduct);
-        if(res>0) {
+        int res = goodsProductService.addGoods(goodsProduct);
+        if (res > 0) {
             logger.info("添加成功");
-        }else{
+        } else {
             logger.info("添加失败");
         }
-        result.put("res",res);
+        result.put("res", res);
         return result;
     }
 
@@ -179,18 +180,19 @@ public class GoodsProductController {
 
     /**
      * 获取产品列表
+     *
      * @param
      * @param pageSize
      * @return
      */
 
-    @RequestMapping(value ="/listProduct",method = RequestMethod.POST)
-    public String getBrand(@RequestParam(value = "start")int start,
+    @RequestMapping(value = "/listProduct", method = RequestMethod.POST)
+    public String getBrand(@RequestParam(value = "start") int start,
                            @RequestParam(value = "pageSize") int pageSize,
-                           @RequestParam(value="goodsTitle",required = false)String goodsTitle,
-                           @RequestParam(value="categoryid",required = false)Integer categoryid){
-        System.out.println("阿达阿道夫"+start+","+pageSize+","+goodsTitle+","+categoryid);
-        String str = JSON.toJSONString(goodsProductService.listProduct(start,pageSize,goodsTitle,categoryid));
+                           @RequestParam(value = "goodsTitle", required = false) String goodsTitle,
+                           @RequestParam(value = "categoryid", required = false) Integer categoryid) {
+        System.out.println("阿达阿道夫" + start + "," + pageSize + "," + goodsTitle + "," + categoryid);
+        String str = JSON.toJSONString(goodsProductService.listProduct(start, pageSize, goodsTitle, categoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         System.out.println(result);
         return result;
@@ -199,78 +201,105 @@ public class GoodsProductController {
 
     /**
      * 获取产品列表
+     *
      * @param
      * @param pageSize
      * @return
      */
 
-    @RequestMapping(value ="/listProductshelves",method = RequestMethod.POST)
-    public String getBrandshelves(@RequestParam(value = "start")int start,
-                           @RequestParam(value = "pageSize") int pageSize,
-                           @RequestParam(value="goodsTitle",required = false)String goodsTitle,
-                           @RequestParam(value="categoryid",required = false)Integer categoryid){
-        System.out.println("nbnb"+start+","+pageSize+","+goodsTitle+","+categoryid);
-        String str = JSON.toJSONString(goodsProductService.listProductshelves(start,pageSize,goodsTitle,categoryid));
+    @RequestMapping(value = "/listProductshelves", method = RequestMethod.POST)
+    public String getBrandshelves(@RequestParam(value = "start") int start,
+                                  @RequestParam(value = "pageSize") int pageSize,
+                                  @RequestParam(value = "goodsTitle", required = false) String goodsTitle,
+                                  @RequestParam(value = "categoryid", required = false) Integer categoryid) {
+        System.out.println("nbnb" + start + "," + pageSize + "," + goodsTitle + "," + categoryid);
+        String str = JSON.toJSONString(goodsProductService.listProductshelves(start, pageSize, goodsTitle, categoryid));
         String result = "{\"status\":200,\"message\":" + str + "}";
         System.out.println(result);
         return result;
     }
 
-    @RequestMapping(value = "/pageProduct",method = RequestMethod.POST)
-    public String pageBrand(@RequestParam(value = "start")int start,@RequestParam(value = "pageSize") int pageSize){
-        String str =JSON.toJSONString(goodsProductService.pageProduct(start,pageSize));
+    @RequestMapping(value = "/pageProduct", method = RequestMethod.POST)
+    public String pageBrand(@RequestParam(value = "start") int start, @RequestParam(value = "pageSize") int pageSize) {
+        String str = JSON.toJSONString(goodsProductService.pageProduct(start, pageSize));
         String result = "{\"status\":200,\"message\":" + str + "}";
-        List<GoodsProduct> list=goodsProductService.pageProduct(start,pageSize);
+        List<GoodsProduct> list = goodsProductService.pageProduct(start, pageSize);
         return result;
     }
 
-    @RequestMapping(value = "/count",method = RequestMethod.POST)
-    public Integer count(){
+    @RequestMapping(value = "/count", method = RequestMethod.POST)
+    public Integer count() {
         return goodsProductService.countProduct();
     }
 
-    @RequestMapping(value="/delBooks",method = RequestMethod.POST)
-    public boolean delBooks(Integer id){
-        if(goodsProductService.delProduct(id)>0){
+    @RequestMapping(value = "/delBooks", method = RequestMethod.POST)
+    public boolean delBooks(Integer id) {
+        if (goodsProductService.delProduct(id) > 0) {
             logger.info("删除产品");
             return true;
         }
         return false;
     }
-    @RequestMapping(value = "/underCarriage",method = RequestMethod.POST)
-    public Object downComm(@RequestParam(value="id")int id){
-        int num=goodsProductService.underCarriage(id);
-        if(num>0){
+
+    @RequestMapping(value = "/underCarriage", method = RequestMethod.POST)
+    public Object downComm(@RequestParam(value = "id") int id) {
+        int num = goodsProductService.underCarriage(id);
+        if (num > 0) {
             return true;
         }
         return false;
     }
 
-    @RequestMapping(value = "/grounding",method = RequestMethod.POST)
-    public Object upComm(@RequestParam(value="id")int id){
-        int num=goodsProductService.grounding(id);
-        if(num>0){
+    @RequestMapping(value = "/grounding", method = RequestMethod.POST)
+    public Object upComm(@RequestParam(value = "id") int id) {
+        int num = goodsProductService.grounding(id);
+        if (num > 0) {
             return true;
         }
         return false;
     }
 
-    @RequestMapping(value="/updateProduct",method = RequestMethod.POST)
-    public boolean updateProduct(@RequestParam(value="id")int id,@RequestParam(value="putshelves")int putshelves){
-        if(goodsProductService.updateProduct(id,putshelves)>0){
+    @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
+    public boolean updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "putshelves") int putshelves) {
+        if (goodsProductService.updateProduct(id, putshelves) > 0) {
             logger.info("拉取产品");
             return true;
         }
         return false;
     }
 
-    @RequestMapping(value="/upBooks",method = RequestMethod.POST)
-    public boolean upBooks(GoodsProduct product){
-        if(goodsProductService.upProduct(product)>0){
+    @RequestMapping(value = "/upBooks", method = RequestMethod.POST)
+    public boolean upBooks(GoodsProduct product) {
+        if (goodsProductService.upProduct(product) > 0) {
             logger.info("修改产品！");
             return true;
         }
         return false;
     }
 
+    /**
+     * 批量添加
+     *
+     * @param products 列表
+     * @return map
+     */
+    @PostMapping("/piAddGoods")
+    public Map<String, Object> piAddGoods(@RequestBody List<GoodsProduct> products) {
+        Map<String, Object> result = new HashMap<>(3);
+        result.put("data", 0);
+        int count = 0;
+        try {
+            for (GoodsProduct product : products) {
+                count += goodsProductService.addGoods(product);
+            }
+            result.put("data", count);
+            result.put("msg", "Success");
+            result.put("code", 200);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+            result.put("msg", "Server error");
+            result.put("code", 500);
+        }
+        return result;
+    }
 }

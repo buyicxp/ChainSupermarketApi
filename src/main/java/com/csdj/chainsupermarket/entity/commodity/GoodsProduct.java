@@ -19,7 +19,7 @@ public class GoodsProduct {
      */
     private int sizeId;
     /**
-     * 产品详情表编号
+     * 产品详情
      */
     private String details;
     /**
@@ -80,7 +80,7 @@ public class GoodsProduct {
      * 配送id
      */
     private int disId;
-    /**
+     /**
      * 拼团活动编号
      */
     private int activityId;

@@ -37,7 +37,7 @@
         `picturepath`,`bigpicturepath`,`createdate`,`activityprice`,
         `price`,`weight`,`locking`,`already`,`dis_id`,
         `upper_down`,`del`,`bounds`,`presell`)
-        VALUES (0,#{colorId},#{sizeId},#{details},
+        VALUES (null,#{colorId},#{sizeId},#{details},
         #{activityId},#{goodsName},#{goodsTitle},#{categoryId},
         #{goodsCode},#{picturePath},#{bigPicturePath},#{createDate},#{activityPrice},
         #{price},#{weight},#{locking},#{already},0,

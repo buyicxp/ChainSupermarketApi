@@ -5,7 +5,6 @@ import com.csdj.chainsupermarket.entity.commodity.GoodsProduct;
 import com.csdj.chainsupermarket.service.commodity.GoodsProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,8 +13,7 @@ import java.util.List;
  * @date 2019-12-10
  * 产品表service实现类
  */
-@Service("productService")
-@Transactional
+@Service
 public class GoodsProductServiceImpl  implements GoodsProductService {
     @Autowired
     GoodsProductMapper goodsProductMapper;
