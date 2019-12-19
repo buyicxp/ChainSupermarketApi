@@ -73,7 +73,7 @@
         select gc.`id`,gc.`upper_down`,gc.`picturepath`,gc.`goods_name`,gt.`type_name`,gc.`goods_code`,gc.`createdate`,gc.`price`,gc.`weight`,gc.`del`,gc.details
         from `goods_commodity` gc,`goods_type` gt
         <where>
-            <if test="ccategoryid!=null and ccategoryid.trim()!=''">
+            <if test="ccategoryid!=null and ccategoryid!=''">
                 and gc.ccategoryid=#{ccategoryid}
             </if>
             and gc.ccategoryid=gt.id and gc.upper_down=0 and gc.del=0

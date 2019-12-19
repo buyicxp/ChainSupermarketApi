@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.GoodsTypeChildrenMapper">
+   <resultMap id="map" type="GoodsTypeChildren">
+       <result column="id" property="value"></result>
+       <result column="type_name" property="label"></result>
+       <association property="children" column="id" select="com.csdj.chainsupermarket.dao.marketing.GoodsChildrenMapper.find"></association>
+   </resultMap>
+    <!--查询总记录数-->
+    <select id="findAll" resultMap="map">
+        SELECT b.`id`,b.`type_name` FROM `goods_commodity` a,`goods_type` b WHERE b.id=a.`ccategoryid`  group by b.id
+    </select>
+
+
+</mapper>

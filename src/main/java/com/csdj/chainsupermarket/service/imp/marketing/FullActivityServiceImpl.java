@@ -79,8 +79,22 @@ public class FullActivityServiceImpl implements FullActivityService {
     }
 
     @Override
-    public int add(FullActivityVO fullActivityVO) {
-        return fullActivityDao.add(fullActivityVO);
+    public int add(String activityName,int typeid,String activityTime,int rangeid,String activityState,
+                   String executingState,String activityDetail,int deleteState,int goodsCommodityId,int goodsTypeId,
+                   int money ) {
+        Map map = new HashMap();
+        map.put("activityName",activityName);
+        map.put("typeid",typeid);
+        map.put("activityTime",activityTime);
+        map.put("rangeid",rangeid);
+        map.put("activityState",activityState);
+        map.put("executingState",executingState);
+        map.put("activityDetail",activityDetail);
+        map.put("deleteState",deleteState);
+        map.put("goodsCommodityId",goodsCommodityId);
+        map.put("goodsTypeId",goodsTypeId);
+        map.put("money",money);
+        return fullActivityDao.add(map);
     }
 
 

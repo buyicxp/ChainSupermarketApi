@@ -20,6 +20,12 @@
         <association property="range" column="activity_rangeid"
                      select="com.csdj.chainsupermarket.dao.marketing.ActivityRangeDao.findById">
         </association>
+        <association property="goodsCommodity" column="goodsid"
+                     select="com.csdj.chainsupermarket.dao.commodity.GoodsCommodityMapper.findGoodsById">
+        </association>
+        <association property="goodsType" column="goodstypeid"
+                     select="com.csdj.chainsupermarket.dao.commodity.GoodsTypeMapper.findById">
+        </association>
 
     </resultMap>
 
@@ -32,15 +38,22 @@
         select * from full_activity
         <where>
             <if test="activity_nypeid!=null">
-                and activity_nypeid = #{activityNypeid}
+                 activity_nypeid = #{activityNypeid}
             </if>
             <if test="activity_rangeid!=null">
                 and activity_rangeid = #{activityRangeid}
             </if>
+            <if test="goodsid!=null">
+                and goodsid = #{GoodsCommodity.id}
+            </if>
+            <if test="goodstypeid!=null">
+                and goodstypeid = #{GoodsType.id}
+            </if>
+
             <if test="activityName!=null">
                 and activity_name like #{activityName}
             </if>
-                and delete_state =0
+           and delete_state =0
         </where>
         limit #{off},#{size}
     </select>
@@ -77,9 +90,9 @@
     </update>
 
     <!-- 插入数据 -->
-    <insert id="add" parameterType="FullActivityVO">
+    <insert id="add" parameterType="map" >
             INSERT INTO FULL_ACTIVITY (`activity_name`,`activity_nypeid`,`Activity_time`,`activity_rangeid`,`activity_state`,`executing_state`,`activity_detail`,`delete_state`,`goodsid`,`goodstypeid`,`money`)
-        VALUES ( #{activityName},#{type.typeid},#{activityTime},#{range.rangeid},#{activityState},#{executingState},#{activityDetail},#{deleteState},#{goodsCommodity.id},#{goodsType.id},#{money})
+        VALUES ( #{activityName},#{typeid},#{activityTime},#{rangeid},#{activityState},#{executingState},#{activityDetail},#{deleteState},#{goodsCommodityId},#{goodsTypeId},#{money})
     </insert>
 
  <!--   &lt;!&ndash; 修改数据 &ndash;&gt;

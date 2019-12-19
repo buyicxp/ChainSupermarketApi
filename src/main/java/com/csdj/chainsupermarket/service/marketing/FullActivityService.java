@@ -57,11 +57,22 @@ public interface FullActivityService {
     int update(int activityid, String activityState);
 
     /**
-     * 添加活动信息
-     * @param fullActivityVO
+     * 添加方法
+     * @param activityName
+     * @param typeid
+     * @param activityTime
+     * @param rangeid
+     * @param activityState
+     * @param executingState
+     * @param activityDetail
+     * @param deleteState
+     * @param goodsCommodityId
+     * @param goodsTypeId
+     * @param money
      * @return
      */
-    int add(FullActivityVO fullActivityVO);
+    int add(String activityName,int typeid,String activityTime,int rangeid,String activityState,String executingState,
+            String activityDetail,int deleteState,int goodsCommodityId,int goodsTypeId,int money );
 
 
 }

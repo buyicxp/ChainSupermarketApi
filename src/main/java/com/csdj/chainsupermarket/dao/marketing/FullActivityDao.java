@@ -53,9 +53,9 @@ public interface FullActivityDao {
 
     /**
      * 添加满减满赠活动信息
-     * @param fullActivityVO
+     * @param map
      * @return
      */
-     int add(FullActivityVO fullActivityVO);
+     int add(Map map);
 
 }

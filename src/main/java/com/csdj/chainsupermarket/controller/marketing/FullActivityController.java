@@ -88,7 +88,14 @@ public class FullActivityController {
         map.put("pu",pu);
         return map;
     }
+    @RequestMapping("/detail")
+    public Map detail(int activityid){
+        Map map=new HashMap();
+        FullActivityVO full=fullActivityService.findById(activityid);
+        map.put("full",full);
+        return map;
 
+    }
     /**
      * 删除活动（实际数据不删除，改变状态）
      * @param activityid
@@ -120,9 +127,15 @@ public class FullActivityController {
         return map;
     }
     @RequestMapping("/add")
-    public Map add(@RequestBody FullActivityVO fullActivityVO){
+    public Map add(String activityName,@RequestParam(defaultValue = "0") int typeid,String activityTime,
+                   @RequestParam(defaultValue = "0") int rangeid,String activityState,
+                   String executingState,String activityDetail,@RequestParam(defaultValue = "0") int deleteState,
+                   @RequestParam(defaultValue = "0") int goodsCommodityId,@RequestParam(defaultValue = "0") int goodsTypeId,
+                   @RequestParam(defaultValue = "0") int money ){
         Map map=new HashMap();
-        int res=fullActivityService.add(fullActivityVO);
+        System.out.println("名字:"+activityName+"类型"+typeid+"活动时间："+activityTime+"范围："+rangeid+"活动状态："+activityState+"执行状态："+executingState+"活动说明："+activityDetail+"删除状态："+ deleteState+"商品ID:"+goodsCommodityId+"商品类型："+goodsTypeId+"钱"+money);
+        int res=fullActivityService.add(activityName,typeid,activityTime,rangeid,activityState,executingState,activityDetail,
+                deleteState,goodsCommodityId,goodsTypeId,money);
         if (res >= 1) {
             map.put("Msg", "添加成功");
         } else {
