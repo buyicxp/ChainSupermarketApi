@@ -28,10 +28,41 @@
     <sql id="allColumns">
         UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED
     </sql>
-
+    <!--查找不可用类型-->
     <select id="findById" resultMap="map" parameterType="int">
         select <include refid="allColumns"></include>
         from UNAVAILABLE_TYPE
         where COUPON_ID = #{couponId}
     </select>
+    <!--添加不可用类型-->
+    <insert id="addUnavailableType" parameterType="map">
+        <if test="restrictionName!=null">
+            INSERT INTO `unavailable_type`(UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED)
+            VALUES (0,#{goodsTypeId},(SELECT coupon_id FROM usage_restriction WHERE RESTRICTION_ID=@@IDENTITY),
+            #{now},#{now});
+        </if>
+        <if test="restrictionName==null">
+            INSERT INTO `unavailable_type`(UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED)
+            VALUES (0,#{goodsTypeId},@@IDENTITY,#{now},#{now});
+        </if>
+    </insert>
+
+    <!--根据优惠券ID添加不可用类型-->
+    <insert id="addInfo" parameterType="map">
+        INSERT INTO `unavailable_type`(UNAVAILABLE_ID, COMMDITY_ID, COUPON_ID, GMT_CREATE, GMT_MODIFIED)
+            VALUES (0,#{goodsTypeId},#{couponId},#{now},#{now});
+    </insert>
+
+    <!--修改优惠券的不可用类型的信息-->
+    <update id="updateUnacailableType" parameterType="map">
+        UPDATE UNAVAILABLE_TYPE SET
+            COMMDITY_ID = #{commdityId}
+            GMT_MODIFIED = #{now}
+        WHERE COUPON_ID = #{couponId}
+    </update>
+
+    <!--删除优惠券的不可用类型-->
+    <delete id="delUnavailableType" parameterType="int">
+        delete from UNAVAILABLE_TYPE where COUPON_ID = #{couponId}
+    </delete>
 </mapper>

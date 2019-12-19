@@ -28,10 +28,23 @@ public interface DiscountCouponMapper {
      */
     List<DiscountCoupon> findByAll(Map map);
 
+
+
+
+    /**
+     * @Description  ：小程序：查询所有可领取油优惠券
+     * @author       : JY
+     * @param        : [map]
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.DiscountCoupon>
+     * @exception    :
+     * @date         : 2019/12/16 23:11
+     */
+    List<DiscountCoupon> selectAll(Map map);
+
     /**
      * @Description  ：添加优惠券
      * @author       : JY
-     * @param        : [map]
+     * @param        : [map] 添加的数据
      * @return       : int
      * @exception    :
      * @date         : 2019/12/9 10:52
@@ -47,4 +60,34 @@ public interface DiscountCouponMapper {
      */
     DiscountCoupon findById(int couponId);
 
+    /**
+     * @Description  ：删除优惠券
+     * @author       : JY
+     * @param        : [couponId] 优惠券主键
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/16 8:48
+     */
+    int delDiscountCoupon(int couponId);
+
+    /**
+     * @Description  ： 修改优惠券信息
+     * @author       : JY
+     * @param        :
+     * @return       : 修改结果 >0修改成功 >=0 修改失败
+     * @exception    :
+     * @date         : 2019/12/16 11:17
+     */
+    int updateDiscountCoupon(Map map);
+
+
+    /**
+     * @Description  ：定时更新：刷新优惠券状态 未写
+     * @author       : JY
+     * @param        : []
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/16 23:22
+     */
+    int updateTime();
 }

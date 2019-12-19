@@ -17,16 +17,15 @@
 <mapper namespace="com.csdj.chainsupermarket.dao.marketing.CouponCollectionMapper">
     <!-- 结果映射 -->
     <resultMap id="map" type="CouponCollection">
-        <id column="COLLECTION_ID" property="collectionId" jdbcType="BIGINT" />
-        <result column="COUPON_ID" property="couponId" jdbcType="BIGINT" />
-        <result column="USER_ID" property="userId" jdbcType="BIGINT" />
-        <result column="DRAW_TIME" property="drawTime" jdbcType="TIMESTAMP" />
-        <result column="USE" property="use" jdbcType="INTEGER" />
-        <result column="STATUS" property="status" jdbcType="INTEGER" />
-        <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
-        <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+        <id column="COLLECTION_ID" property="collectionId"/>
+        <result column="DRAW_TIME" property="drawTime"/>
+        <result column="USE" property="use" />
+        <result column="STATUS" property="status"/>
+        <result column="GMT_CREATE" property="gmtCreate"/>
+        <result column="GMT_MODIFIED" property="gmtModified"/>
+        <association property="discountCoupon" column="COUPON_ID" select="com.csdj.chainsupermarket.dao.marketing.DiscountCouponMapper.findById"></association>
+        <association property="userInfo" column="USER_ID" select="com.csdj.chainsupermarket.dao.marketing.UserInfoMapper.findById"></association>
     </resultMap>
-
     <!-- 表所有字段 -->
     <sql id="allColumns">
         COLLECTION_ID, COUPON_ID, USER_ID, DRAW_TIME, USE, STATUS,
@@ -41,5 +40,20 @@
 --             select count(1) from coupon_collection
     </select>
 
+    <!--用户领取优惠券-->
+    <insert id="addCouponCollection" parameterType="map">
+        INSERT INTO COUPON_COLLECTION (COLLECTION_ID, COUPON_ID, USER_ID, DRAW_TIME, `USE`, STATUS,GMT_CREATE, GMT_MODIFIED)
+        VALUES (null,#{couponId},#{userId},#{now},0,0,#{now},#{now})
+    </insert>
+    <!-- 领取记录 -->
+    <select id="selectUserAll" parameterType="int" resultMap="map">
+        select COLLECTION_ID, COUPON_ID, USER_ID, DRAW_TIME, `USE`, `STATUS`,GMT_CREATE, GMT_MODIFIED
+        from COUPON_COLLECTION
+        where COUPON_ID=#{couponId}
+    </select>
 
+    <!--单张优惠券领了几张-->
+    <select id="findCount" parameterType="map" resultType="int">
+        select count(*) from `coupon_collection` where `coupon_id`=#{couponId} and `user_id` =#{userId}
+    </select>
 </mapper>

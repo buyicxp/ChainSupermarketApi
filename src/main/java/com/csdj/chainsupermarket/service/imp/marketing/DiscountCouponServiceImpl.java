@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,71 @@ public class DiscountCouponServiceImpl implements DiscountCouponService,Runnable
     @Override
     public DiscountCoupon findById(int couponId) {
         return dao.findById(couponId);
+    }
+
+    @Override
+    public int addDiscountCoupon(String couponName,int couponTypeId,int faceValue,int distributionId,int limitGet,
+                                 int paymentAmount, String begintime,String endtime,int periodOfValidity,int effectiveDays,
+                                 int effectivePeriod,String startTime, String deadline,int computingId, int spId, int money,
+                                 int preferentialId) {
+        Map map  = new HashMap();
+        map.put("couponName",couponName);
+        map.put("couponTypeId",couponTypeId);
+        map.put("faceValue",faceValue);
+        map.put("distributionId",distributionId);
+        map.put("limitGet",limitGet);
+        map.put("paymentAmount",paymentAmount);
+        map.put("begintime",begintime);
+        map.put("endtime",endtime);
+        map.put("periodOfValidity",periodOfValidity);
+        map.put("effectiveDays",effectiveDays);
+        map.put("effectivePeriod",effectivePeriod);
+        map.put("startTime",startTime);
+        map.put("deadline",deadline);
+        map.put("computingId",computingId);
+        map.put("spId",spId);
+        map.put("money",money);
+        map.put("preferentialId",preferentialId);
+        map.put("now",new Date());
+        return dao.addDiscountCoupon(map);
+    }
+
+    @Override
+    public int delDiscountCoupon(int couponId) {
+        return dao.delDiscountCoupon(couponId);
+    }
+
+    @Override
+    public int updateDiscountCoupon(String couponName, int couponTypeId, int faceValue, int distributionId, int limitGet,
+                                    int paymentAmount, String begintime, String endtime, int periodOfValidity,
+                                    int effectiveDays, int effectivePeriod, String startTime, String deadline,
+                                    int computingId, int spId, int money, int preferentialId,int couponId) {
+        Map map  = new HashMap();
+        map.put("couponName",couponName);
+        map.put("couponTypeId",couponTypeId);
+        map.put("faceValue",faceValue);
+        map.put("distributionId",distributionId);
+        map.put("limitGet",limitGet);
+        map.put("paymentAmount",paymentAmount);
+        map.put("begintime",begintime);
+        map.put("endtime",endtime);
+        map.put("periodOfValidity",periodOfValidity);
+        map.put("effectiveDays",effectiveDays);
+        map.put("effectivePeriod",effectivePeriod);
+        map.put("startTime",startTime);
+        map.put("deadline",deadline);
+        map.put("computingId",computingId);
+        map.put("spId",spId);
+        map.put("money",money);
+        map.put("preferentialId",preferentialId);
+        map.put("now",new Date());
+        map.put("couponId",couponId);
+        return dao.updateDiscountCoupon(map);
+    }
+
+    @Override
+    public List<DiscountCoupon> selectAll() {
+        return dao.selectAll(null);
     }
 
     @Override

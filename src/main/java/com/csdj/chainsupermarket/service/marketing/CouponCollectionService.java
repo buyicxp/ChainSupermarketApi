@@ -24,4 +24,34 @@ public interface CouponCollectionService {
      * @date         : 2019/12/8 11:21
      */
     int findAlreadyReceived(int couponId);
+
+    /**
+     * @Description  ：用户领取优惠券
+     * @author       : JY
+     * @param        : [couponId, userId]优惠券编号，用户编号
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/16 23:32
+     */
+    int addCouponCollection(int couponId,int userId);
+
+    /**
+     * @Description  ： 查询优惠券的领取记录
+     * @author       : JY
+     * @param        : [couponId] 优惠券主键
+     * @return       : java.util.List<com.csdj.chainsupermarket.entity.marketing.CouponCollection>
+     * @exception    :
+     * @date         : 2019/12/18 16:20
+     */
+    List<CouponCollection> selectUserAll(int couponId);
+
+    /**
+     * @Description  ：查询用户领取了几张该优惠券
+     * @author       : JY
+     * @param        : [map]
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/18 21:35
+     */
+    int findCount(int couponId,int userId);
 }
