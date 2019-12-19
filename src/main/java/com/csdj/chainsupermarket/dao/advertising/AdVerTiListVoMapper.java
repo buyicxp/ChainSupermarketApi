@@ -5,6 +5,7 @@ import com.csdj.chainsupermarket.entity.advertising.AdvertisingTypeVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Welcome to use the TableGo Tools.
@@ -18,17 +19,17 @@ import java.util.List;
 public interface AdVerTiListVoMapper {
     /**
      * 根据广告名称和广告类型分类查询广告信息
-     * @param adVerTiName 广告名称
-     * @param advertisingTypeId 广告类型分类编号
+     * @param map
      * @return
      */
-   List<AdVerTiListVO> findAdVerTiListVoList(@Param("adVerTiName") String adVerTiName, @Param("advertisingTypeId") Integer advertisingTypeId);
-
+   List<AdVerTiListVO> findAdVerTiListVOList(Map map);
+    
     /**
-     * 查询所有广告类型
-     * @return 广告类型集合
+     * 查询广告数量
+     * @param map
+     * @return
      */
-   List<AdvertisingTypeVO> findAdvertisingTypeList();
+   int getCount(Map map);
 
     /**
      * 添加广告信息
@@ -36,6 +37,8 @@ public interface AdVerTiListVoMapper {
      * @return 1成功 0失败
      */
    int addAdVerTiListVO(AdVerTiListVO objAdVer);
+   
+   
 
     /**
      * 修改广告信息
@@ -49,18 +52,25 @@ public interface AdVerTiListVoMapper {
      * @param adVerTiListId 广告信息编号
      * @return 1成功 0失败
      */
-   int delAdVerTiListVO(@Param("adVerTiListId") Integer adVerTiListId);
+   int delAdVerTiListVO(String adVerTiListId);
 
     /**
      * 根据广告信息编号进行查询单条数据
      * @param adVerTiListId 广告信息编号
      * @return 单条广告信息
      */
-    AdVerTiListVO getByIdAdVerTiListVO(@Param("adVerTiListId") Integer adVerTiListId);
+    AdVerTiListVO getByIdAdVerTiListVO(String adVerTiListId);
 
     /**
      * 查询广告首页信息
      * @return
      */
     List<AdVerTiListVO> getAdVerTiListVo();
+    
+    /**
+     * 查询广告名称是否冲突
+     * @param adVerTiName
+     * @return
+     */
+    AdVerTiListVO selectByActivityName(String adVerTiName);
 }

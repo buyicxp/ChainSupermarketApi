@@ -3,6 +3,7 @@ package com.csdj.chainsupermarket.controller.advertising;
 import com.alibaba.fastjson.JSON;
 import com.csdj.chainsupermarket.entity.advertising.AdvertisingTypeVO;
 import com.csdj.chainsupermarket.service.advertising.AdvertisingTypeVoService;
+import com.csdj.chainsupermarket.util.marketing.PageUtil;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 丁丽群
@@ -25,32 +29,55 @@ import java.util.List;
 public class AdvertisingTyPeVoController {
     @Resource
     private AdvertisingTypeVoService objService;
-
+    
     /**
      * 查询广告分类所有信息
-     * @param request
-     * @param response
-     * @return 广告分类集合
+     * @param index
+     * @param pageSize
+     * @return
      */
-    @PostMapping(value="/getBooks")
-    public String getBooks(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("查询");
-        List<AdvertisingTypeVO> booksList = objService.findAdvertisingTypeVoListService();
-        String json= JSON.toJSONStringWithDateFormat(booksList,"yyyy-MM-dd");
-        String result = "{\"status\":200,\"message\":" + json + "}";
-        return result;
+    @PostMapping(value="/List")
+    public Map list(int index, int pageSize) {
+        Map<String, Object> map = new HashMap();
+        PageUtil<AdvertisingTypeVO> pageUtil = objService.findAdvertisingTypeVoList(index, pageSize);
+        int Total = objService.getCount();
+        map.put("Total", Total);
+        map.put("pageUtil", pageUtil);
+        return map;
     }
 
     /**
      * 添加广告分类信息
      * @param brand
-     * @return 1成功 0失败
+     * @return map
      */
     @RequestMapping(value="/addAdvertisingTypeVO")
-    public Integer addAdvertisingTypeVO(AdvertisingTypeVO brand){
-        //@RequestBody
-        objService.addAdvertisingTypeService(brand);
-        return brand.getAdvertisingId();
+    public Map addAdvertisingTypeVO(AdvertisingTypeVO brand){
+        Map<String, Object> map = new HashMap();
+        brand.setCreateTime(new Date());
+        brand.setEnteringTime(new Date());
+        brand.setUpdateTime(new Date());
+        if (brand.getAdvertisingId() != null) {
+            int res = objService.updateType(brand);
+            if (res >= 1) {
+                map.put("Msg", "修改成功!!!");
+            } else {
+                map.put("Msg", "修改失败!!!");
+            }
+        } else {
+            boolean flag = objService.selectByActivityName(brand.getAdvertisingName());
+            if (!flag) {
+                map.put("Msg", "该活动名称已存在!!!");
+            } else {
+                int res = objService.addAdvertisingTypeService(brand);
+                if (res >= 1) {
+                    map.put("Msg", "添加成功!!!");
+                } else {
+                    map.put("Msg", "添加失败!!!");
+                }
+            }
+        }
+        return map;
     }
 
     /**
@@ -58,12 +85,17 @@ public class AdvertisingTyPeVoController {
      * @param advertisingId 广告分类编号
      * @return 1成功 0失败
      */
-    @RequestMapping(value = "/delAdvertisingTypeVO")
-    public Object delAdvertisingTypeVO(Integer advertisingId){
-        if(objService.deleteAdvertisingTypeService(advertisingId)>0){
-            return true;
-        };
-        return false;
+    @RequestMapping("/del")
+    public Map del(String advertisingId){
+        Map<String, Object> map = new HashMap<>();
+        int res = objService.deleteAdvertisingTypeService(advertisingId);
+        System.out.println(advertisingId);
+        if (res >= 1) {
+            map.put("Msg", "删除成功!!!");
+        } else {
+            map.put("Msg", "删除失败!!!");
+        }
+        return map;
     }
 
 }

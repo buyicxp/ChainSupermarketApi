@@ -2,6 +2,7 @@ package com.csdj.chainsupermarket.service.advertising;
 
 import com.csdj.chainsupermarket.entity.advertising.AdVerTiListVO;
 import com.csdj.chainsupermarket.entity.advertising.AdvertisingTypeVO;
+import com.csdj.chainsupermarket.util.marketing.PageUtil;
 
 import java.util.List;
 
@@ -19,15 +20,19 @@ public interface AdVerTiListVoService {
      * 根据广告名称和广告类型分类查询广告信息
      * @param adVerTiName 广告名称
      * @param advertisingTypeId 广告类型分类编号
+     * @param     index
+     * @param     pageSize
      * @return 广告信息集合
      */
-    List<AdVerTiListVO> findAdVerTiListVoListService(String adVerTiName, Integer advertisingTypeId);
-
+    PageUtil<AdVerTiListVO> findAdVerTiListVOList(int index, int pageSize, String adVerTiName, String advertisingTypeId);
+    
     /**
-     * 查询所有广告类型
-     * @return 广告类型集合
+     * 查询广告数量
+     * @param adVerTiName
+     * @param advertisingTypeId
+     * @return
      */
-    List<AdvertisingTypeVO> findAdvertisingTypeListService();
+    int getCount(String adVerTiName, String advertisingTypeId);
 
     /**
      * 添加广告信息
@@ -48,18 +53,25 @@ public interface AdVerTiListVoService {
      * @param adVerTiListId 广告信息编号
      * @return 1成功 0失败
      */
-    int delAdVerTiListVoService(Integer adVerTiListId);
+    int delAdVerTiListVoService(String adVerTiListId);
 
     /**
      * 根据广告信息编号进行查询单条数据
      * @param adVerTiListId 广告信息编号
      * @return 单条广告信息
      */
-    AdVerTiListVO getByIdAdVerTiListVoService(Integer adVerTiListId);
+    AdVerTiListVO getByIdAdVerTiListVoService(String adVerTiListId);
 
     /**
      * 查询广告首页信息
      * @return
      */
     List<AdVerTiListVO> getAdVerTiListVoService();
+    
+    /**
+     * 查询活动名称是否冲突
+     * @param adVerTiName
+     * @return
+     */
+    boolean selectByActivityName(String adVerTiName);
 }

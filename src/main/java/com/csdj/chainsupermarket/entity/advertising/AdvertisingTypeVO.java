@@ -1,5 +1,8 @@
 package com.csdj.chainsupermarket.entity.advertising;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -12,7 +15,7 @@ public class AdvertisingTypeVO {
     /**
      *广告分类编号
      */
-    private Integer advertisingId;
+    private String advertisingId;
     /**
      *广告分类名称
      */
@@ -72,11 +75,11 @@ public class AdvertisingTypeVO {
         this.num = num;
     }
 
-    public Integer getAdvertisingId() {
+    public String getAdvertisingId() {
         return advertisingId;
     }
 
-    public void setAdvertisingId(Integer advertisingId) {
+    public void setAdvertisingId(String advertisingId) {
         this.advertisingId = advertisingId;
     }
 
@@ -103,11 +106,11 @@ public class AdvertisingTypeVO {
     public void setOrderByBy(Integer orderByBy) {
         this.orderByBy = orderByBy;
     }
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }

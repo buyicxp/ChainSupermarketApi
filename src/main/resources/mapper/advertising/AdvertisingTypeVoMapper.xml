@@ -5,14 +5,58 @@
 <mapper namespace="com.csdj.chainsupermarket.dao.advertising.AdvertisingTypeVoMapper">
     <!--查询广告类型信息 -->
     <select id="findAdvertisingTypeVoList" parameterType="AdvertisingTypeVO" resultType="AdvertisingTypeVO">
-       select advertising_id as advertisingId,advertising_name as advertisingName,usable as usable,count(advertising_name) as num,orderby_by as orderByBy,enteringtime as enteringTime from advertising_type  group by advertising_name
+       select advertising_id, advertising_name, usable, count(advertising_name) as num,orderby_by, enteringtime from advertising_type  group by advertising_name
+    </select>
+    <!--分页查询广告类型信息 -->
+    <select id="findAdvertisingTypeVoLists" parameterType="map" resultType="AdvertisingTypeVO">
+       select * from advertising_type  LIMIT #{off},#{size}
     </select>
     <!--添加广告类型信息 -->
     <insert id="addAdvertisingType" parameterType="AdvertisingTypeVO">
-       insert into advertising_type(advertising_name,usable,orderby_by,createtime,enteringtime,updatetime,advert_content) values(#{advertisingName},#{usable},#{orderByBy},#{createTime},#{enteringTime},#{updateTime},#{advertContent})
+       insert into advertising_type(advertising_name,usable,orderby_by,createtime,enteringtime,updatetime,advert_content)
+            values(#{advertisingName},#{usable},#{orderByBy},#{createTime},#{enteringTime},#{updateTime},#{advertContent})
     </insert>
     <!--删除广告类型信息-->
-    <delete id="deleteAdvertisingType" parameterType="Integer">
+    <delete id="deleteAdvertisingType" parameterType="String">
         delete from advertising_type where advertising_id=#{advertisingId}
     </delete>
+    <select id="findByName" parameterType="String" resultType="AdvertisingTypeVO">
+       select advertising_name from advertising_type where advertising_id = #{advertisingId}
+    </select>
+    <select id="getCount"  resultType="int">
+        select count(1) from advertising_type where 1 = 1
+    </select>
+
+    <update id="updateType" parameterType="AdvertisingTypeVO">
+        update advertising_type
+        <set>
+            <if test="advertisingName != null" >
+                advertising_name = #{advertisingName},
+            </if>
+            <if test="usable != null" >
+                usable = #{usable},
+            </if>
+            <if test="orderByBy != null" >
+                orderby_by = #{orderByBy},
+            </if>
+            <if test="usable != null" >
+                usable = #{usable},
+            </if>
+            <if test="orderByBy != null" >
+                orderby_by = #{orderByBy},
+            </if>
+            <if test="updateTime != null" >
+                updatetime = #{updateTime},
+            </if>
+            <if test="advertContent != null" >
+                advert_content = #{advertContent},
+            </if>
+        </set>
+        where advertising_id=#{advertisingId}
+    </update>
+
+    <!-- 查询名称是否冲突 -->
+    <select id="selectByActivityName" parameterType="AdvertisingTypeVO" resultType="AdvertisingTypeVO">
+		select advertising_name from advertising_type where advertising_name = #{advertisingName}
+	</select>
 </mapper>

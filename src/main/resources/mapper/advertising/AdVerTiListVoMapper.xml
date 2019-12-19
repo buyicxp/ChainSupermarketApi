@@ -3,22 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csdj.chainsupermarket.dao.advertising.AdVerTiListVoMapper">
+    <resultMap id="advertiListMap" type="AdVerTiListVO">
+        <id column="ADVERTILIST_ID" property="adVerTiListId" />
+        <result column="ADVERTI_IMAGE" property="adVerTiImage" />
+        <result column="ADVERTI_NAME" property="adVerTiName" />
+        <result column="ADVERTI_LINK" property="adVerTiLink" />
+        <result column="USABLE" property="usable" />
+        <result column="ORDERBY_BY" property="orderByBy" />
+        <result column="CREATETIME" property="createTime" />
+        <result column="ENTERINGTIME" property="enteringTime" />
+        <result column="UPDATETIME" property="updateTime" />
+        <result column="ADVERT_CONTENT" property="advertContent" />
+        <result column="COMMODITY_ID" property="commodityId" />
+        <association property="type" column="ADVERTISING_TYPE_ID"
+                     select="com.csdj.chainsupermarket.dao.advertising.AdvertisingTypeVoMapper.findByName"/>
+    </resultMap>
     <!--根据广告名称和广告类型查询-->
-    <select id="findAdVerTiListVOList" parameterType="AdVerTiListVO" >
-       select l.*,t.advertising_name as advertisingName from adverti_list l,advertising_type t
-       <where >
-           <if test="l.adverti_name!=null||l.adverti_name!=''">
-               and l.adverti_name like concat('%', #{advertiName}, '%')
+    <select id="findAdVerTiListVOList" parameterType="map" resultMap="advertiListMap">
+       select * from adverti_list where 1 = 1
+           <if test="adVerTiName !=null and adVerTiName != ''">
+               and adverti_name like concat('%', #{adVerTiName}, '%')
            </if>
-           <if test="l.advertising_type_id!=null||l.advertising_type_id!=''">
-               and l.advertising_type_id=#{advertisingTypeId}
+           <if test="advertisingTypeId != null and advertisingTypeId != ''">
+               and advertising_type_id=#{advertisingTypeId}
            </if>
-               and t.advertising_id=l.advertising_type_id
-       </where>
+        LIMIT #{off},#{size}
    </select>
-    <!--查询广告类型的ID和名称-->
-    <select id="findAdvertisingTypeList" parameterType="AdvertisingTypeVO">
-        select * from advertising_type
+    <select id="getCount"  resultType="int">
+        select count(1) from adverti_list where 1 = 1
+        <if test="adVerTiName !=null and adVerTiName != ''">
+            and adverti_name like concat('%', #{adverTiName}, '%')
+        </if>
+        <if test="advertisingTypeId != null and advertisingTypeId != ''">
+            and advertising_type_id=#{advertisingTypeId}
+        </if>
     </select>
     <!--添加广告信息-->
     <insert id="addAdVerTiListVO" parameterType="AdVerTiListVO">
@@ -28,17 +46,54 @@
     <!--修改广告信息-->
     <update id="updAdVerTiListVO" parameterType="AdVerTiListVO">
         update adverti_list
-             set adverti_image=#{adVerTiImage},adverti_name=#{adVerTiName},adverti_link=#{adVerTiLink},usable=#{usable},orderby_by=#{orderByBy},createtime=#{createTime},enteringtime=#{enteringTime},updatetime=#{updateTime},advertising_type_id=#{advertisingTypeId},advert_content=#{advertContent},commodity_id=#{commodityId}
+            <set>
+                <if test="adVerTiImage != null" >
+                    adverti_image = #{adVerTiImage},
+                </if>
+                <if test="adVerTiName != null" >
+                    adverti_name = #{adVerTiName},
+                </if>
+                <if test="adVerTiLink != null" >
+                    adverti_link = #{adVerTiLink},
+                </if>
+                <if test="usable != null" >
+                    usable = #{usable},
+                </if>
+                <if test="orderByBy != null" >
+                    orderby_by = #{orderByBy},
+                </if>
+                <if test="updateTime != null" >
+                    updatetime = #{updateTime},
+                </if>
+                <if test="advertisingTypeId != null" >
+                    advertising_type_id = #{advertisingTypeId},
+                </if>
+                <if test="advertContent != null" >
+                    advert_content = #{advertContent},
+                </if>
+                <if test="commodityId != null" >
+                    commodity_id = #{commodityId},
+                </if>
+            </set>
+        where advertilist_id=#{adVerTiListId}
     </update>
     <!--删除广告信息-->
-    <delete id="delAdVerTiListVO" parameterType="Integer">
+    <delete id="delAdVerTiListVO" parameterType="String">
         delete from adverti_list where advertilist_id=#{adVerTiListId}
     </delete>
-    <!--查询广告信息编号 -->
+    <!--根据编号查询广告信息 -->
     <select id="getByIdAdVerTiListVO">
         select * from adverti_list where advertilist_id=#{adVerTiListId}
     </select>
+
+    <!--接口 -->
     <select id="getAdVerTiListVo" parameterType="AdVerTiListVO" resultType="AdVerTiListVO">
         select advertilist_id as adVerTiListId,adverti_image as adVerTiImage,adverti_name as adVerTiName,adverti_link as adVerTiLink, usable as usable,orderby_by as orderByBy,createtime as createTime,enteringtime as enteringTime,advertising_type_id as advertisingTypeId,advert_content as advertContent from adverti_list
     </select>
+
+
+    <!-- 查询活动名称是否冲突 -->
+    <select id="selectByActivityName" parameterType="AdVerTiListVO" resultType="AdVerTiListVO">
+		select adverti_name from adverti_list where adverti_name = #{adVerTiName}
+	</select>
 </mapper>

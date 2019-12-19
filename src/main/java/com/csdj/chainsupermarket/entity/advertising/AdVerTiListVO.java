@@ -1,5 +1,8 @@
 package com.csdj.chainsupermarket.entity.advertising;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -8,9 +11,9 @@ import java.util.Date;
  * @date 2019-12-05 16:35
  * @Version V1.0
  */
-public class AdVerTiListVO {
+public class AdVerTiListVO<AdvertisingType> {
     /** 广告列表id*/
-    private Integer adVerTiListId;
+    private String adVerTiListId;
     /**广告图标*/
     private String adVerTiImage;
     /**
@@ -41,14 +44,29 @@ public class AdVerTiListVO {
      * 修改时间
      */
     private Date updateTime;
+    
+    public AdvertisingType getType() {
+        return type;
+    }
+    
+    public void setType(AdvertisingType type) {
+        this.type = type;
+    }
+    
     /**
-     * 广告分类编号
+     * 广告分类编号映射分类对象
      */
-    private Integer advertisingTypeId;
-    /**
-     * 与广告分类表关联
-     */
-    private String advertisingName;
+    private AdvertisingType type;
+    
+    public String getAdvertisingTypeId() {
+        return advertisingTypeId;
+    }
+    
+    public void setAdvertisingTypeId(String advertisingTypeId) {
+        this.advertisingTypeId = advertisingTypeId;
+    }
+    
+    private String advertisingTypeId;
     /**
      *广告内容
      */
@@ -58,34 +76,11 @@ public class AdVerTiListVO {
      */
     private Integer commodityId;
 
-    /**
-     * 显示数据
-     * @return 广告信息
-     */
-    @Override
-    public String toString() {
-        return "AdVerTiListVO{" +
-                "adVerTiListId=" + adVerTiListId +
-                ", adVerTiImage='" + adVerTiImage + '\'' +
-                ", adVerTiName='" + adVerTiName + '\'' +
-                ", adVerTiLink='" + adVerTiLink + '\'' +
-                ", usable=" + usable +
-                ", orderByBy=" + orderByBy +
-                ", createTime=" + createTime +
-                ", enteringTime=" + enteringTime +
-                ", updateTime=" + updateTime +
-                ", advertisingTypeId=" + advertisingTypeId +
-                ", advertisingName=" + advertisingName +
-                ", advertContent='" + advertContent + '\'' +
-                ", commodityId=" + commodityId +
-                '}';
-    }
-
-    public Integer getAdVerTiListId() {
+    public String getAdVerTiListId() {
         return adVerTiListId;
     }
 
-    public void setAdVerTiListId(Integer adVerTiListId) {
+    public void setAdVerTiListId(String adVerTiListId) {
         this.adVerTiListId = adVerTiListId;
     }
 
@@ -113,14 +108,6 @@ public class AdVerTiListVO {
         this.adVerTiLink = adVerTiLink;
     }
 
-    public String getAdvertisingName() {
-        return advertisingName;
-    }
-
-    public void setAdvertisingName(String advertisingName) {
-        this.advertisingName = advertisingName;
-    }
-
     public Integer getUsable() {
         return usable;
     }
@@ -136,38 +123,31 @@ public class AdVerTiListVO {
     public void setOrderByBy(Integer orderByBy) {
         this.orderByBy = orderByBy;
     }
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getEnteringTime() {
         return enteringTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public void setEnteringTime(Date enteringTime) {
         this.enteringTime = enteringTime;
     }
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getUpdateTime() {
         return updateTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-    public Integer getAdvertisingTypeId() {
-        return advertisingTypeId;
-    }
-
-    public void setAdvertisingTypeId(Integer advertisingTypeId) {
-        this.advertisingTypeId = advertisingTypeId;
-    }
+    
 
     public String getAdvertContent() {
         return advertContent;
