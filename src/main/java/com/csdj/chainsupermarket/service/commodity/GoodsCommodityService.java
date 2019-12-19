@@ -25,6 +25,7 @@ public interface GoodsCommodityService {
      */
     List<GoodsCommodity> listCommodity(int currentPage, int pageSize, String goodsName, Integer ccategoryid);
 
+
     /**
      *查询总数
      * @return 商品总记录数

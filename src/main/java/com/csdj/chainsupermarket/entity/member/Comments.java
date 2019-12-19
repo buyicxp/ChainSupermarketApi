@@ -11,7 +11,6 @@ import java.util.Date;
  * @ClassName: Comments
  * @Author: 姜某某
  * @Date: 2019/12/5 10:24
- * 会员评论
  */
 public class Comments {
 
@@ -19,28 +18,51 @@ public class Comments {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 
-    /** id */
+    /**
+     * id */
     private Long id;
-    /** 会员ID */
+    /**
+     * 会员ID */
     private Long memberId;
-    /** 类型ID */
+    /**
+     * 类型ID */
     private Long typeId;
-    /**  联系人 */
+    /**
+     *  联系人 */
     private String linkman;
-    /**  星级 */
+    /**
+     *  星级 */
     private Integer starred;
-    /**  评论内容 */
+    /**
+     *  评论内容 */
     private String commentContent;
-    /**  回复内容 */
+    /**
+     *  回复内容 */
     private String replyContent;
-    /** 录入时间 */
+    /**
+     * 状态
+     */
+    private Integer state;
+    /**
+     *  录入时间 */
     private Date create;
-    /**  评论图片 */
+    /**
+     *  评论图片 */
     private String images;
-    /**  创建时间 */
+    /**
+     *  创建时间 */
     private Date gmtCreate;
-    /**  结束时间 */
+    /**
+     *  结束时间 */
     private Date gmtModifed;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Long getId() {
         return id;
@@ -148,6 +170,7 @@ public class Comments {
         sb.append(", images=").append(images);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModifed=").append(gmtModifed);
+        sb.append(", state=").append(state);
         sb.append("]");
         return sb.toString();
     }

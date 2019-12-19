@@ -77,11 +77,11 @@ public class GoodsTypeController {
         }
         return count;
     }
-
     @RequestMapping(value = "/typeNameList")
     public Object typeNameList(){
         String str =JSON.toJSONString(goodsTypeService.getTypeNameList());
         String result = "{\"status\":200,\"message\":" + str + "}";
+        System.out.println(result);
         return result;
     }
 

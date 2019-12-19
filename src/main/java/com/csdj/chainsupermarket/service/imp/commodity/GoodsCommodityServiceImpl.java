@@ -33,6 +33,8 @@ public class GoodsCommodityServiceImpl implements GoodsCommodityService {
         return goodsCommodityMapper.listCommodity(start,pageSize,goodsName,ccategoryid);
     }
 
+
+
     @Override
     public int countCommodity() {
         return goodsCommodityMapper.countCommodity();

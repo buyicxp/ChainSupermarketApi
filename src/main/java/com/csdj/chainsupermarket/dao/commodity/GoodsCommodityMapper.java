@@ -31,6 +31,7 @@ public interface GoodsCommodityMapper {
                                        @Param(value="goodsName")String goodsName,
                                        @Param(value="ccategoryid")Integer ccategoryid);
 
+
     /**
      *查询总数
      * @return 商品总记录数

@@ -31,8 +31,14 @@ public class GoodsProduct {
      */
     private String goodsTitle;
     /**
+     * 类型名称
+     */
+    private String typename;
+
+    /**
      * 产品分类表编号
      */
+
     private int categoryId;
     /**
      * 商品码
@@ -61,7 +67,7 @@ public class GoodsProduct {
     /**
      * 产品重量
      */
-    private double weigth;
+    private double weight;
     /**
      * 锁定库存
      */
@@ -94,6 +100,11 @@ public class GoodsProduct {
      * 删除状态 未删0 已删除1
      */
     private int del;
+    /*
+    拉取产品 0未拉取1拉取
+     */
+    private  int putshelves;
+
 
     /**
      * 无参构造
@@ -101,6 +112,31 @@ public class GoodsProduct {
     public GoodsProduct() {
     }
 
+    /**
+     * 有参构造
+     * @param id
+     * @param colorId
+     * @param sizeId
+     * @param details
+     * @param goodsName
+     * @param goodsTitle
+     * @param categoryId
+     * @param goodsCode
+     * @param picturePath
+     * @param bigPicturePath
+     * @param createDate
+     * @param price
+     * @param activityPrice
+     * @param weigth
+     * @param locking
+     * @param already
+     * @param disId
+     * @param activityId
+     * @param bounds
+     * @param presell
+     * @param upperDowm
+     * @param del
+     */
     public GoodsProduct(int id, int colorId, int sizeId, String details, String goodsName, String goodsTitle, int categoryId, String goodsCode, String picturePath, String bigPicturePath, String createDate, double price, double activityPrice, double weigth, int locking, int already, int disId, int activityId, int bounds, int presell, int upperDowm, int del) {
         this.id = id;
         this.colorId = colorId;
@@ -115,7 +151,7 @@ public class GoodsProduct {
         this.createDate = createDate;
         this.price = price;
         this.activityPrice = activityPrice;
-        this.weigth = weigth;
+        this.weight = weight;
         this.locking = locking;
         this.already = already;
         this.disId = disId;
@@ -126,13 +162,17 @@ public class GoodsProduct {
         this.del = del;
     }
 
+    /**
+     * 显示信息
+     * @return
+     */
     @Override
     public String toString() {
         return "GoodsProduct{" +
                 "id=" + id +
                 ", colorId=" + colorId +
                 ", sizeId=" + sizeId +
-                ", details='" + details + '\'' +
+                ", details=" + details +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsTitle='" + goodsTitle + '\'' +
                 ", categoryId=" + categoryId +
@@ -142,7 +182,7 @@ public class GoodsProduct {
                 ", createDate='" + createDate + '\'' +
                 ", price=" + price +
                 ", activityPrice=" + activityPrice +
-                ", weigth=" + weigth +
+                ", weight=" + weight +
                 ", locking=" + locking +
                 ", already=" + already +
                 ", disId=" + disId +
@@ -258,12 +298,12 @@ public class GoodsProduct {
         this.activityPrice = activityPrice;
     }
 
-    public double getWeigth() {
-        return weigth;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeigth(double weigth) {
-        this.weigth = weigth;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public int getLocking() {
@@ -328,5 +368,20 @@ public class GoodsProduct {
 
     public void setDel(int del) {
         this.del = del;
+    }
+
+    public int getPutshelves() {
+        return putshelves;
+    }
+
+    public void setPutshelves(int putshelves) {
+        this.putshelves = putshelves;
+    }
+    public String getTypename() {
+        return typename;
+    }
+
+    public void setTypename(String typename) {
+        this.typename = typename;
     }
 }

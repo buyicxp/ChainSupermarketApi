@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.shop.staff.StaffMapper">
+    <insert id="addStaff" parameterType="StaffEmployee" keyProperty="sfEmployeeId" useGeneratedKeys="true">
+        INSERT INTO `staff_employee` (
+        `Sf_storeId`,
+        `Sf_Accountid`,
+        `Sf_Employname`,
+        `Sf_Emloyeephone`,
+        `Sf_Createtime`,
+        `Sf_Password`
+        )
+        VALUES
+        (
+        #{sfStoreId},
+        #{sfAccountId},
+        #{sfEmployName},
+        #{sfEmloyeePhone},
+        now(),
+        #{sfPassword}
+        )
+        <selectKey keyProperty="sfEmployeeId" resultType="java.lang.Integer" order="AFTER" keyColumn="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <insert id="addUserRole">
+        INSERT INTO `chainsupermarket`.`user_role` (`uid`, `rid`)
+        VALUES
+          (#{uId}, #{rId})
+    </insert>
+
+    <update id="updateStaff" parameterType="StaffEmployee">
+        UPDATE
+        `chainsupermarket`.`staff_employee`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sfStoreId!=null">`Sf_storeId` = #{sfStoreId},</if>
+            <if test="sfAccountId!=null">`Sf_Accountid` = #{sfAccountId},</if>
+            <if test="sfEmployName!=null">`Sf_Employname` = #{sfEmployName},</if>
+        </trim>
+        WHERE `Sf_employeeId` = #{sfEmployeeId}
+    </update>
+
+    <update id="updateStaffPassword">
+                UPDATE
+          `chainsupermarket`.`staff_employee`
+        SET
+          `Sf_Password` = #{sfPassword}
+        WHERE `Sf_employeeId` = #{sfEmployeeId} ;
+    </update>
+
+    <update id="updateUserRole">
+            UPDATE
+          `chainsupermarket`.`user_role`
+        SET
+          `uid` = #{uId},
+          `rid` = #{rId}
+        WHERE `uid` = #{uId}
+          AND `rid` = #{agoRid}
+    </update>
+
+    <update id="stopStaff">
+          UPDATE
+          `chainsupermarket`.`staff_employee`
+        SET
+          `Sf_Accountid` =  0
+        WHERE `Sf_employeeId` = #{sfEmployeeId}
+    </update>
+
+    <delete id="deleteStaff">
+               DELETE
+        FROM
+          `chainsupermarket`.`staff_employee`
+        WHERE `Sf_employeeId` = #{sfEmployeeId}
+    </delete>
+
+    <delete id="deleteUserRole">
+              DELETE
+        FROM
+          `chainsupermarket`.`user_role`
+        WHERE `uid` = #{uId}
+
+    </delete>
+
+
+    <select id="getRole" resultType="Role">
+        select id,name,type from role
+    </select>
+
+    <select id="getStaffList" resultType="StaffList">
+        SELECT
+        st.Sf_employeeId,sh.sp_id,ro.id,st.sf_Employname,st.sf_emloyeephone,sh.sp_name,ro.name,st.Sf_Accountid,st.Sf_Createtime
+        FROM `staff_employee` st,`shop_message` sh,user_role ur,role ro
+        WHERE
+        st.sf_storeId=sh.sp_id
+        AND ur.uid=st.sf_employeeId
+        AND ur.rid=ro.id
+        <if test="sfStoreId!=null and sfStoreId!='' and sfStoreId!=0">
+            and sh.sp_id=#{sfStoreId}
+        </if>
+        <if test="(sfAccountId!=null and sfAccountId!='' )or sfAccountId==0">
+            AND st.sf_accountid=#{sfAccountId}
+        </if>
+        <if test="rId!=null and rId!='' and  rId!=0">
+            AND ro.id=#{rId}
+        </if>
+        <if test="sfEmployName!=null and sfEmployName!=''">
+            AND st.sf_employname LIKE CONCAT('%',#{sfEmployName},'%')
+        </if>
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <select id="countStaff" resultType="Integer">
+        SELECT count(1)
+        FROM `staff_employee` st,`shop_message` sh,user_role ur,role ro
+        WHERE
+        st.sf_storeId=sh.sp_id
+        AND ur.uid=st.sf_employeeId
+        AND ur.rid=ro.id
+        <if test="sfStoreId!=null and sfStoreId!='' and sfStoreId!=0">
+            and sh.sp_id=#{sfStoreId}
+        </if>
+        <if test="(sfAccountId!=null and sfAccountId!='' )or sfAccountId==0">
+            AND st.sf_accountid=#{sfAccountId}
+        </if>
+        <if test="rId!=null and rId!='' and  rId!=0">
+            AND ro.id=#{rId}
+        </if>
+        <if test="sfEmployName!=null and sfEmployName!=''">
+            AND st.sf_employname LIKE CONCAT('%',#{sfEmployName},'%')
+        </if>
+
+    </select>
+
+    <!--查询门店名称-->
+    <select id="getMessage" resultType="ShopMessage">
+       SELECT sp_id,sp_name FROM `shop_message`
+    </select>
+
+</mapper>

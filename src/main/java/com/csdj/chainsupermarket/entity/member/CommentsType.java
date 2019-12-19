@@ -11,7 +11,6 @@ import java.util.Date;
  * @ClassName: CommentsType
  * @Author: 姜某某
  * @Date: 2019/12/5 10:26
- * 会员评论类型
  */
 public class CommentsType {
 
@@ -19,13 +18,17 @@ public class CommentsType {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 
-    /** 类型ID */
+    /**
+     * 类型ID */
     private Long comId;
-    /** 类型 */
+    /**
+     *  类型 */
     private String comoType;
-    /** 创建时间 */
+    /**
+     *  创建时间 */
     private Date gmtCreate;
-    /** 结束时间 */
+    /**
+     *  结束时间 */
     private Date gmtModifed;
 
     public Long getComId() {
