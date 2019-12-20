@@ -73,6 +73,16 @@ public interface FullActivityService {
      */
     int add(String activityName,int typeid,String activityTime,int rangeid,String activityState,String executingState,
             String activityDetail,int deleteState,int goodsCommodityId,int goodsTypeId,int money );
-
-
+    
+    /**
+     * 修改执行状态
+     * @return
+     */
+    int updateState();
+    
+    /**
+     * 修改执行状态
+     * @return
+     */
+    int updateTime();
 }

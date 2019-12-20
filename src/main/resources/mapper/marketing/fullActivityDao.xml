@@ -95,28 +95,14 @@
         VALUES ( #{activityName},#{typeid},#{activityTime},#{rangeid},#{activityState},#{executingState},#{activityDetail},#{deleteState},#{goodsCommodityId},#{goodsTypeId},#{money})
     </insert>
 
- <!--   &lt;!&ndash; 修改数据 &ndash;&gt;
-    <update id="updateFullActivity" parameterType="map">
-        UPDATE FULL_ACTIVITY SET
-            ACTIVITY_NAME = #{activityName},
-            ACTIVITY_NYPEID = #{activityNypeid},
-            ACTIVITY_TIME = #{activityTime},
-            ACTIVITY_RANGEID = #{activityRangeid},
-            ACTIVITY_STATE = #{activityState},
-            EXECUTING_STATE = #{executingState},
-            ACTIVITY_DETAIL = #{activityDetail},
-            DELETE_STATE = #{deleteState},
-            RESERVE_ONE = #{reserveOne},
-            RESERVE_TWO = #{reserveTwo},
-            RESERVE_THREE = #{reserveThree}
-        WHERE ACTIVITYID = #{activityid}
+    <!-- 根据活动结束结束时间修改活动执行状态 &lt;是小于符号,XMl需要转义-->
+    <update id="updateState" parameterType="map">
+        UPDATE full_activity SET executing_state = '已结束' WHERE end_time &lt; #{endtime};
+       /* UPDATE full_activity SET executing_state = '正在执行' WHERE `Activity_time` &lt; #{endtime};*/
     </update>
 
-    &lt;!&ndash; 根据主键批量删除数据 &ndash;&gt;
-    <delete id="deleteFullActivityByIds" parameterType="list">
-        DELETE FROM FULL_ACTIVITY WHERE ACTIVITYID IN
-        <foreach collection="list" index="index" item="activityid" open="(" separator="," close=")">
-            #{activityid}
-        </foreach>
-    </delete>-->
+    <!-- 根据活动结束开始时间修改活动执行状态 &lt;是小于符号,XMl需要转义-->
+    <update id="updateTime" parameterType="map">
+        UPDATE full_activity SET executing_state = '正在执行' WHERE `Activity_time` &lt; #{endtime} and end_time > #{endtime};
+    </update>
 </mapper>

@@ -35,7 +35,14 @@ public class FullActivityController {
     private ActivityRangeService activityRangeService;
     @Resource
     private ActivityTypeService activityTypeService;
-
+    
+    @RequestMapping("/test")
+    public  int time(){
+        System.out.println("定时任务");
+        int res=fullActivityService.updateTime();
+        return res;
+    }
+    
     /**
      * 分页查询所有满减满赠活动
      * @param index

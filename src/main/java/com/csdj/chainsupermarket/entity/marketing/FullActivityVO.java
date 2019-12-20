@@ -5,6 +5,8 @@ import com.csdj.chainsupermarket.entity.commodity.GoodsType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
 /**
  * @version 版本号        1.0
  * @author： 作者名称     张晟
@@ -28,14 +30,22 @@ public class FullActivityVO implements java.io.Serializable {
 
     /** 活动时间 */
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    private Timestamp activityTime;
+    private Date activityTime;
 
     /** 活动范围（外键） */
     private ActivityRangeVO range;
 
     /** 活动状态 */
     private String activityState;
-
+    
+    public Date getEndtime() {
+        return endtime;
+    }
+    
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
+    
     /** 执行状态 */
     private String executingState;
 
@@ -54,6 +64,9 @@ public class FullActivityVO implements java.io.Serializable {
     private GoodsType goodsType;
     /** 满足多少金额可参加活动 */
     private Integer money;
+    
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date endtime;
 
 
     public static long getSerialVersionUID() {
@@ -84,11 +97,11 @@ public class FullActivityVO implements java.io.Serializable {
         this.type = type;
     }
 
-    public Timestamp getActivityTime() {
+    public Date getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(Timestamp activityTime) {
+    public void setActivityTime(Date activityTime) {
         this.activityTime = activityTime;
     }
 

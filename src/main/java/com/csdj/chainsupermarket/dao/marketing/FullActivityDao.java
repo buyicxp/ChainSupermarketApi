@@ -19,9 +19,7 @@ import java.util.Map;
 public interface FullActivityDao {
     /**
      * 分页查询数据
-     * @param index 当前页码
-     * @param pageSize 每页数据大小
-     * @param activityName 活动名称
+     * @param map
      * @return
      */
      List<FullActivityVO> findPage(Map map);
@@ -57,5 +55,18 @@ public interface FullActivityDao {
      * @return
      */
      int add(Map map);
-
+    
+    /**
+     * 根据活动时间修改活动执行状态
+     * @param map
+     * @return
+     */
+    int updateState(Map map);
+    
+    /**
+     * 根据活动时间修改活动执行状态
+     * @param map
+     * @return
+     */
+    int updateTime(Map map);
 }

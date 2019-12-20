@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,30 @@ import java.util.Map;
 public class FullActivityServiceImpl implements FullActivityService {
     @Resource
     FullActivityDao fullActivityDao;
-
+    
+    /**
+     * 修改活动执行状态
+     * @return
+     */
+    @Override
+    public int updateState() {
+        Map map=new HashMap();
+        map.put("endtime",new Date());
+        return  fullActivityDao.updateState(map);
+    }
+    
+    /**
+     * 根据活动开始时间修改
+     * @return
+     */
+    @Override
+    public int updateTime() {
+        Map map=new HashMap();
+        map.put("activityTime",new Date());
+        return  fullActivityDao.updateTime(map);
+    }
+    
+    
     @Override
     public PageUtil<FullActivityVO> findPage(int index, int pageSize, String activityName){
         PageUtil<FullActivityVO>pageUtil=new PageUtil<>();
