@@ -31,4 +31,14 @@ public class CommodityPubController {
         map.put("data",esCommodityPubService.listCommodityPub(pageable,goodsName));
         return map;
     }
+    /**
+     * 删除全部索引的接口
+     */
+    @PostMapping("deleteAll")
+    public Map<String,Object> deleteAll(){
+        esCommodityPubService.deleteAll();
+        Map<String,Object> map=new HashMap<>(10);
+        map.put("message","删除成功");
+        return map;
+    }
 }

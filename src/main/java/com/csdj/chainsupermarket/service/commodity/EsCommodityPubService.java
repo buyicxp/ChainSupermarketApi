@@ -30,8 +30,7 @@ public interface EsCommodityPubService {
      */
     void updateCommodityPub(CommodityPub commodityPub);
     /**
-     * 删除商品索引
-     * @param goodsId 商品id
+     * 删除全部商品索引
      */
-    void deleteCommodityPub(Integer goodsId);
+    void deleteAll();
 }

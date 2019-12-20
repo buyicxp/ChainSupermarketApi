@@ -22,6 +22,12 @@ public class GoodsTypeController {
     @Resource
     GoodsTypeService goodsTypeService;
 
+    /**
+     * 树状图分页查询
+     * @param start
+     * @param pageSize
+     * @return
+     */
     @PostMapping("/goodstype")
     public Map<String, Object> findProduct(@RequestParam(value = "start")int start, @RequestParam(value = "pageSize") int pageSize) {
         /*
@@ -42,6 +48,11 @@ public class GoodsTypeController {
         return result;
     }
 
+    /**
+     * 单个删除
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/del")
     public Object removeBr(Integer id){
         if(goodsTypeService.getGoodsTypeDel(id)>0){
@@ -50,6 +61,11 @@ public class GoodsTypeController {
         return false;
     }
 
+    /**
+     * 批量删除
+     * @param list
+     * @return
+     */
     @RequestMapping(value = "/pidel")
     public Object pidel(@RequestParam("isList") List<Integer> list){
         for (Integer cou:list) {
@@ -58,6 +74,13 @@ public class GoodsTypeController {
         return true;
     }
 
+    /**
+     * 停启用
+     * @param id
+     * @param stop
+     * @param parentid
+     * @return
+     */
     @RequestMapping(value = "/one")
     public Integer one(Integer id,Integer stop,Integer parentid){
         //判断ID
@@ -77,6 +100,11 @@ public class GoodsTypeController {
         }
         return count;
     }
+
+    /**
+     * 所有父分类查询
+     * @return
+     */
     @RequestMapping(value = "/typeNameList")
     public Object typeNameList(){
         String str =JSON.toJSONString(goodsTypeService.getTypeNameList());
@@ -85,10 +113,20 @@ public class GoodsTypeController {
         return result;
     }
 
+    /**
+     * 所有父分类查询
+     * @return
+     */
     @RequestMapping("goods/findByAll")
     public List<GoodsType> findByAll(){
         return goodsTypeService.findByAll();
     }
+
+    /**
+     * 根据ID查询分类
+     * @param id
+     * @return
+     */
     @RequestMapping("goods/findById")
     public GoodsType findById(int id){
         return goodsTypeService.findById(id);

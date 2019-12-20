@@ -2,6 +2,7 @@ package com.csdj.chainsupermarket.entity.commodity;
 
 import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.Date;
 

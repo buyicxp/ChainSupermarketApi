@@ -23,7 +23,4 @@
             <if test="timestamp!=null">`timestamp`=#{timestamp},</if>
         </trim>
     </update>
-    <delete id="deleteCommodityPub" parameterType="Integer">
-        DELETE FROM chainsupermarket.commodity_pub WHERE goods_id=#{goods_id}
-    </delete>
 </mapper>

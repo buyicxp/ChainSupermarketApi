@@ -69,8 +69,6 @@ public class GoodsCommodity{
     /**
      *录入时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd-hh-mm-ss")
-    @JsonFormat(pattern = "yyyy-MM-dd-hh-mm-ss")
     private Date createdate;
 
     /**
@@ -245,11 +243,11 @@ public class GoodsCommodity{
     public void setBigpicturepath(String bigpicturepath) {
         this.bigpicturepath = bigpicturepath;
     }
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh-mm-ss")
     public Date getCreatedate() {
         return createdate;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     public void setCreatedate(Date createdate) {
         this.createdate = createdate;
     }

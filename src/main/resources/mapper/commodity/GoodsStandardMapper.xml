@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.commodity.GoodsStandardMapper">
+    <select id="standardSelect" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsColour">
+       SELECT
+      `id`,
+      `colourname`,
+      `colourpath`,
+      `del`,
+      `Nullone`
+       FROM
+       `goods_colour`
+       where `del` = 0
+    </select>
+
+    <select id="pageInfoGoodsColour" resultType="com.csdj.chainsupermarket.entity.commodity.GoodsColour">
+       SELECT
+      `id`,
+      `colourname`,
+      `colourpath`,
+      `del`,
+      `Nullone`
+       FROM
+       `goods_colour`
+       where `del` = 0
+       limit #{currentPage},#{pageSize}
+    </select>
+    <select id="goodsCount" resultType="int">
+       SELECT  count(1)
+       FROM
+       `goods_colour`
+       where `del` = 0
+    </select>
+
+
+    <insert id="goodsStandardAdd" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsColour">
+        INSERT INTO `goods_colour` (
+          `colourname`,
+          `colourpath`
+        )
+        VALUES
+          (
+            #{colourname},
+            #{colourpath}
+          )
+    </insert>
+    <update id="goodsStandardUpdate" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsColour">
+        UPDATE
+           `goods_colour`
+        SET
+          `colourname` = #{colourname},
+          `colourpath` = #{colourpath}
+        WHERE `id` = #{id}
+    </update>
+
+    <update id="goodsStandardDel" parameterType="long">
+        UPDATE
+           `goods_colour`
+        SET
+          `del` = 1
+        WHERE `id` = #{id}
+    </update>
+</mapper>

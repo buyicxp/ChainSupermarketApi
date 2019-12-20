@@ -57,7 +57,7 @@ public class EsCommodityPubServiceImpl implements EsCommodityPubService {
     }
 
     @Override
-    public void deleteCommodityPub(Integer goodsId) {
-        commodityPubDao.deleteCommodityPub(goodsId);
+    public void deleteAll() {
+        esCommodityPubDao.deleteAll();
     }
 }

@@ -1,7 +1,6 @@
 package com.csdj.chainsupermarket.dao.commodity;
 
 import com.csdj.chainsupermarket.entity.commodity.CommodityPub;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 /**
  * @ClassName EsCommodityPubDao
@@ -22,9 +21,5 @@ public interface CommodityPubDao {
      * @param commodityPub 商品
      */
     void updateCommodityPub(CommodityPub commodityPub);
-    /**
-     * 删除商品索引
-     * @param goodsId 商品id
-     */
-    void deleteCommodityPub(@Param("goodsId") Integer goodsId);
+
 }
