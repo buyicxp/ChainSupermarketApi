@@ -59,7 +59,8 @@
     <select id="selectAll" resultMap="map" parameterType="map">
         select <include refid="allColumns"></include>
         from discount_coupon
-        where  status =0 ORDER BY begintime
+        where  status =0 and `stale_dated` = 0
+        ORDER BY begintime
     </select>
 
 
@@ -116,5 +117,11 @@
             STALE_DATED = #{staleDated},
             GMT_MODIFIED = #{now}
         WHERE COUPON_ID = #{couponId}
+    </update>
+
+
+    <!--定时任务,更新优惠券状态-->
+    <update id="updateTime" parameterType="map">
+        update DISCOUNT_COUPON set stale_dated=1 where endtime &lt;= #{now};
     </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.csdj.chainsupermarket.util.marketing;
 
 import com.csdj.chainsupermarket.entity.marketing.FullActivityVO;
 import com.csdj.chainsupermarket.entity.marketing.GroupActivities;
+import com.csdj.chainsupermarket.service.marketing.DiscountCouponService;
 import com.csdj.chainsupermarket.service.marketing.GroupActivitiesService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,9 @@ import java.util.Date;
 public class ScheduledUtil {
     @Resource
     private GroupActivitiesService service;
-    
+
+    @Resource
+    private DiscountCouponService discountCouponService;
     /**
      * 定时任务方法
      * @Scheduled:设置定时任务
@@ -32,6 +35,10 @@ public class ScheduledUtil {
     public void scheduledMethod(){
         GroupActivities groupActivities = new GroupActivities();
         groupActivities.setEndTime(new Date());
+
+        //定时更新优惠券状态
+        discountCouponService.updateTime();
+
         int res = service.selectByEndTime(groupActivities.getEndTime());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (res >= 0){

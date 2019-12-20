@@ -107,4 +107,15 @@ public interface DiscountCouponService {
      * @date         : 2019/12/16 23:11
      */
     List<DiscountCoupon> selectAll();
+
+
+    /**
+     * @Description  ：定时更新：刷新优惠券状态
+     * @author       : JY
+     * @param        : []
+     * @return       : int
+     * @exception    :
+     * @date         : 2019/12/16 23:22
+     */
+    int updateTime();
 }

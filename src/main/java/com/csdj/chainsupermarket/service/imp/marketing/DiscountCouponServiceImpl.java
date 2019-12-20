@@ -104,6 +104,14 @@ public class DiscountCouponServiceImpl implements DiscountCouponService,Runnable
     }
 
     @Override
+    public int updateTime() {
+        System.out.println("更新优惠券状态！");
+        Map map = new HashMap();
+        map.put("now", new Date());
+        return dao.updateTime(map);
+    }
+
+    @Override
     public void run() {
         while (flag){
             take();

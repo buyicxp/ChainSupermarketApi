@@ -370,6 +370,18 @@ public class DiscountCouponController {
         //先出查询优惠券
         System.out.println("查找优惠券");
         DiscountCoupon discountCoupon = discountCouponService.findById(couponId);
+
+        //优惠券是否已被全部领取
+
+        int sum = couponCollectionService.findAlreadyReceived(couponId);
+        System.out.println("优惠券已被领取："+sum);
+        System.out.println("只能领"+discountCoupon.getPaymentAmount());
+        if(sum<=0){
+            map.put("msg", "该优惠券已被全部领取！");
+            return map;
+        }
+
+        //判断领取时时间是建否过期
         if(discountCoupon.getEndtime().before(new Date())){
             map.put("msg", "你已超过了领取时间！");
             return map;
@@ -391,12 +403,13 @@ public class DiscountCouponController {
         return map;
     }
 
-    @RequestMapping("/test")
-    public int test(int spId){
-        System.out.println("测试");
-        System.out.println(spId);
-        return spId;
-    }
+//    @RequestMapping("/test")
+//    public int test(){
+//        System.out.println("测试");
+//        int res = discountCouponService.updateTime();
+//        return res;
+//    }
+
     /**
      * @Description  ：查询单张优惠券的领取记录
      * @author       : JY

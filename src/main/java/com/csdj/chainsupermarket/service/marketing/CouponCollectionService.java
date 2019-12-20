@@ -54,4 +54,5 @@ public interface CouponCollectionService {
      * @date         : 2019/12/18 21:35
      */
     int findCount(int couponId,int userId);
+
 }
