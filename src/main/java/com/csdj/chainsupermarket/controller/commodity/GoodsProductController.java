@@ -297,6 +297,7 @@ public class GoodsProductController {
             result.put("code", 200);
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage(), e);
+            result.put("data", count);
             result.put("msg", "Server error");
             result.put("code", 500);
         }
