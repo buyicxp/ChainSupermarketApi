@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.AdvanceSaleActivitiesMapper">
+    <select id="AdvanceSaleActivitiesFenYe" resultType="com.csdj.chainsupermarket.entity.marketing.AdvanceSaleActivitiesEntity">
+        SELECT  `advance_id` advanceId,`advance_name` advanceName,`presale_start_time` preSaleStartTime,`presale_end_time` preSaleEndTime,`advance_time` advanceTime,`advance_status` advanceStatus,`status` status,`gmt_create` gmtCreate,`gmt_modified` gmtModified,storeId
+        FROM `advance_sale_activities`
+
+            <where>
+                <if test="advanceName!=null and advanceName.trim()!=''">
+                 and `advance_name` like CONCAT('%',#{advanceName},'%')
+                </if>
+                and `status`!=1
+            </where>
+
+             LIMIT #{start},#{pageSize}
+    </select>
+
+    <select id="AdvanceSaleActivitiesCount" resultType="java.lang.Integer">
+            SELECT  count(1) FROM `advance_sale_activities`
+        <where>
+         <if test="advanceName!=null and advanceName.trim()!=''">
+          and `advance_name` LIKE CONCAT('%',#{advanceName},'%')
+         </if>
+            and `status`!=1
+        </where>
+    </select>
+    <insert id="AttendToBookingEntityInsert" parameterType="AttendToBookingEntity">
+        INSERT INTO `attend_to_booking` (
+          `advance_id`,
+          `store_id`,
+          `attend_status`,
+          `gmt_create`,
+          `gmt_modified`
+        )
+        VALUES
+          (
+            #{advanceId},
+            #{storeId},
+            #{attendStatus},
+            #{gmtCreate},
+            #{gmtModified}
+          )
+    </insert>
+    <insert id="AdvanceSaleActivitiesInsert" parameterType="AdvanceSaleActivitiesEntity">
+        INSERT INTO `chainsupermarket`.`advance_sale_activities` (
+          `advance_name`,
+          `presale_start_time`,
+          `presale_end_time`,
+          `advance_time`,
+          `advance_status`,
+          `status`,
+          `storeId`,
+          `gmt_create`,
+          `gmt_modified`
+        )
+        VALUES
+          (
+            #{advanceName},
+            #{preSaleStartTime},
+            #{preSaleEndTime},
+            #{advanceTime},
+            #{advanceStatus},
+            #{status},
+            #{storeId},
+            #{gmtCreate},
+            #{gmtModified}
+          )
+    </insert>
+    <select id="AdvanceSaleActivitiesId" resultType="Integer" parameterType="Date">
+        SELECT `advance_id` FROM `advance_sale_activities`
+            WHERE gmt_create=#{dates}
+    </select>
+    <update id="AdvanceSaleActivitiesUpdate" parameterType="AdvanceSaleActivitiesEntity">
+        UPDATE  `advance_sale_activities`
+            SET
+              `advance_name` = #{advanceName},
+              `presale_start_time` =  #{preSaleStartTime},
+              `presale_end_time` = #{preSaleEndTime},
+              `gmt_modified` = #{gmtModified},
+              `storeId`=#{storeId}
+            WHERE `advance_id` =#{advanceId}
+        </update>
+    <update id="deleteAdvanceSaleActivitiesUpdate" parameterType="int">
+        UPDATE  `advance_sale_activities` SET  status =1
+        WHERE advance_id =#{id}
+    </update>
+    <update id="deleteAttendToBookingEntity" parameterType="int">
+        UPDATE  `attend_to_booking` SET  attend_status =1
+        WHERE advance_id =#{id}
+    </update>
+    <select id="selectShopMessage" resultType="com.csdj.chainsupermarket.entity.shop.minuteshop.ShopMessage" parameterType="Integer">
+        select sp_id spId,sp_name spName FROM shop_message
+            where sp_id =#{spId}
+    </select>
+    <select id="selectShopMessages" resultType="com.csdj.chainsupermarket.entity.shop.minuteshop.ShopMessage">
+        select sp_id spId,sp_name spName FROM shop_message
+    </select>
+    <select id="selectAdvanceSaleActivitiesDetails" parameterType="Integer" resultType="com.csdj.chainsupermarket.entity.marketing.AdvanceSaleActivitiesEntity">
+        SELECT a.advance_id advanceId,a.advance_name advanceName,a.presale_start_time preSaleStartTime,a.presale_end_time preSaleEndTime
+        FROM advance_sale_activities a WHERE  advance_id = #{id}
+    </select>
+    <select id="selectAttendToBookingEntity" resultType="AttendToBookingEntity" parameterType="Integer">
+        SELECT att.store_id storeId,sh.`sp_name` spName FROM `attend_to_booking` att,`shop_message` sh
+            WHERE att.advance_id=#{id}  AND att.store_id = sh.sp_id
+    </select>
+
+    <!--
+     * 预留接口查询营销 名称、id
+     *-->
+    <select id="advancshowname" resultType="AdvanceSaleActivitiesEntity">
+
+    SELECT advance_id advanceId,advance_name advanceName FROM `advance_sale_activities`
+
+    </select>
+
+    <!--预留接口查询营销 查询总条数-->
+    <select id="count_AdvanceSaleActivitiesEntity" resultType="int">
+
+      SELECT COUNT(1) FROM `advance_sale_activities`
+
+    </select>
+</mapper>

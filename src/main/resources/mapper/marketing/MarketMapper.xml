@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csdj.chainsupermarket.dao.marketing.MarketMapper">
+    <!--查询总数-->
+    <select id="markCount" resultType="int">
+        SELECT  COUNT(1) FROM `snap_up_activities`
+
+        <if test="activityName!=null and activityName.trim()!=''">
+
+        <where>
+
+            activity_name  like concat('%', #{activityName}, '%')
+
+        </where>
+
+        </if>
+
+    </select>
+
+    <!--模糊查询及分页-->
+    <select id="getMarkList" resultType="SnapUpActivities">
+
+        SELECT * FROM `snap_up_activities`
+
+
+            <if test="activityName!=null and activityName.trim()!=''">
+
+                <where>
+                    activity_name  like concat('%', #{activityName}, '%')
+                </where>
+
+            </if>
+
+        LIMIT #{currentPage},#{pageSize}
+
+    </select>
+
+
+    <!--添加-->
+    <insert id="insertMark">
+       INSERT INTO `chainsupermarket`.`snap_up_activities` (
+  `activity_name`,
+  `activitystart_time`,
+  `activityend_time`,
+  `activityd_time_quantum`,
+  `activity_number`,
+  `gmt_create`,
+  `soph_id`
+)
+VALUES
+  (
+  #{activityName},
+  #{activitystartTime},
+  #{activityendTime},
+  1,
+  #{activityNumber},
+  #{gmtCreate} ,
+  #{sophId}
+  )
+    </insert>
+
+
+    <!---单 多 删除-->
+    <delete id="deleteMark">
+        delete from snap_up_activities where ctivity_id = #{ctivityId}
+    </delete>
+
+
+<!--修改查询-->
+<select id="updatelist" resultType="SnapUpActivities">
+
+            SELECT `ctivity_id` ctivityId,
+          `activity_name` activityName,
+          `activitystart_time` activitystartTime,
+          `activityend_time` activityendTime,
+          `activityd_time_quantum` activitydTimeQuantum,
+          `commodity_id` commodityId,
+          `activity_number` activityNumber,
+          `user_type` userType,
+          `gmt_create` gmtCreate,
+          `gmt_modified` gmtModified,
+          `soph_id` sophId
+
+          FROM `snap_up_activities`
+          WHERE ctivity_id= #{ctivityId}
+
+</select>
+
+
+    <!--修改-->
+    <update id="updateMark">
+
+        update snap_up_activities
+        SET
+            `activity_name` = #{activityName},
+            `activitystart_time` = #{activitystartTime},
+            `activityend_time` = #{activityendTime},
+            `activity_number` =#{activityNumber},
+            `gmt_modified` =#{gmtModified},
+            `soph_id`= #{sophId}
+        where  ctivity_id = #{ctivityId}
+
+
+
+    </update>
+
+    <!--提供抢购的接口-->
+    <select id="qgMarket" resultType="com.csdj.chainsupermarket.entity.marketing.SnapUpActivities">
+        select `ctivity_id`,`activity_name` from`snap_up_activities`
+    </select>
+
+    <!--模糊查询-->
+    <select id="mhMarket" resultType="com.csdj.chainsupermarket.entity.marketing.SnapUpActivities">
+       SELECT activity_name  activityName FROM  `snap_up_activities` where activity_name  LIKE CONCAT('%',#{activityName}, '%')
+    </select>
+
+
+
+    <select id="show_name" resultType="SnapUpActivities">
+
+        SELECT ctivity_id ctivityId,activity_name activityName FROM  `chainsupermarket`.`snap_up_activities`
+
+    </select>
+
+    <select id="count_SnapUpActivities" resultType="int">
+
+        SELECT count(1) FROM  `chainsupermarket`.`snap_up_activities`
+
+    </select>
+</mapper>
