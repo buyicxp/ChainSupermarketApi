@@ -30,7 +30,7 @@
         <result column="putshelves" property="putshelves"/>
     </resultMap>
 
-    <insert id="addGoods" parameterType="GoodsProduct">
+    <insert id="addGoods" parameterType="com.csdj.chainsupermarket.entity.commodity.GoodsProduct">
         INSERT INTO `goods_product`
         (`id`,`colorid`,`sizeid`,`details`,`activityid`,
         `goods_name`,`goods_title`,`categoryid`,`goods_code`,
@@ -45,17 +45,6 @@
     </insert>
     <!--查询商品列表-->
     <select id="listProduct" resultMap="GoodsProductMap" parameterType="map">
-        <!--		SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry` FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg-->
-
-        <!--		<where>-->
-        <!--			<if test="goodstitle!=null and goodstitle!=''">-->
-        <!--				and gd.`goods_title`like concat('%',#{goodsTitle},'%')-->
-        <!--			</if>-->
-        <!--			<if test="categoryid!=null and categoryid!=''">-->
-        <!--				and gd.`categoryid`=#{categoryid}-->
-        <!--			</if>-->
-        <!--			and pd.categoryid=ty.id-->
-        <!--		</where>-->
         SELECT * FROM `goods_product` a,goods_type b
         <where>
         a.categoryId=b.id AND a.putshelves=1
@@ -71,17 +60,6 @@
 
     <!--查询商品列表-->
     <select id="listProductshelves" resultMap="GoodsProductMap" parameterType="map">
-        <!--		SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry` FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg-->
-
-        <!--		<where>-->
-        <!--			<if test="goodstitle!=null and goodstitle!=''">-->
-        <!--				and gd.`goods_title`like concat('%',#{goodsTitle},'%')-->
-        <!--			</if>-->
-        <!--			<if test="categoryid!=null and categoryid!=''">-->
-        <!--				and gd.`categoryid`=#{categoryid}-->
-        <!--			</if>-->
-        <!--			and pd.categoryid=ty.id-->
-        <!--		</where>-->
         SELECT * FROM `goods_product` a,goods_type b
         <where>
             a.categoryId=b.id AND a.putshelves=0
@@ -102,9 +80,7 @@
 
 
     <select id="pageProduct" resultMap="GoodsProductMap">
---         SELECT pd.`id`,pd.`picturepath`,pd.`goods_title`,ty.`type_name`,pd.`activityprice`,pd.`price`,pd.`weight`,pd.`locking`,pd.`already` ,dg.`carry`
---  FROM `goods_product` pd,`goods_type` ty,`goods_dispatching` dg  WHERE pd.categoryid=ty.id
-	 SELECT id,picturepath,goods_title ,categoryid,activityprice,price,weight,locking,dis_id FROM `goods_product`
+ 	 SELECT id,picturepath,goods_title ,categoryid,activityprice,price,weight,locking,dis_id FROM `goods_product`
     </select>
 
     <!--查询总记录数-->
