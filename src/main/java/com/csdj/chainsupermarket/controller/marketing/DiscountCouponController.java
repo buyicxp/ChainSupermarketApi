@@ -365,7 +365,7 @@ public class DiscountCouponController {
      * @date         : 2019/12/16 23:38
      */
     @RequestMapping("/addCouponCollection")
-    public Map addCouponCollection(int couponId,int userId){
+    public Map addCouponCollection(Integer couponId,Integer userId){
         Map map = new HashMap();
         //先出查询优惠券
         System.out.println("查找优惠券");
