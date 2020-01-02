@@ -92,6 +92,6 @@
     </update>
     <!--查询门店名称-->
     <select id="listShopMessageName" resultMap="ShopMessageMap"  >
-        select `sp_id`,`sp_name`from `shop_message`
+        select `sp_id`,`sp_name`,`sp_Address`from `shop_message`
     </select>
 </mapper>
